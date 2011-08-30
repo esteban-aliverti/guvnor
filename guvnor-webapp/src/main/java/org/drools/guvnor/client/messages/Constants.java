@@ -2413,4 +2413,10 @@ public interface Constants
     String ExecutionHistory();
 
     String ProcessOverview();
+    
+    String UploadANewPMMLModel();
+    
+    String PMMLModelWidgetDescription();
+    
+    String PMMLConfigurations();
 }

@@ -170,6 +170,9 @@ public class EditorLauncher {
                 new RuleFormatImageResource( AssetFormats.WORKITEM_DEFINITION,
                                              images.newEnumeration() ) );
 
+        result.put( AssetFormats.PMML_DEFINITION,
+                new RuleFormatImageResource( AssetFormats.PMML_DEFINITION,
+                                             images.newEnumeration() ) );
         
         return result;
     }

@@ -82,6 +82,7 @@ public class NewAssetWizard extends FormStylePopup {
         else if ( format.equals( AssetFormats.WORKITEM_DEFINITION ) ) return constants.NewWorkitemDefinition();
         else if ( format.equals( AssetFormats.ENUMERATION ) ) return constants.CreateANewEnumerationDropDownMapping();
         else if ( format.equals( AssetFormats.TEST_SCENARIO ) ) return constants.CreateATestScenario();
+        else if ( format.equals( AssetFormats.PMML_DEFINITION ) ) return constants.UploadANewPMMLModel();
         else if ( format.equals( "*" ) ) return constants.CreateAFile();
 
 

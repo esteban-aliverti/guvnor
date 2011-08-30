@@ -103,6 +103,10 @@ public class PackagesNewAssetMenu implements IsWidget, PackagesNewAssetMenuView.
     public void onNewFile() {
         view.openNewAssetWizardWithoutCategories( "*", clientFactory, eventBus );
     }
+    
+    public void onNewPMMLModel() {
+        view.openNewAssetWizardWithoutCategories( AssetFormats.PMML_DEFINITION, clientFactory, eventBus );
+    }
 
     public void onRebuildAllPackages() {
         view.confirmRebuild();
