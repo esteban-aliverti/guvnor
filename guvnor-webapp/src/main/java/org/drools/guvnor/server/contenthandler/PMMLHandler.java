@@ -30,12 +30,21 @@ import org.drools.compiler.PMMLCompiler;
 import org.drools.compiler.PMMLCompilerFactory;
 
 /**
- * This is for handling XLS content (classic decision tables).
+ * This is for handling PMML content (Predictive Model Markup Language).
+ * PMML is converted to DRL using an implementation of
+ * {@link PMMLCompiler}
  */
 public class PMMLHandler extends ContentHandler
         implements
         IRuleAsset {
 
+    /**
+     * Compiler class used to convert from PMML -> DRL
+     * IMPORTANT: Do not use this variable directly, use 
+     * {@link #getPMMLCompiler()} instead.
+     */
+    private static PMMLCompiler pMMLCompiler;
+    
     public void retrieveAssetContent(RuleAsset asset,
                                      AssetItem item) throws SerializationException {
         //do nothing, as we have an attachment
@@ -76,8 +85,13 @@ public class PMMLHandler extends ContentHandler
         return getDRL(asset.getBinaryContentAttachment());
     }
 
+    /**
+     * Convert the content of the stream from PMML to DRL using
+     * {@link PMMLCompiler}
+     * @param stream
+     * @return 
+     */
     private String getDRL(InputStream stream) {
-        
         PMMLCompiler compiler = getPMMLCompiler();
         if ( compiler != null ) {
 
@@ -87,16 +101,20 @@ public class PMMLHandler extends ContentHandler
         } else {
             throw new RuntimeException("No PMML Compiler found!");
         }
-        
     }
     
     /**
-     * 
+     * Get a cached instance of {@link PMMLCompiler}. The first time this 
+     * method is called it creates an instance of {@link PMMLCompiler}.
+     * Subsequent calls will return the same instance.
      */
-    private PMMLCompiler getPMMLCompiler() {
-        //TODO: try to cache the compiler instance because its creations 
-        //is expensive
-        return PMMLCompilerFactory.getPMMLCompiler();
+    private synchronized static PMMLCompiler getPMMLCompiler() {
+        //We don't want to instantiate a new Compiler each time because it 
+        //is an expensive operation.
+        if (pMMLCompiler == null){
+            pMMLCompiler = PMMLCompilerFactory.getPMMLCompiler();
+        }
+        return pMMLCompiler;
     }
 
 }
