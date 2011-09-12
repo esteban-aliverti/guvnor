@@ -88,6 +88,7 @@ public class NewAssetWizard extends FormStylePopup {
 
     private static String getTitle(String format) {
         if ( format == null ) return constants.NewRule();
+        else if ( format.equals( AssetFormats.CHANGE_SET ) ) return constants.NewChangeSet();
         else if ( format.equals( AssetFormats.SPRING_CONTEXT ) ) return constants.NewSpringContext();
         else if ( format.equals( AssetFormats.WORKING_SET ) ) return constants.NewWorkingSet();
         else if ( format.equals( AssetFormats.RULE_TEMPLATE ) ) return constants.NewRuleTemplate();

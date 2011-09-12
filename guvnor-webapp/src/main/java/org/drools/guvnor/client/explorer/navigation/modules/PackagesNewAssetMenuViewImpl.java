@@ -43,6 +43,7 @@ public class PackagesNewAssetMenuViewImpl implements PackagesNewAssetMenuView {
     private MenuBar getMenu() {
 
         addNewPackageMenuItem();
+        addNewChangeSetMenuItem();
         addNewSpringContextMenuItem();
         addNewWorkingSetMenuItem();
         addNewRuleMenuItem();
@@ -217,6 +218,16 @@ public class PackagesNewAssetMenuViewImpl implements PackagesNewAssetMenuView {
                 new Command() {
                     public void execute() {
                         presenter.onNewSpringContext();
+                    }
+                } );
+    }
+    
+    private void addNewChangeSetMenuItem() {
+        createNewMenu.addItem( Util.getHeader( images.newEnumeration(), constants.NewChangeSet() ).asString(),
+                true,
+                new Command() {
+                    public void execute() {
+                        presenter.onNewChangeSet();
                     }
                 } );
     }

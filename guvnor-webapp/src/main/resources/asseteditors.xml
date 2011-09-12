@@ -3,7 +3,14 @@
 <asseteditors>
     <!-- If two or more asset editors (that are associated with different formats) have same titles,
 	they will be grouped together and displayed as one node on the package tree. -->
-	
+
+    <asseteditor>
+        <class>org.drools.guvnor.client.ruleeditor.changeset.ChangeSetEditor</class> 
+        <format>changeset</format>
+        <icon>images.enumeration()</icon>
+        <title>constants.ChangeSets()</title>    
+    </asseteditor>     
+    
     <!--  business rules group   -->   
     <asseteditor>
         <class>org.drools.guvnor.client.modeldriven.ui.RuleModeller</class> 
@@ -160,7 +167,7 @@
         <format>springContext</format>
         <icon>images.enumeration()</icon>
         <title>constants.SpringContext()</title>    
-    </asseteditor>    
+    </asseteditor>
     
     <asseteditor>
         <class>org.drools.guvnor.client.ruleeditor.workitem.WorkitemDefinitionEditor</class> 
