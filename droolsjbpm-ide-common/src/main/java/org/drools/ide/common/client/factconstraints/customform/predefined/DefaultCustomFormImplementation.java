@@ -17,9 +17,11 @@
 package org.drools.ide.common.client.factconstraints.customform.predefined;
 
 import java.io.Serializable;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.drools.ide.common.client.factconstraints.customform.CustomFormConfiguration;
 
+@XmlRootElement
 public class DefaultCustomFormImplementation implements CustomFormConfiguration, Serializable{
 
     private int width = 200;
