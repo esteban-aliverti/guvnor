@@ -17,6 +17,10 @@ package org.drools.guvnor.server;
 
 import com.google.gwt.user.client.rpc.SerializationException;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import org.drools.guvnor.client.rpc.DetailedSerializationException;
 import org.drools.guvnor.client.rpc.RuleAsset;
 import org.drools.guvnor.client.rpc.StandaloneEditorService;
@@ -33,6 +37,12 @@ import org.jboss.seam.annotations.In;
 
 import javax.servlet.http.HttpSession;
 import java.util.Map;
+import java.util.UUID;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+import org.drools.guvnor.client.rpc.WorkingSetConfigData;
+import org.drools.guvnor.server.util.LoggingHelper;
 
 /**
  * All the needed Services in order to get Guvnor's Editors running as standalone
@@ -42,9 +52,11 @@ public class StandaloneEditorServiceImplementation extends RemoteServiceServlet
         implements
         StandaloneEditorService {
 
+    private static final LoggingHelper log = LoggingHelper.getLogger(StandaloneEditorServiceImplementation.class);
+    
     @In
     public RulesRepository repository;
-    private static final long serialVersionUID = 520l;
+    private static final long serialVersionUID = 530l;
 
     public RulesRepository getRulesRepository() {
         return this.repository;
@@ -72,17 +84,19 @@ public class StandaloneEditorServiceImplementation extends RemoteServiceServlet
             boolean hideRHSInEditor = isHideRHSInEditor(sessionParameters);
             boolean hideAttributesInEditor = isHideAttributesInEditor(sessionParameters);
             String clientName = getClientName(sessionParameters);
-            String[] validFactTypes = getValidFactTypes(sessionParameters);
-            String[] activeWorkingSets = getActiveWorkingSets(sessionParameters);
+            
+            RuleAsset[] activeWorkingSets = getActiveWorkingSets(sessionParameters);
+            RuleAsset[] activeTemporalWorkingSets = getActiveTemporalWorkingSets(sessionParameters);
+            
             StandaloneEditorInvocationParameters invocationParameters = new StandaloneEditorInvocationParameters();
             this.loadRuleAssetsFromSessionParameters(sessionParameters,
                     invocationParameters);
             invocationParameters.setHideLHS(hideLHSInEditor);
             invocationParameters.setHideRHS(hideRHSInEditor);
             invocationParameters.setHideAttributes(hideAttributesInEditor);
-            invocationParameters.setValidFactTypes(validFactTypes);
             invocationParameters.setClientName(clientName);
             invocationParameters.setActiveWorkingSets(activeWorkingSets);
+            invocationParameters.setActiveTemporalWorkingSets(activeTemporalWorkingSets);
             
             return invocationParameters;
         } finally {
@@ -92,14 +106,91 @@ public class StandaloneEditorServiceImplementation extends RemoteServiceServlet
 
     }
 
-    private String[] getValidFactTypes(Map<String, Object> sessionParameters) {
-        return (String[]) sessionParameters.get(StandaloneEditorServlet.STANDALONE_EDITOR_SERVLET_PARAMETERS.GE_VALID_FACT_TYPE_PARAMETER_NAME.getParameterName());
+    /**
+     * Convert each value of GE_ACTIVE_WORKING_SET_UUIDS_PARAMETER_NAME to a
+     * RuleAssets[]. The information is retrieved from the repository. This
+     * means that each UUID must exist there.
+     * @param sessionParameters
+     * @return 
+     */
+    private RuleAsset[] getActiveWorkingSets(Map<String, Object> sessionParameters) throws DetailedSerializationException {
+        try {
+            String[] wsUUID = (String[])sessionParameters.get(StandaloneEditorServlet.STANDALONE_EDITOR_SERVLET_PARAMETERS.GE_ACTIVE_WORKING_SET_UUIDS_PARAMETER_NAME.getParameterName());
+            
+            List<RuleAsset> result = new ArrayList<RuleAsset>();
+            
+            //for UUIDs, we need to get them from repository
+            if (wsUUID != null && wsUUID.length > 0){
+                RuleAsset[] workingSetRuleAssets = this.getAssetService().loadRuleAssets(wsUUID);
+                result.addAll(Arrays.asList(workingSetRuleAssets));
+            }
+            
+            return result.toArray(new RuleAsset[result.size()]);
+        } catch (SerializationException ex) {
+            log.error("Error getting Working Set Definitions", ex);
+            throw new DetailedSerializationException("Error getting Working Set Definitions", ex.getLocalizedMessage());
+        }
     }
     
-    private String[] getActiveWorkingSets(Map<String, Object> sessionParameters) {
-        return (String[]) sessionParameters.get(StandaloneEditorServlet.STANDALONE_EDITOR_SERVLET_PARAMETERS.GE_ACTIVE_WORKING_SET_UUIDS_PARAMETER_NAME.getParameterName());
-    }
+    
+    /**
+     * Combines GE_VALID_FACT_TYPE_PARAMETER_NAME and GE_ACTIVE_WORKING_SET_XML_DEFINITIONS_PARAMETER_NAME
+     * and creates an array of RuleAssets[].The returned assets are going to be generated
+     * on the fly and never be persisted in the repository
+     * @param sessionParameters
+     * @return 
+     */
+    private RuleAsset[] getActiveTemporalWorkingSets(Map<String, Object> sessionParameters) throws DetailedSerializationException {
+        try {
+            String[] validFacts = (String[])sessionParameters.get(StandaloneEditorServlet.STANDALONE_EDITOR_SERVLET_PARAMETERS.GE_VALID_FACT_TYPE_PARAMETER_NAME.getParameterName());
+            String[] xmlDefinitions = (String[])sessionParameters.get(StandaloneEditorServlet.STANDALONE_EDITOR_SERVLET_PARAMETERS.GE_ACTIVE_WORKING_SET_XML_DEFINITIONS_PARAMETER_NAME.getParameterName());
+            
+            List<RuleAsset> result = new ArrayList<RuleAsset>();
+            
+            //for validFacts we need to create a temporal Working Set RuleAsset
+            if (validFacts != null && validFacts.length > 0){
+                final RuleAsset workingSet = new RuleAsset();
+                workingSet.setUuid( "workingSetMock"+UUID.randomUUID().toString() );
+            
+                WorkingSetConfigData wsConfig = new WorkingSetConfigData();
+                wsConfig.validFacts = validFacts;
+            
+                workingSet.setContent( wsConfig );
+                
+                result.add(workingSet);
+            }
+            
+            //for each xml working set definition we need to unmarshall it
+            //to WorkingSetConfigData and create a Working Set Rule Asset
+            if (xmlDefinitions != null && xmlDefinitions.length > 0){
+                //Unmarshal each definition and put it in the list
+                for (String xml : xmlDefinitions) {
+                    try {
+                        JAXBContext jc = JAXBContext.newInstance(WorkingSetConfigData.class);
+                        Unmarshaller u = jc.createUnmarshaller();
+                        WorkingSetConfigData workingSetConfigData = (WorkingSetConfigData)u.unmarshal(new ByteArrayInputStream(xml.getBytes()));
+                        
+                        final RuleAsset workingSet = new RuleAsset();
+                        workingSet.setUuid( "workingSetMock"+UUID.randomUUID().toString() );
 
+                        workingSet.setContent( workingSetConfigData );
+
+                        result.add(workingSet);
+                        
+                    } catch (JAXBException ex) {
+                        throw new IllegalStateException("Error parsing Working Set Definitions", ex);
+                    }
+                }
+            }
+            
+            
+            return result.toArray(new RuleAsset[result.size()]);
+        } catch (Exception ex) {
+            log.error("Error getting Working Set Definitions", ex);
+            throw new DetailedSerializationException("Error getting Working Set Definitions", ex.getLocalizedMessage());
+        }
+    }
+    
     private String getClientName(Map<String, Object> sessionParameters) {
         Object attribute = sessionParameters.get(StandaloneEditorServlet.STANDALONE_EDITOR_SERVLET_PARAMETERS.GE_CLIENT_NAME_PARAMETER_NAME.getParameterName());
         return attribute.toString();
@@ -245,4 +336,5 @@ public class StandaloneEditorServiceImplementation extends RemoteServiceServlet
 
         return sources;
     }
+    
 }

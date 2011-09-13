@@ -26,12 +26,12 @@ import org.drools.guvnor.client.rpc.RuleAsset;
  */
 public class StandaloneEditorInvocationParameters implements Serializable {
     
-    static final long serialVersionUID = 520L;
+    static final long serialVersionUID = 530L;
     
     private RuleAsset[] assetsToBeEdited;
-    private String[] validFactTypes;
-    private String[] activeWorkingSets;
-    
+    private RuleAsset[] activeWorkingSets;
+    private RuleAsset[] activeTemporalWorkingSets;
+
     private boolean temporalAssets;
     
     private boolean hideLHS;
@@ -79,14 +79,6 @@ public class StandaloneEditorInvocationParameters implements Serializable {
         this.temporalAssets = temporalAssets;
     }
 
-    public String[] getValidFactTypes() {
-        return validFactTypes;
-    }
-
-    public void setValidFactTypes(String[] validFactTypes) {
-        this.validFactTypes = validFactTypes;
-    }
-
     public String getClientName() {
         return clientName;
     }
@@ -99,12 +91,20 @@ public class StandaloneEditorInvocationParameters implements Serializable {
         return serialVersionUID;
     }
 
-    public String[] getActiveWorkingSets() {
+    public RuleAsset[] getActiveWorkingSets() {
         return activeWorkingSets;
     }
 
-    public void setActiveWorkingSets(String[] activeWorkingSets) {
+    public void setActiveWorkingSets(RuleAsset[] activeWorkingSets) {
         this.activeWorkingSets = activeWorkingSets;
+    }
+
+    public RuleAsset[] getActiveTemporalWorkingSets() {
+        return activeTemporalWorkingSets;
+    }
+
+    public void setActiveTemporalWorkingSets(RuleAsset[] activeTemporalWorkingSets) {
+        this.activeTemporalWorkingSets = activeTemporalWorkingSets;
     }
     
 }
