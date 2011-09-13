@@ -21,7 +21,9 @@ import java.util.Map;
 import java.util.Set;
 
 import org.drools.ide.common.client.factconstraints.ConstraintConfiguration;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 public class SimpleConstraintConfigurationImpl implements ConstraintConfiguration {
 
     private static final long serialVersionUID = 501l;

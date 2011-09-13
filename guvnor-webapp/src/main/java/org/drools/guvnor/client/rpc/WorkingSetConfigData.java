@@ -19,6 +19,8 @@ package org.drools.guvnor.client.rpc;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAnyElement;
+
 import org.drools.ide.common.client.modeldriven.brl.PortableObject;
 import org.drools.ide.common.client.factconstraints.ConstraintConfiguration;
 import org.drools.ide.common.client.factconstraints.customform.CustomFormConfiguration;
@@ -28,7 +30,9 @@ public class WorkingSetConfigData implements PortableObject, Serializable {
 
     public String name;
     public String description;
+    @XmlAnyElement
     public List<ConstraintConfiguration> constraints;
+    @XmlAnyElement
     public List<CustomFormConfiguration> customForms;
 
     public String[] validFacts;
