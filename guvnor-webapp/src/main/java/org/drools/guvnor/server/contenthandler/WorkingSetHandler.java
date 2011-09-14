@@ -19,4 +19,13 @@ package org.drools.guvnor.server.contenthandler;
 import org.drools.guvnor.client.rpc.WorkingSetConfigData;
 
 public class WorkingSetHandler extends BaseXStreamContentHandler<WorkingSetConfigData> {
+    
+    /**
+     * Utility method to convert from serialized xml to WorkingSetConfigData
+     * @param xml
+     * @return 
+     */
+    public WorkingSetConfigData unmarshallContent(String xml){
+        return (WorkingSetConfigData) getXStream().fromXML(xml);
+    }
 }

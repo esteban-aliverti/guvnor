@@ -42,6 +42,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import org.drools.guvnor.client.rpc.WorkingSetConfigData;
+import org.drools.guvnor.server.contenthandler.WorkingSetHandler;
 import org.drools.guvnor.server.util.LoggingHelper;
 
 /**
@@ -164,22 +165,16 @@ public class StandaloneEditorServiceImplementation extends RemoteServiceServlet
             //to WorkingSetConfigData and create a Working Set Rule Asset
             if (xmlDefinitions != null && xmlDefinitions.length > 0){
                 //Unmarshal each definition and put it in the list
+                WorkingSetHandler wsh = new WorkingSetHandler();
                 for (String xml : xmlDefinitions) {
-                    try {
-                        JAXBContext jc = JAXBContext.newInstance(WorkingSetConfigData.class);
-                        Unmarshaller u = jc.createUnmarshaller();
-                        WorkingSetConfigData workingSetConfigData = (WorkingSetConfigData)u.unmarshal(new ByteArrayInputStream(xml.getBytes()));
-                        
-                        final RuleAsset workingSet = new RuleAsset();
-                        workingSet.setUuid( "workingSetMock"+UUID.randomUUID().toString() );
+                    WorkingSetConfigData workingSetConfigData = (WorkingSetConfigData)wsh.unmarshallContent(xml);
 
-                        workingSet.setContent( workingSetConfigData );
+                    final RuleAsset workingSet = new RuleAsset();
+                    workingSet.setUuid( "workingSetMock"+UUID.randomUUID().toString() );
 
-                        result.add(workingSet);
-                        
-                    } catch (JAXBException ex) {
-                        throw new IllegalStateException("Error parsing Working Set Definitions", ex);
-                    }
+                    workingSet.setContent( workingSetConfigData );
+
+                    result.add(workingSet);
                 }
             }
             
