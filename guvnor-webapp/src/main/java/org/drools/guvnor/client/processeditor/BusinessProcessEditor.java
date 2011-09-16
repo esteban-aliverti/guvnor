@@ -16,6 +16,7 @@
 
 package org.drools.guvnor.client.processeditor;
 
+import java.util.Set;
 import org.drools.guvnor.client.common.DirtyableComposite;
 import org.drools.guvnor.client.explorer.ClientFactory;
 import org.drools.guvnor.client.rpc.RuleAsset;
@@ -31,6 +32,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Frame;
 import org.drools.guvnor.client.configurations.ApplicationPreferences;
+import org.drools.guvnor.client.packages.WorkingSetManager;
 
 /**
  * The Business Process Editor, wrapping the Process Editor
@@ -65,6 +67,14 @@ public class BusinessProcessEditor extends DirtyableComposite
          } **/
 
         name = "/"+ApplicationPreferences.getDesignerContext()+"/editor/?uuid=" + modelUUID + "&profile="+ApplicationPreferences.getDesignerProfile();
+        //Also send workingset information
+        Set<String> activeWorkingSetsUUIDs = WorkingSetManager.getInstance().getActiveAssetUUIDs(asset.metaData.packageName);
+        if (activeWorkingSetsUUIDs != null){
+            for (String workingSetUUID : activeWorkingSetsUUIDs) {
+                name += "&wsUuid="+workingSetUUID;
+            }
+        }
+        
         frame = new Frame( name );
         frame.getElement().setAttribute( "domain",
                                          Document.get().getDomain() );
