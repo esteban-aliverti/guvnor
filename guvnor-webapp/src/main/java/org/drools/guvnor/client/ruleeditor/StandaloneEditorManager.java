@@ -149,6 +149,9 @@ public class StandaloneEditorManager {
                     public void execute() {
                         Set<RuleAsset> temporalWorkingSetAssets = new HashSet<RuleAsset>();
                         if (parameters.getActiveTemporalWorkingSets() != null && parameters.getActiveTemporalWorkingSets().length > 0){
+                            //if there is any working-set to apply, then turn auto verifier on
+                            WorkingSetManager.getInstance().setAutoVerifierEnabled(true);
+                            
                             temporalWorkingSetAssets.addAll(Arrays.asList(parameters.getActiveTemporalWorkingSets()));
                         }
                         WorkingSetManager.getInstance().applyTemporalWorkingSets(assets[0].getMetaData().getPackageName(), temporalWorkingSetAssets, afterWorkingSetsAreAppliedCommand);
@@ -159,6 +162,9 @@ public class StandaloneEditorManager {
                 //Apply working set configurations
                 Set<RuleAsset> workingSetAssets = new HashSet<RuleAsset>();
                 if (parameters.getActiveWorkingSets() != null && parameters.getActiveWorkingSets().length > 0){
+                    //if there is any working-set to apply, then turn auto verifier on
+                    WorkingSetManager.getInstance().setAutoVerifierEnabled(true);
+                    
                     workingSetAssets.addAll(Arrays.asList(parameters.getActiveWorkingSets()));
                 }
                 WorkingSetManager.getInstance().applyWorkingSets(assets[0].getMetaData().getPackageName(), workingSetAssets, applyTemporalWorkingSets);
