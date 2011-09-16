@@ -31,6 +31,7 @@ import org.drools.guvnor.server.verification.AssetVerifier;
 import org.drools.guvnor.server.verification.PackageVerifier;
 import org.drools.guvnor.server.verification.VerifierConfigurationFactory;
 import org.drools.repository.AssetItem;
+import org.drools.repository.PackageItem;
 import org.drools.verifier.Verifier;
 import org.drools.verifier.VerifierConfiguration;
 import org.drools.verifier.builder.VerifierBuilderFactory;
@@ -40,6 +41,8 @@ import org.jboss.seam.contexts.Contexts;
 import org.jboss.seam.security.Identity;
 
 import java.util.Set;
+import org.drools.guvnor.client.rpc.WorkingSetConfigData;
+import org.drools.guvnor.server.verification.TemporalBRLAssetVerifier;
 
 public class VerificationServiceImplementation extends RemoteServiceServlet implements VerificationService {
 
@@ -81,16 +84,28 @@ public class VerificationServiceImplementation extends RemoteServiceServlet impl
                         loadWorkingSets(activeWorkingSetIds)));
     }
 
+//    @WebRemote
+//    @Restrict("#{identity.loggedIn}")
+//    public AnalysisReport verifyAssetWithoutVerifiersRules(RuleAsset asset,
+//                                                           Set<String> activeWorkingSetsIds) throws SerializationException {
+//        hasPackageDeveloperPermission(asset);
+//
+//        return verify(
+//                asset,
+//                VerifierConfigurationFactory.getPlainWorkingSetVerifierConfiguration(
+//                        loadWorkingSets(activeWorkingSetsIds)));
+//    }
+    
     @WebRemote
     @Restrict("#{identity.loggedIn}")
     public AnalysisReport verifyAssetWithoutVerifiersRules(RuleAsset asset,
-                                                           Set<String> activeWorkingIds) throws SerializationException {
+                                                           Set<WorkingSetConfigData> activeWorkingSets) throws SerializationException {
         hasPackageDeveloperPermission(asset);
 
         return verify(
                 asset,
                 VerifierConfigurationFactory.getPlainWorkingSetVerifierConfiguration(
-                        loadWorkingSets(activeWorkingIds)));
+                        activeWorkingSets));
     }
 
     private RuleAsset[] loadWorkingSets(Set<String> activeWorkingSets) throws SerializationException {
