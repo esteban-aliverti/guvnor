@@ -119,10 +119,20 @@ public class VerificationServiceImplementation extends RemoteServiceServlet impl
     private AnalysisReport verify(RuleAsset asset, VerifierConfiguration verifierConfiguration) throws SerializationException {
         long startTime = System.currentTimeMillis();
 
-        AnalysisReport report = getAssetVerifier(
+        AnalysisReport report = null;
+        //temporal ruleAssets doesn't have a corresponing AssetItem, that is
+        //why we need to use a special verifier: TemporalBRLAssetVerifier
+        if (asset.getState().equals("temporal")){
+            report = getTemporalBRLAssetVerifier(
+                verifierConfiguration,
+                asset
+            ).verify();
+        }else{
+            report = getAssetVerifier(
                 verifierConfiguration,
                 getAssetItem(asset)
-        ).verify();
+            ).verify();
+        }
 
         log.debug("Asset verification took: " + (System.currentTimeMillis() - startTime));
 
@@ -141,6 +151,15 @@ public class VerificationServiceImplementation extends RemoteServiceServlet impl
         return new AssetVerifier(
                 VerifierBuilderFactory.newVerifierBuilder().newVerifier(verifierConfiguration),
                 assetItem);
+    }
+    
+    private TemporalBRLAssetVerifier getTemporalBRLAssetVerifier(VerifierConfiguration verifierConfiguration, RuleAsset ruleAsset) throws SerializationException {
+        
+        PackageItem pkg = getAssetService().getRulesRepository().loadPackage(ruleAsset.getMetaData().packageName);
+        
+        return new TemporalBRLAssetVerifier(
+                VerifierBuilderFactory.newVerifierBuilder().newVerifier(verifierConfiguration),
+                ruleAsset, pkg);
     }
 
     private void hasPackageDeveloperPermission(String packageUUID) {

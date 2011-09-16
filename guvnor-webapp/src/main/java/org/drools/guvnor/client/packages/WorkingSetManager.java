@@ -103,13 +103,13 @@ public class WorkingSetManager {
         Command cmd = new Command() {
 
             public void execute() {
-                if (!temporal){
+                //if (!temporal){
                     //update the map
                     activeWorkingSets.remove(packageName);
                     if (wss != null && !wss.isEmpty()) {
                         activeWorkingSets.put(packageName, wss);
                     }
-                }
+                //}
                 if (done != null) {
                     done.execute();
                 }
@@ -119,10 +119,10 @@ public class WorkingSetManager {
         if (wss == null || wss.isEmpty()) {
             //if no WS, we refresh the SCE (release any filter)
             SuggestionCompletionCache.getInstance().refreshPackage(packageName, cmd);
-            if (!temporal){
+            //if (!temporal){
                 //update the map
                 this.activeWorkingSets.remove(packageName);
-            }
+            //}
             return;
         } else {
 
