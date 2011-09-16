@@ -91,6 +91,7 @@ public class RuleModeller extends DirtyableComposite
 
                                                                   public void execute() {
                                                                       hasModifiedWidgets = true;
+                                                                      verifyRule(null);
                                                                   }
                                                               };
 
