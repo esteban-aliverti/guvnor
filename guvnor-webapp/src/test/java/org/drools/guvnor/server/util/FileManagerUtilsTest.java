@@ -29,15 +29,20 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.fileupload.FileItem;
 import org.drools.guvnor.client.common.AssetFormats;
 import org.drools.guvnor.client.common.Snapshot;
+import org.drools.guvnor.client.rpc.RuleAsset;
+import org.drools.guvnor.client.rpc.WorkingSetConfigData;
 import org.drools.guvnor.server.GuvnorTestBase;
 import org.drools.guvnor.server.RepositoryPackageService;
 import org.drools.guvnor.server.ServiceImplementation;
+import org.drools.guvnor.server.contenthandler.ContentHandler;
+import org.drools.guvnor.server.contenthandler.ContentManager;
 import org.drools.guvnor.server.files.FileManagerUtils;
 import org.drools.repository.AssetItem;
 import org.drools.repository.PackageItem;
@@ -527,6 +532,103 @@ public class FileManagerUtilsTest extends GuvnorTestBase {
         }
     }
 
+    @Test
+    public void testImportOWL() throws Exception{
+        
+        String packageName = "OWLPackage";
+        
+        FileManagerUtils fm = getFileManagerUtils();
+        InputStream in = FileManagerUtilsTest.class.getResourceAsStream("/org/drools/guvnor/server/util/sample_owl.ttl");
+        
+        fm.importOWL( in, packageName);
+
+        PackageItem pkg = fm.getRepository().loadPackage(packageName);
+        assertNotNull( pkg );
+        
+        //check some of the generated categories
+        String[] firstLevelCategories = this.getRepositoryCategoryService().loadChildCategories("/Thing");
+        
+        assertEquals(4, firstLevelCategories.length);
+        
+        List<String> categoriesList = Arrays.asList(firstLevelCategories);
+
+        assertTrue(categoriesList.contains("CalendarCycleTwoLetter"));
+        assertTrue(categoriesList.contains("ClinicalFact"));
+        assertTrue(categoriesList.contains("OrganizationFact"));
+        assertTrue(categoriesList.contains("SystemFact"));
+        
+        String[] secondLevelCategories = this.getRepositoryCategoryService().loadChildCategories("/Thing/SystemFact");
+        assertEquals(5, secondLevelCategories.length);
+        
+        categoriesList = Arrays.asList(secondLevelCategories);
+
+        assertTrue(categoriesList.contains("CodeSystem"));
+        assertTrue(categoriesList.contains("CodeSystemEntry"));
+        assertTrue(categoriesList.contains("ConceptPointer"));
+        assertTrue(categoriesList.contains("Task"));
+        assertTrue(categoriesList.contains("ValueUnitPair"));
+        
+        Iterator<AssetItem> assets = pkg.getAssets();
+        List<AssetItem> assetsList = iteratorToList(assets);
+
+        //3 assets: The package, Model and WorkingSet
+        assertEquals(3, assetsList.size());
+        
+        AssetItem modelAsset = null;
+        AssetItem workingSetAsset = null;
+        for (AssetItem assetItem : assetsList) {
+            if (assetItem.getFormat().equals(AssetFormats.MODEL)){
+                modelAsset = assetItem;
+            }else if (assetItem.getFormat().equals(AssetFormats.WORKING_SET)){
+                workingSetAsset = assetItem;
+            }
+        }
+        
+        assertNotNull(modelAsset);
+        assertNotNull(workingSetAsset);
+        
+        //assert model asset
+        assertEquals("OWL Model", modelAsset.getName());
+        
+        String droolsHeader = DroolsHeader.getDroolsHeader(pkg);
+        assertNotNull(droolsHeader);
+        
+        assertTrue( droolsHeader.indexOf( "import org.drools.guvnor.test.fact.CodeSystem" ) > -1 );
+        assertTrue( droolsHeader.indexOf( "import org.drools.guvnor.test.fact.CodeSystemEntry" ) > -1 );
+        assertTrue( droolsHeader.indexOf( "import org.drools.guvnor.test.fact.ConceptPointer" ) > -1 );
+        assertTrue( droolsHeader.indexOf( "import org.drools.guvnor.test.fact.Task" ) > -1 );
+        assertTrue( droolsHeader.indexOf( "import org.drools.guvnor.test.fact.ValueUnitPair" ) > -1 );
+        assertTrue( droolsHeader.indexOf( "import org.drools.guvnor.test.fact.CalendarCycleTwoLetter" ) > -1 );
+        assertTrue( droolsHeader.indexOf( "import org.drools.guvnor.test.fact.ClinicalFact" ) > -1 );
+        assertTrue( droolsHeader.indexOf( "import org.drools.guvnor.test.fact.OrganizationFact" ) > -1 );
+        assertTrue( droolsHeader.indexOf( "import org.drools.guvnor.test.fact.SystemFact" ) > -1 );
+        
+        //assert working-set
+        RuleAsset workingSetRuleAsset = new RuleAsset();
+        workingSetRuleAsset.setName(workingSetAsset.getName());
+        ContentHandler handler = ContentManager.getHandler( workingSetAsset.getFormat() );
+        handler.retrieveAssetContent(workingSetRuleAsset, workingSetAsset);
+        
+        WorkingSetConfigData workingSetContent = (WorkingSetConfigData) workingSetRuleAsset.getContent();
+        assertNotNull(workingSetContent);
+        
+        assertEquals("Thing", workingSetContent.name);
+
+        assertEquals(4, workingSetContent.workingSets.length);
+
+        List<String> secondLevelWorkingSetList = new ArrayList<String>();
+        for (WorkingSetConfigData workingSetConfigData : workingSetContent.workingSets) {
+            secondLevelWorkingSetList.add(workingSetConfigData.getName());
+        }
+        
+
+        assertTrue(secondLevelWorkingSetList.contains("CalendarCycleTwoLetter"));
+        assertTrue(secondLevelWorkingSetList.contains("ClinicalFact"));
+        assertTrue(secondLevelWorkingSetList.contains("OrganizationFact"));
+        assertTrue(secondLevelWorkingSetList.contains("SystemFact"));
+        
+    }
+    
     private void updatePackage(String nm) throws Exception {
         System.err.println( "---> Updating the package " );
 

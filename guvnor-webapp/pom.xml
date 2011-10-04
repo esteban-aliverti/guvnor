@@ -390,5 +390,10 @@
     	<type>jar</type>
     	<scope>provided</scope>
     </dependency>
+    <dependency>
+        <groupId>org.drools</groupId>
+        <artifactId>drools-semantics</artifactId>
+        <version>1.0</version>
+    </dependency>
   </dependencies>
 </project>
