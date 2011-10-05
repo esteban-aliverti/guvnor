@@ -2452,4 +2452,105 @@ public interface Constants
     
     String UnknownResourceFormat(String format);
     
+    String DecisionTableWizardAvailableFields();
+    
+    String DecisionTableWizardChosenConditions();
+    
+    String DecisionTableWizardNoAvailableFields();
+    
+    String DecisionTableWizardNoChosenFields();
+    
+    String DecisionTableWizardIncompleteConditions();
+    
+    String DecisionTableWizardPredicate();
+    
+    String DecisionTableWizardPredicateExpression();
+
+    String MandatoryField();
+    
+    String DecisionTableWizardActionSetFields();
+    
+    String DecisionTableWizardChosenFields();
+    
+    String DecisionTableWizardActionInsertFacts();
+    
+    String DecisionTableWizardNoAvailableBoundPatterns();
+    
+    String DecisionTableWizardIncompleteActions();
+
+    String DecisionTableWizardSummaryNameMissing();
+    
+    String DecisionTableWizardIncompletePatterns();
+    
+    String XMLSchemas();
+    
+    String SampleMessages();
+    
+    String WSDLs();
+    
+    String JBOSSESBConfig();
+    
+    String Smooks();
+    
+    String ScenarioDiagrams();
+    
+    String ChoreographyModels();
+    
+    String DeploymentArchives();
+    
+    String JMSDestinations();
+    
+    String JavaSource();
+    
+    String Documentation();
+    
+    String Other();
+    
+    String New();
+    
+    String DecisionTableWizardColumnExpansion();
+    
+    String DecisionTableWizardAvailableColumns();
+
+    String DecisionTableWizardChosenColumns();
+    
+    String DecisionTableWizardNoAvailableColumns();
+    
+    String DecisionTableWizardNoChosenColumns();
+    
+    String DecisionTableWizardDescriptionSummaryPage();
+    
+    String DecisionTableWizardDescriptionFactPatternsPage();
+
+    String DecisionTableWizardDescriptionFactPatternConstraintsPage();
+
+    String DecisionTableWizardDescriptionActionSetFieldsPage();
+
+    String DecisionTableWizardDescriptionActionInsertFactFieldsPage();
+
+    String DecisionTableWizardDescriptionExpandColumnsPage();
+
+    String DecisionTableWizardExpandInFull();
+    
+    String NoAssetsDefinedInPackage();
+
+    String MissingExpectations();
+
+    String TableFormat();
+   
+    String TableFormatExtendedEntry();
+    
+    String TableFormatLimitedEntry();
+    
+    String LimitedEntryValue();
+    
+    String ImportFromOWLRadio();
+    
+    String OWLFileToImport();
+    
+    String NoteNewPackageOwlImportWarning();
+    
+    String ImportOWLDesc();
+    
+    String YouCanOnlyImportOwlOrTtlFiles();
 }

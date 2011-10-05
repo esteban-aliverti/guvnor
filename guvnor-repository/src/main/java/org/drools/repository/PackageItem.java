@@ -323,11 +323,8 @@ public class PackageItem extends VersionableItem {
             Workspace workspace = session.getWorkspace();
             PackageItem globalArea = rulesRepository.loadGlobalArea();
             AssetItem globalAssetItem = globalArea.loadAsset(sharedAssetName);
-            if (!hasMixin(globalAssetItem.getNode())) {
-                globalAssetItem.checkout();
-                globalAssetItem.getNode().addMixin("mix:shareable");
-                globalAssetItem.checkin("add mix:shareable");
-            }
+            
+            ensureMixinType(globalAssetItem, "mix:shareable");
 
             String path = rulesFolder.getPath() + "/" + globalAssetItem.getName();
             workspace.clone(workspace.getName(),
@@ -350,6 +347,15 @@ public class PackageItem extends VersionableItem {
 
     }
 
+    public static void ensureMixinType(AssetItem assetItem, String mixin)
+            throws RepositoryException {
+        if (!assetItem.getNode().isNodeType(mixin)) {
+            assetItem.checkout();
+            assetItem.getNode().addMixin(mixin);
+            assetItem.checkin("add " + mixin);
+        }
+    }
+    
     private boolean hasMixin(Node node) {
         try {
             NodeType[] nodeTypes = node.getMixinNodeTypes();
@@ -643,6 +649,10 @@ public class PackageItem extends VersionableItem {
             }
 
             sql += " ORDER BY " + AssetItem.TITLE_PROPERTY_NAME;
+            
+            //Adding this explicit order by ensures NodeIterator.getSize() returns a value other than -1.
+            //See http://markmail.org/message/mxmk5hkxrdtcc3hl
+            sql += ", jcr:score DESC";
 
             Query q = node.getSession().getWorkspace().getQueryManager().createQuery(sql,
                     Query.SQL);

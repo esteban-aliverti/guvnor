@@ -115,7 +115,8 @@ public class NewAssetWizard extends FormStylePopup {
                            ClientFactory clientFactory,
                            EventBus eventBus) {
         super( images.newWiz(),
-                getTitle( format ) );
+               getTitle( format,
+                         clientFactory ) );
         this.format = format;
         this.clientFactory = clientFactory;
         this.eventBus = eventBus;
@@ -155,6 +156,15 @@ public class NewAssetWizard extends FormStylePopup {
         globalAreaAssetSelector = new GlobalAreaAssetSelector( format );
         importAssetLayout.buildImportAssetLayout();
 
+    }
+
+    private static String getTitle(String format, ClientFactory cf) {
+        //Just a quick temporary fix. 
+        if(format == null) {
+            return  constants.NewRule();
+        }
+        String title = cf.getAssetEditorFactory().getAssetEditorTitle(format);
+        return constants.New() + " " + title;
     }
 
     private class ImportAssetFormStyleLayout extends FormStyleLayout {
@@ -238,26 +248,26 @@ public class NewAssetWizard extends FormStylePopup {
             newAssetLayout.setAttributeVisibility( useWizardRowIndex,
                                                    false );
 
-            //TODO Once the Guided Decision table Wizard is complete
-//            this.formatChooser.addChangeHandler( new ChangeHandler() {
-//
-//                public void onChange(ChangeEvent event) {
-//                    boolean isVisible = false;
-//                    int selectedIndex = formatChooser.getSelectedIndex();
-//                    if ( selectedIndex >= 0 ) {
-//                        String value = formatChooser.getValue( selectedIndex );
-//                        isVisible = AssetFormats.DECISION_TABLE_GUIDED.equals( value );
-//                    }
-//                    newAssetLayout.setAttributeVisibility( useWizardRowIndex,
-//                                                                       isVisible );
-//                    if ( chkUseWizard != null ) {
-//                        chkUseWizard.setValue( false );
-//                    }
-//                }
-//
-//            } );
+            //If the type is Guided Decision table add a checkbox for a Wizard
+            this.formatChooser.addChangeHandler( new ChangeHandler() {
 
-        } else if ( "*".equals( format ) ) { //NON-NLS
+                public void onChange(ChangeEvent event) {
+                    boolean isVisible = false;
+                    int selectedIndex = formatChooser.getSelectedIndex();
+                    if ( selectedIndex >= 0 ) {
+                        String value = formatChooser.getValue( selectedIndex );
+                        isVisible = AssetFormats.DECISION_TABLE_GUIDED.equals( value );
+                    }
+                    newAssetLayout.setAttributeVisibility( useWizardRowIndex,
+                                                                       isVisible );
+                    if ( chkUseWizard != null ) {
+                        chkUseWizard.setValue( false );
+                    }
+                }
+
+            } );
+
+        } else if ( "".equals( format ) ) { //NON-NLS
             final TextBox fmt = new TextBox();
             newAssetLayout.addAttribute( constants.FileExtensionTypeFormat(),
                                          fmt );
@@ -343,7 +353,7 @@ public class NewAssetWizard extends FormStylePopup {
      */
     void ok() {
 
-        if ( "*".equals( getFormat() ) ) {
+        if ( "".equals( getFormat() ) ) {
             Window.alert( constants.PleaseEnterAFormatFileType() );
             return;
         }

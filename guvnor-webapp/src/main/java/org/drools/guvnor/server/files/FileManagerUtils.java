@@ -16,6 +16,9 @@
 
 package org.drools.guvnor.server.files;
 
+
+
+import com.google.gwt.user.client.rpc.SerializationException;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,10 +26,8 @@ import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.Iterator;
 import java.util.List;
-
 import javax.jcr.RepositoryException;
 import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUploadException;
@@ -34,6 +35,8 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.drools.compiler.DroolsParserException;
 import org.drools.guvnor.client.common.HTMLFileManagerFields;
+import org.drools.guvnor.server.RepositoryCategoryService;
+import org.drools.guvnor.server.ServiceImplementation;
 import org.drools.guvnor.server.builder.BRMSPackageBuilder;
 import org.drools.guvnor.server.builder.DSLLoader;
 import org.drools.guvnor.server.builder.PackageDRLAssembler;
@@ -49,16 +52,14 @@ import org.drools.guvnor.server.util.ClassicDRLImporter;
 import org.drools.guvnor.server.util.ClassicDRLImporter.Asset;
 import org.drools.guvnor.server.util.DroolsHeader;
 import org.drools.guvnor.server.util.FormData;
+import org.drools.guvnor.server.util.OWLImporter;
 import org.drools.repository.AssetItem;
 import org.drools.repository.PackageItem;
 import org.drools.repository.RulesRepository;
 import org.drools.repository.RulesRepositoryException;
+import org.jboss.seam.Component;
 import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.AutoCreate;
-import org.jboss.seam.annotations.Destroy;
-import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Scope;
+import org.jboss.seam.annotations.*;
 import org.jboss.seam.annotations.security.Restrict;
 import org.jboss.seam.contexts.Contexts;
 import org.jboss.seam.security.Identity;
@@ -117,6 +118,14 @@ public class FileManagerUtils {
 
     }
 
+    public RepositoryCategoryService getRepositoryCategoryService() {
+        return (RepositoryCategoryService) Component.getInstance( "org.drools.guvnor.client.rpc.CategoryService" );
+    }
+    
+    public ServiceImplementation getRepositoryService() {
+        return (ServiceImplementation) Component.getInstance( "org.drools.guvnor.client.rpc.RepositoryService" );
+    }
+    
     public RulesRepository getRepository() {
         return this.repository;
     }
@@ -372,6 +381,46 @@ public class FileManagerUtils {
         repository.save();
 
         /* Return the name of the new package to the caller */
+        return packageName;
+    }
+    
+    @Restrict("#{identity.loggedIn}")
+    public String importOWL(InputStream owlStream) throws IOException,
+                                                      DroolsParserException, 
+                                                      SerializationException {
+        
+        OWLImporter importer = new OWLImporter(this.getRepositoryCategoryService(), owlStream);
+        
+        String packageName = importer.getPackageName();
+        
+        if ( packageName == null || "".equals( packageName ) ) {
+            throw new IllegalArgumentException( "Missing package name." );
+        }
+        
+        boolean existing = repository.containsPackage( packageName );
+
+        // Check if the package is archived
+        if ( existing && repository.isPackageArchived( packageName ) ) {
+            // Remove the package so it can be created again.
+            PackageItem item = repository.loadPackage( packageName );
+            item.remove();
+            existing = false;
+        }
+        
+        
+        PackageItem pkg = null;
+        
+        if (existing ) {
+            throw new IllegalArgumentException( "A package with the same name already exist." );
+        }            
+
+        pkg = repository.createPackage( packageName,
+                                            "<importedfom OWL>" );
+        
+        importer.processOWLDefinition(pkg);
+        
+        repository.save();
+        
         return packageName;
     }
 

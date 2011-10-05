@@ -22,7 +22,18 @@ import org.drools.repository.utils.NodeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.jcr.*;
+//import javax.jcr.*;
+import javax.jcr.ImportUUIDBehavior;
+import javax.jcr.InvalidItemStateException;
+import javax.jcr.ItemExistsException;
+import javax.jcr.ItemNotFoundException;
+import javax.jcr.Node;
+import javax.jcr.NodeIterator;
+import javax.jcr.PathNotFoundException;
+import javax.jcr.Property;
+import javax.jcr.PropertyIterator;
+import javax.jcr.RepositoryException;
+import javax.jcr.Session;
 import javax.jcr.query.Query;
 import javax.jcr.query.QueryResult;
 import java.io.*;
@@ -1284,7 +1295,7 @@ public class RulesRepository {
             new RulesRepositoryAdministrator(this.session).clearRulesRepository();
             this.session.getWorkspace().importXML("/",
                     instream,
-                    ImportUUIDBehavior.IMPORT_UUID_CREATE_NEW);
+                    ImportUUIDBehavior.IMPORT_UUID_COLLISION_THROW);
             session.save();
             MigrateDroolsPackage mig = new MigrateDroolsPackage();
             if (mig.needsMigration(this)) {
@@ -1566,6 +1577,10 @@ public class RulesRepository {
                     .append(" WHERE ").append(" jcr:path LIKE '/").append(RULES_REPOSITORY_NAME).append("/").append(RULE_PACKAGE_AREA).append("/%'")
                     .append(" AND ").append(AssetItem.CONTENT_PROPERTY_ARCHIVE_FLAG).append(" = 'true'");
 
+            //Adding this explicit order by ensures NodeIterator.getSize() returns a value other than -1.
+            //See http://markmail.org/message/mxmk5hkxrdtcc3hl
+            stringBuilder.append(" ORDER BY jcr:score DESC");
+            
             Query q = this.session.getWorkspace().getQueryManager().createQuery(stringBuilder.toString(),
                     Query.SQL);
 
@@ -1638,6 +1653,10 @@ public class RulesRepository {
                 sb.append(" = 'false'");
             }
 
+            //Adding this explicit order by ensures NodeIterator.getSize() returns a value other than -1.
+            //See http://markmail.org/message/mxmk5hkxrdtcc3hl
+            sb.append(" ORDER BY jcr:score DESC");
+
             Query q = this.session.getWorkspace().getQueryManager().createQuery(sb.toString(),
                     Query.SQL);
 
@@ -1663,6 +1682,11 @@ public class RulesRepository {
             } else {
                 stringBuilder.append("[jcr:contains(., '").append(qry).append("') and ").append(AssetItem.CONTENT_PROPERTY_ARCHIVE_FLAG).append(" = 'false']");
             }
+            
+            //Adding this explicit order by ensures NodeIterator.getSize() returns a value other than -1.
+            //See http://markmail.org/message/mxmk5hkxrdtcc3hl
+            stringBuilder.append(" ORDER BY [jcr:score] DESC");
+
             Query q = this.session.getWorkspace().getQueryManager().createQuery(stringBuilder.toString(),
                     Query.XPATH);
             QueryResult res = q.execute();
@@ -1725,6 +1749,10 @@ public class RulesRepository {
                     }
                 }
             }
+            
+            //Adding this explicit order by ensures NodeIterator.getSize() returns a value other than -1.
+            //See http://markmail.org/message/mxmk5hkxrdtcc3hl
+            sql.append(" ORDER BY jcr:score DESC");
 
             Query q = this.session.getWorkspace().getQueryManager().createQuery(sql.toString(),
                     Query.SQL);

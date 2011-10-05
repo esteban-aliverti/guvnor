@@ -6,7 +6,7 @@
   <parent>
     <groupId>org.drools</groupId>
     <artifactId>guvnor</artifactId>
-    <version>5.3.0-SNAPSHOT</version>
+    <version>5.4.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>guvnor-distribution-wars</artifactId>
@@ -36,6 +36,7 @@
           <descriptors>
             <descriptor>src/main/assembly/assembly-guvnor-jboss-as-5_1.xml</descriptor>
             <descriptor>src/main/assembly/assembly-guvnor-jboss-as-6_0.xml</descriptor>
+            <descriptor>src/main/assembly/assembly-guvnor-jboss-as-7_0.xml</descriptor>
             <descriptor>src/main/assembly/assembly-guvnor-tomcat-6_0.xml</descriptor>
           </descriptors>
         </configuration>
@@ -49,6 +50,11 @@
       <groupId>org.drools</groupId>
       <artifactId>guvnor-webapp</artifactId>
       <type>war</type>
+    </dependency>
+    <dependency><!-- Only used by jboss AS 6 -->
+      <groupId>org.apache.cxf</groupId>
+      <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+      <version>2.3.1</version>
     </dependency>
   </dependencies>
 

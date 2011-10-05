@@ -59,6 +59,10 @@
     <servlet-class>org.drools.guvnor.server.files.AssetFileServlet</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>OWLFileServlet</servlet-name>
+    <servlet-class>org.drools.guvnor.server.files.OWLFileServlet</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>PackageDeploymentServlet</servlet-name>
     <servlet-class>org.drools.guvnor.server.files.PackageDeploymentServlet</servlet-class>
   </servlet>
@@ -141,6 +145,10 @@
   <servlet-mapping>
     <servlet-name>AssetFileServlet</servlet-name>
     <url-pattern>/org.drools.guvnor.Guvnor/asset</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>OWLFileServlet</servlet-name>
+    <url-pattern>/org.drools.guvnor.Guvnor/owl</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>PackageDeploymentServlet</servlet-name>

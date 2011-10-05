@@ -33,12 +33,12 @@ public class ModelNameHelper {
                                                                       constants.WholeNumberInteger() );
                                                                  put( "Boolean",
                                                                       constants.TrueOrFalse() );
+                                                                 put( "String",
+                                                                      constants.Text() );
                                                                  put( "java.util.Date",
                                                                       constants.Date() );
                                                                  put( "java.math.BigDecimal",
                                                                       constants.DecimalNumber() );
-                                                                 put( "String",
-                                                                      constants.Text() );
 
                                                              }
                                                          };
@@ -67,4 +67,17 @@ public class ModelNameHelper {
         getTypeDescriptions().put( newName,
                                    newName );
     }
+
+    public String getUserFriendlyTypeName(String systemTypeName) {
+        if(systemTypeName.contains( "." )) {
+            systemTypeName = systemTypeName.substring( systemTypeName.lastIndexOf( "." ) + 1 );
+        }
+        String userFriendlyName = getTypeDescriptions().get( systemTypeName );
+        if ( userFriendlyName == null ) {
+            return systemTypeName;
+        } else {
+            return userFriendlyName;
+        }
+    }
+
 }
