@@ -52,14 +52,20 @@ public class OWLImporter {
     private static final Logger log = LoggerFactory.getLogger(OWLImporter.class);
     
     private final RepositoryCategoryService categoryService;
+    private final OntoModel ontoModel;
 
-    public OWLImporter(RepositoryCategoryService categoryService) {
+    public OWLImporter(RepositoryCategoryService categoryService, InputStream owlDefinitionStream) {
         this.categoryService = categoryService;
+        
+        DLFactory dLFactory = DLFactoryBuilder.newDLFactoryInstance();
+        ontoModel = dLFactory.buildModel(ResourceFactory.newInputStreamResource(owlDefinitionStream));
     }
     
-    public void processOWLDefinition(PackageItem pkg, InputStream owlDefinitionStream) throws SerializationException, IOException{
-        DLFactory dLFactory = DLFactoryBuilder.newDLFactoryInstance();
-        OntoModel ontoModel = dLFactory.buildModel(ResourceFactory.newInputStreamResource(owlDefinitionStream));
+    public String getPackageName(){
+        return ontoModel.getPackage();
+    }
+    
+    public void processOWLDefinition(PackageItem pkg) throws SerializationException, IOException{
         
         //Get the model JAR from onto-model
         ModelCompiler jarCompiler = ModelCompilerFactory.newModelCompiler(ModelFactory.CompileTarget.JAR);

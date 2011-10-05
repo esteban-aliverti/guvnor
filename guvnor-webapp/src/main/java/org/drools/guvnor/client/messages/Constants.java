@@ -2530,4 +2530,13 @@ public interface Constants
     
     String LimitedEntryValue();
     
+    String ImportFromOWLRadio();
+    
+    String OWLFileToImport();
+    
+    String NoteNewPackageOwlImportWarning();
+    
+    String ImportOWLDesc();
+    
+    String YouCanOnlyImportOwlOrTtlFiles();
 }
