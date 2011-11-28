@@ -49,10 +49,12 @@
     <!--
         NO authentication. This will bypass the login screen when you hit the
         app. Everyone is "guest"
-    -->
+    
         <security:identity
         authenticate-method="#{nilAuthenticator.authenticate}"/>
-
+        
+    -->
+        <security:identity authenticate-method="#{WSO2SSOAuthenticator.authenticate}"/>
     <!--
         FOR EXAMPLE: the following one will use the jaas configuration called
         "other" - which in jboss AS means you can use properties files for

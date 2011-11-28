@@ -295,6 +295,7 @@
       <groupId>javassist</groupId>
       <artifactId>javassist</artifactId>
       <scope>runtime</scope>
+      <version>3.12.1.GA</version>
     </dependency>
     <dependency>
       <groupId>javax.el</groupId>
@@ -363,7 +364,6 @@
     <dependency>
       <groupId>commons-httpclient</groupId>
       <artifactId>commons-httpclient</artifactId>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
@@ -395,5 +395,17 @@
         <artifactId>drools-semantics</artifactId>
         <version>1.0</version>
     </dependency>
+    <dependency>
+      <groupId>org.opensaml</groupId>
+      <artifactId>opensaml</artifactId>
+      <version>2.5.1-1</version>
+    </dependency>
   </dependencies>
+  <repositories>
+    <repository>
+      <url>http://shibboleth.internet2.edu/downloads/maven2/</url>
+      <id>shibboleth</id>
+      <layout>default</layout>
+    </repository>
+  </repositories>
 </project>
