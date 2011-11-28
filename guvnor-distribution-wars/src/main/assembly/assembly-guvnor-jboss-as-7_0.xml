@@ -10,14 +10,46 @@
 
   <includeBaseDirectory>false</includeBaseDirectory>
 
+  <fileSets>
+    <fileSet>
+      <!-- TODO Workaround for https://issues.jboss.org/browse/SOLDER-220 -->
+      <directory>../guvnor-webapp-drools/src/main/resources/META-INF/</directory>
+      <includes>
+        <include>beans.xml</include>
+      </includes>
+      <outputDirectory>WEB-INF/</outputDirectory>
+    </fileSet>
+  </fileSets>
+
   <dependencySets>
     <dependencySet>
       <includes>
-        <include>org.drools:guvnor-webapp:war</include>
+        <include>org.drools:guvnor-webapp-drools:war</include>
       </includes>
       <outputDirectory>.</outputDirectory>
       <unpack>true</unpack>
       <unpackOptions>
+        <excludes>
+
+          <!-- Weld and transitive dependency excludes, it's bundled in the AS -->
+          <exclude>WEB-INF/lib/cdi-api-*.jar</exclude>
+          <exclude>WEB-INF/lib/persistence-api-*.jar</exclude>
+          <exclude>WEB-INF/lib/javax.inject-*.jar</exclude>
+          <exclude>WEB-INF/lib/jsr250-api-*.jar</exclude>
+          <exclude>WEB-INF/lib/weld-*.jar</exclude>
+          <exclude>WEB-INF/lib/guava-*.jar</exclude>
+          <!-- TODO exclude slf4j? -->
+          <exclude>WEB-INF/lib/cal10n-*.jar</exclude>
+          <exclude>WEB-INF/lib/jboss-interceptor-*.jar</exclude>
+          <exclude>WEB-INF/lib/jboss-interceptors-api_1.1_spec-*.jar</exclude>
+          <exclude>WEB-INF/lib/javassist-3.12.0.GA.jar</exclude>
+          
+          <exclude>WEB-INF/lib/ejb-api-*.jar</exclude>
+          
+          <!-- Start workaround for GUVNOR-1160: MalformedParameterizedTypeException when deploying -->
+          <exclude>WEB-INF/lib/jta-*.jar</exclude>
+          <exclude>WEB-INF/lib/jsf-api-*.jar</exclude>
+        </excludes>
       </unpackOptions>
       <useStrictFiltering>true</useStrictFiltering>
     </dependencySet>

@@ -44,6 +44,38 @@ public class DTCellValue52
     public DTCellValue52() {
     }
 
+    public DTCellValue52(Object value) {
+        if ( value instanceof String ) {
+            setStringValue( (String) value );
+            return;
+        }
+        if ( value instanceof Boolean ) {
+            setBooleanValue( (Boolean) value );
+            return;
+        }
+        if ( value instanceof Date ) {
+            setDateValue( (Date) value );
+            return;
+        }
+        if ( value instanceof BigDecimal ) {
+            setNumericValue( (BigDecimal) value );
+            return;
+        }
+        if ( value instanceof Double ) {
+            setNumericValue( new BigDecimal( (Double) value ) );
+            return;
+        }
+        if ( value instanceof Integer ) {
+            setNumericValue( new BigDecimal( (Integer) value ) );
+            return;
+        }
+        if ( value instanceof Long ) {
+            setNumericValue( new BigDecimal( (Long) value ) );
+            return;
+        }
+        setStringValue( null );
+    }
+
     public DTCellValue52(BigDecimal value) {
         setNumericValue( value );
     }
@@ -54,18 +86,6 @@ public class DTCellValue52
 
     public DTCellValue52(Date value) {
         setDateValue( value );
-    }
-
-    public DTCellValue52(double value) {
-        setNumericValue( new BigDecimal( value ) );
-    }
-
-    public DTCellValue52(int value) {
-        setNumericValue( new BigDecimal( value ) );
-    }
-
-    public DTCellValue52(long value) {
-        setNumericValue( new BigDecimal( value ) );
     }
 
     public DTCellValue52(String value) {
@@ -129,6 +149,37 @@ public class DTCellValue52
         this.valueDate = null;
         this.valueNumeric = null;
         this.valueString = null;
+    }
+
+    public boolean hasValue() {
+        return valueBoolean != null || valueDate != null || valueNumeric != null || valueString != null || isOtherwise;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash = hash + 31 * (valueBoolean == null ? 0 : valueBoolean.hashCode());
+        hash = hash + 31 * (valueDate == null ? 0 : valueDate.hashCode());
+        hash = hash + 31 * (valueNumeric == null ? 0 : valueNumeric.hashCode());
+        hash = hash + 31 * dataType.hashCode();
+        return hash;
+    }
+
+    @Override
+    //A clone of this class is used while editing a column. Overriding this method
+    //allows us to easily compare the clone and the original to check if a change 
+    //has been made
+    public boolean equals(Object obj) {
+        if ( !(obj instanceof DTCellValue52) ) {
+            return false;
+        }
+        DTCellValue52 that = (DTCellValue52) obj;
+        if ( valueBoolean != null ? !valueBoolean.equals( that.valueBoolean ) : that.valueBoolean != null ) return false;
+        if ( valueDate != null ? !valueDate.equals( that.valueDate ) : that.valueDate != null ) return false;
+        if ( valueNumeric != null ? !valueNumeric.equals( that.valueNumeric ) : that.valueNumeric != null ) return false;
+        if ( valueString != null ? !valueString.equals( that.valueString ) : that.valueString != null ) return false;
+        if ( !dataType.equals( that.dataType ) ) return false;
+        return true;
     }
 
 }
