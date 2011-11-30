@@ -2568,5 +2568,15 @@ public interface Constants
     String ColumnConfigurationWorkItemInsertFact();
     
     String IncludeAdvancedOptions();
+    
+    String ImportFromOWLRadio();
+    
+    String OWLFileToImport();
+    
+    String NoteNewPackageOwlImportWarning();
+    
+    String ImportOWLDesc();
+    
+    String YouCanOnlyImportOwlOrTtlFiles();
 
 }

@@ -2569,4 +2569,14 @@ public interface Constants
     
     String IncludeAdvancedOptions();
 
+    String ImportFromOWLRadio();
+    
+    String OWLFileToImport();
+    
+    String NoteNewPackageOwlImportWarning();
+    
+    String ImportOWLDesc();
+    
+    String YouCanOnlyImportOwlOrTtlFiles();
+    
 }

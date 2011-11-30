@@ -367,5 +367,11 @@
       <scope>provided</scope><!-- HACK to remove it from the runtime classpath -->
     </dependency>
 
+    <dependency>
+        <groupId>org.drools</groupId>
+        <artifactId>drools-semantics</artifactId>
+        <version>1.0</version>
+    </dependency>
+
   </dependencies>
 </project>
