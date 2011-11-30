@@ -52,6 +52,15 @@ public class BusinessProcessEditor extends DirtyableComposite
 
     private void initWidgets() {
         String name = "/"+ApplicationPreferences.getDesignerContext()+"/editor/?uuid=" + modelUUID + "&profile="+ApplicationPreferences.getDesignerProfile();
+
+        /**
+         EditorLauncher.HOSTED_MODE = Boolean.TRUE; // HACK to set it to HOSTED MODE
+         if ( EditorLauncher.HOSTED_MODE.booleanValue() ) {
+             name = "http://localhost:8080/designer/editor";
+         } else {
+             name = "/designer/editor";
+         } **/
+
         frame = new Frame( name );
         frame.getElement().setAttribute( "domain",
                                          Document.get().getDomain() );
@@ -62,6 +71,16 @@ public class BusinessProcessEditor extends DirtyableComposite
         setHeight( "580px" );
     }
 
+    /**
+     * Hook point for subclasses to preprocess the URL created by this component
+     * This implementation does nothing.
+     * @param url
+     * @return 
+     */
+    protected String preprocessURL(String url){
+        return url;
+    }
+    
     private final native String callSave(Document frameDoc) /*-{
     	return frameDoc.defaultView.ORYX.EDITOR.getSerializedJSON();
     }-*/;
