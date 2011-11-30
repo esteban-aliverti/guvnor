@@ -61,6 +61,8 @@ public class BusinessProcessEditor extends DirtyableComposite
              name = "/designer/editor";
          } **/
 
+        name = "/"+ApplicationPreferences.getDesignerContext()+"/editor/?uuid=" + modelUUID + "&profile="+ApplicationPreferences.getDesignerProfile();
+        name = this.preprocessURL(name);
         frame = new Frame( name );
         frame.getElement().setAttribute( "domain",
                                          Document.get().getDomain() );
