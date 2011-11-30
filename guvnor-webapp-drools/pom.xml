@@ -497,5 +497,10 @@
       <groupId>org.jboss.shrinkwrap</groupId>
       <artifactId>shrinkwrap-impl-base</artifactId>
     </dependency>
+    <dependency>
+        <groupId>org.drools</groupId>
+        <artifactId>drools-chance</artifactId>
+        <version>0.5.6.Final</version>
+    </dependency>
   </dependencies>
 </project>

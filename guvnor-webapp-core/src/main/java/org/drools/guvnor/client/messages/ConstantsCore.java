@@ -2673,4 +2673,15 @@ public interface ConstantsCore
 
     String Characteristics();
     //end of scorecards
+
+    String ImportFromOWLRadio();
+    
+    String OWLFileToImport();
+    
+    String NoteNewPackageOwlImportWarning();
+    
+    String ImportOWLDesc();
+    
+    String YouCanOnlyImportOwlOrTtlFiles();
+    
 }

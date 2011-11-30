@@ -169,7 +169,9 @@
     <servlet-name>droolsService</servlet-name>
     <servlet-class>org.drools.guvnor.server.DroolsServiceServlet</servlet-class>
   </servlet>
-  
+    <servlet-name>OWLFileServlet</servlet-name>
+    <servlet-class>org.drools.guvnor.server.files.drools.OWLFileServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>Resteasy</servlet-name>
     <url-pattern>/rest/*</url-pattern>
@@ -282,7 +284,10 @@
     <servlet-name>droolsService</servlet-name>
     <url-pattern>/org.drools.guvnor.Guvnor/droolsService</url-pattern>
   </servlet-mapping>
-  
+  <servlet-mapping>
+    <servlet-name>OWLFileServlet</servlet-name>
+    <url-pattern>/org.drools.guvnor.GuvnorDrools/owl</url-pattern>
+  </servlet-mapping>
   <session-config>
     <session-timeout>180</session-timeout>
   </session-config>
