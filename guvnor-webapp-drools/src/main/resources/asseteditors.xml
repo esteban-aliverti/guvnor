@@ -85,14 +85,14 @@
     </asseteditor>
     
     <asseteditor>
-        <class>org.drools.guvnor.client.asseteditor.BusinessProcessEditor</class> 
+        <class>org.drools.guvnor.client.asseteditor.drools.WorkingSetAwareBusinessProcessEditor</class> 
         <format>bpmn</format>
         <icon>images.ruleflowSmall()</icon>
         <title>constants.RuleFlows()</title>    
     </asseteditor>
     
     <asseteditor>
-        <class>org.drools.guvnor.client.asseteditor.BusinessProcessEditor</class> 
+        <class>org.drools.guvnor.client.asseteditor.drools.WorkingSetAwareBusinessProcessEditor</class> 
         <format>bpmn2</format>
         <icon>images.ruleflowSmall()</icon>
         <title>constants.RuleFlows()</title>    
