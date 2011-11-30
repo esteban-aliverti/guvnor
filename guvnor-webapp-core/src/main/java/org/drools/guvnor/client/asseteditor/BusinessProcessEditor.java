@@ -37,9 +37,9 @@ public class BusinessProcessEditor extends DirtyableComposite
     SaveEventListener,
     EditorWidget {
 
-    private String    modelUUID;
-    private RuleAsset asset;
-    private Frame     frame;
+    protected String    modelUUID;
+    protected RuleAsset asset;
+    protected Frame     frame;
 
     public BusinessProcessEditor(RuleAsset asset,
                                  RuleViewer viewer,
@@ -62,6 +62,7 @@ public class BusinessProcessEditor extends DirtyableComposite
          } **/
 
         name = "/"+ApplicationPreferences.getDesignerContext()+"/editor/?uuid=" + modelUUID + "&profile="+ApplicationPreferences.getDesignerProfile();
+        name = this.preprocessURL(name);
         frame = new Frame( name );
         frame.getElement().setAttribute( "domain",
                                          Document.get().getDomain() );
@@ -72,6 +73,16 @@ public class BusinessProcessEditor extends DirtyableComposite
         setHeight( "100%" );
     }
 
+    /**
+     * Hook point for subclasses to preprocess the URL created by this component
+     * This implementation does nothing.
+     * @param url
+     * @return 
+     */
+    protected String preprocessURL(String url){
+        return url;
+    }
+    
     private final native String callSave(Document frameDoc) /*-{
                                                             return frameDoc.defaultView.ORYX.EDITOR.getSerializedJSON();
                                                             }-*/;
