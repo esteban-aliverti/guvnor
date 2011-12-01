@@ -26,6 +26,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.drools.guvnor.server.files.FileManagerService;
 import org.drools.guvnor.server.files.RepositoryServlet;
 import org.drools.guvnor.server.util.FormData;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This is for dealing with assets that have an attachment (ie assets that are really an attachment).
@@ -33,13 +35,15 @@ import org.drools.guvnor.server.util.FormData;
 public class OWLFileServlet extends RepositoryServlet {
 
     private static final long serialVersionUID = 510l;
+    
+    private static final Logger log = LoggerFactory.getLogger(OWLFileServlet.class);
 
     @Inject
     private OWLFileManagerService owlFileManagerService;
     
     /**
      * Posting accepts content of various types -
-     * may be an attachement for an asset, or perhaps a repository import to process.
+     * may be an attachment for an asset, or perhaps a repository import to process.
      */
     @Override
     protected void doPost(HttpServletRequest request,
@@ -54,8 +58,10 @@ public class OWLFileServlet extends RepositoryServlet {
             owlFileManagerService.importOWL(data.getFile().getInputStream());
             response.getWriter().write("OK");
         } catch (IllegalArgumentException e) {
+            log.error("Error processing OWL import", e);
             response.getWriter().write(e.getMessage());
         } catch (Exception e) {
+            log.error("Error processing OWL import", e);
             response.getWriter().write("Unable to process import: " + e.getMessage());
         }
 
