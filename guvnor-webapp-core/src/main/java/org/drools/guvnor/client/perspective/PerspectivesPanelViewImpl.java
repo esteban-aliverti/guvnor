@@ -126,10 +126,10 @@ public class PerspectivesPanelViewImpl extends Composite
 
     public static class TitlePanelHeight {
 
-        private static final int DEFAULT_HEIGHT = 7;
-        private static int height = DEFAULT_HEIGHT;
+        private static final float DEFAULT_HEIGHT = 5.4f;
+        private static float height = DEFAULT_HEIGHT;
 
-        public int getHeight() {
+        public float getHeight() {
             return height;
         }
 
