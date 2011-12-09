@@ -16,6 +16,7 @@
 
 package org.drools.guvnor.client.asseteditor.drools.standalone;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.MenuBar;
