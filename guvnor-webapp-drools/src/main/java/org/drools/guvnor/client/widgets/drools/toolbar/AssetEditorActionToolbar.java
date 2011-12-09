@@ -58,6 +58,17 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Window;
 import org.drools.guvnor.shared.api.Valid;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.MenuItem;
+import com.google.gwt.user.client.ui.ScrollPanel;
+import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.Widget;
+import org.drools.guvnor.client.asseteditor.AfterAssetEditorCheckInEvent;
+import org.drools.guvnor.client.asseteditor.GuvnorEditor;
 
 /**
  * This contains the widgets used to action a rule asset
@@ -582,6 +593,11 @@ public class AssetEditorActionToolbar extends Composite {
 
                         if ( afterCheckinEvent != null ) {
                             afterCheckinEvent.execute();
+                        }
+                        
+                        //fire after check-in event
+                        if (editor instanceof GuvnorEditor){
+                            eventBus.fireEvent(new AfterAssetEditorCheckInEvent(uuid, (GuvnorEditor) editor));
                         }
                     }
                 } );

@@ -321,7 +321,6 @@ public class MultiViewEditor extends GuvnorEditor {
                         if (!closeAfter) {
                             eventBus.fireEvent(new RefreshAssetEditorEvent(asset.getMetaData().getModuleName(), uuid));
                         }
-
                         //fire after check-in event
                         eventBus.fireEvent(new AfterAssetEditorCheckInEvent(uuid, MultiViewEditor.this));
                     }
