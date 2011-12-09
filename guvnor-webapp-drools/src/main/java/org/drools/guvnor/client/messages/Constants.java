@@ -2573,4 +2573,9 @@ public interface Constants
     
     String BRLFragmentAction();
     
+    String UploadANewPMMLModel();
+    
+    String PMMLModelWidgetDescription();
+    
+    String PMMLConfigurations();
 }
