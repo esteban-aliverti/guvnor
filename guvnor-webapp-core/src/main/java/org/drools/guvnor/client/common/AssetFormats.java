@@ -133,6 +133,8 @@ public class AssetFormats {
     public static final String SERVICE_CONFIG = "serviceConfig";
 
     public static final String CHANGE_SET = "changeset";
+
+    public static final String PMML_DEFINITION = "pmml";
     
     /**
      * The following group the assets together for lists, helpers etc...

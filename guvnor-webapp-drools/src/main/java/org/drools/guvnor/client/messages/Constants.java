@@ -2835,4 +2835,9 @@ public interface Constants
 
     String Characteristics();
     //end of scorecards
+    String UploadANewPMMLModel();
+    
+    String PMMLModelWidgetDescription();
+    
+    String PMMLConfigurations();
 }

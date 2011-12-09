@@ -2684,4 +2684,9 @@ public interface ConstantsCore
     
     String YouCanOnlyImportOwlOrTtlFiles();
     
+    String UploadANewPMMLModel();
+    
+    String PMMLModelWidgetDescription();
+    
+    String PMMLConfigurations();
 }
