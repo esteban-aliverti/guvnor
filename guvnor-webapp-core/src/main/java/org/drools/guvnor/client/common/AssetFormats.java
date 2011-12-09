@@ -115,6 +115,8 @@ public class AssetFormats {
     public static final String SPRING_CONTEXT = "springContext";
 
     public static final String CHANGE_SET = "changeset";
+
+    public static final String PMML_DEFINITION = "pmml";
     
     /**
      * The following group the assets together for lists, helpers etc...

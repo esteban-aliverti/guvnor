@@ -52,6 +52,7 @@ public class PackagesNewAssetMenuViewImpl implements PackagesNewAssetMenuView {
         addNewDeclarativeModelMenuItem();
         addNewFunctionMenuItem();
         addNewDSLMenuItem();
+        addNewPMMLMenuItem();
         addNewRuleFlowMenuItem();
         addNewBPMN2ProcessMenuItem();
         addNewWorkItemDefinitionMenuItem();
@@ -135,6 +136,16 @@ public class PackagesNewAssetMenuViewImpl implements PackagesNewAssetMenuView {
                 new Command() {
                     public void execute() {
                         presenter.onNewDSL();
+                    }
+                } );
+    }
+    
+    private void addNewPMMLMenuItem() {
+        createNewMenu.addItem( Util.getHeader( images.enumeration(), constants.UploadANewPMMLModel() ).asString(),
+                true,
+                new Command() {
+                    public void execute() {
+                        presenter.onNewPMMLModel();
                     }
                 } );
     }

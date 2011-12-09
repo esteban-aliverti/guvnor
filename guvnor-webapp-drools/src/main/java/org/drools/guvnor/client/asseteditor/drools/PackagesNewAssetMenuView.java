@@ -60,6 +60,7 @@ public interface PackagesNewAssetMenuView extends IsWidget {
 
         void onRebuildConfirmed();
 
+        void onNewPMMLModel();
     }
 
     void setPresenter( Presenter presenter );
