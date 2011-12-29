@@ -499,7 +499,7 @@
     </dependency>
     <dependency>
         <groupId>org.drools</groupId>
-        <artifactId>drools-chance</artifactId>
+        <artifactId>drools-shapes-generator</artifactId>
         <version>0.5.6.Final</version>
     </dependency>
   </dependencies>
