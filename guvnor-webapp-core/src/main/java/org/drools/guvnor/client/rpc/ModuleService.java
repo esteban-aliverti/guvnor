@@ -72,6 +72,14 @@ public interface ModuleService
      *         Really.
      */
     public Module loadModule(String uuid);
+    
+    /**
+     * Loads a module by its name.
+     *
+     * @return Well, its pretty obvious if you think about it for a minute.
+     *         Really.
+     */
+    public Module loadModuleByName(String name);
 
     /**
      * Validate module configuration

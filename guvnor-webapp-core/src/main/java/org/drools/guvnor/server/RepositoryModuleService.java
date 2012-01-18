@@ -285,6 +285,14 @@ public class RepositoryModuleService
         serviceSecurity.checkSecurityIsPackageReadOnlyWithPackageName( moduleItem.getName() );
         return repositoryModuleOperations.loadModule( moduleItem );
     }
+    
+    @WebRemote
+    @LoggedIn
+    public Module loadModuleByName(String moduleName) {
+        ModuleItem moduleItem = rulesRepository.loadModule( moduleName );
+        serviceSecurity.checkSecurityIsPackageReadOnlyWithPackageName( moduleItem.getName() );
+        return repositoryModuleOperations.loadModule( moduleItem );
+    }
 
     @WebRemote
     @LoggedIn

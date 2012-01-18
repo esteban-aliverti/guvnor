@@ -192,6 +192,10 @@ public class RepositoryServiceServlet extends RemoteServiceServlet
     public org.drools.guvnor.client.rpc.Module loadModule(java.lang.String p0) {
         return moduleService.loadModule( p0 );
     }
+    
+    public org.drools.guvnor.client.rpc.Module loadModuleByName(java.lang.String p0) {
+        return moduleService.loadModuleByName( p0 );
+    }
 
     public org.drools.guvnor.client.rpc.ValidatedResponse validateModule(org.drools.guvnor.client.rpc.Module p0) throws com.google.gwt.user.client.rpc.SerializationException {
         return moduleService.validateModule( p0 );

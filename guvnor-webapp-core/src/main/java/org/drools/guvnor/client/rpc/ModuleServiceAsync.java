@@ -28,6 +28,7 @@ public interface ModuleServiceAsync {
     public void createModule(java.lang.String p0, java.lang.String p1, String p2, AsyncCallback<java.lang.String> cb);
     public void createSubModule(java.lang.String p0, java.lang.String p1, java.lang.String p2, AsyncCallback<java.lang.String> cb);
     public void loadModule(java.lang.String p0, AsyncCallback<org.drools.guvnor.client.rpc.Module> cb);
+    public void loadModuleByName(java.lang.String p0, AsyncCallback<org.drools.guvnor.client.rpc.Module> cb);
     public void validateModule(org.drools.guvnor.client.rpc.Module p0, AsyncCallback<org.drools.guvnor.client.rpc.ValidatedResponse> cb);
     public void saveModule(org.drools.guvnor.client.rpc.Module p0, AsyncCallback cb);
     public void createModuleSnapshot(java.lang.String p0, java.lang.String p1, boolean p2, java.lang.String p3, AsyncCallback cb);
