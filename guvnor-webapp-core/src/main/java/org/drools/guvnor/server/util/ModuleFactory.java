@@ -46,6 +46,7 @@ public class ModuleFactory {
         data.setSnapshot(item.isSnapshot());
         data.setVersionNumber(item.getVersionNumber());
         data.setFormat(item.getFormat());
+        data.setDefaultWorkingSets(item.getDefaultWorkingSets());
         return data;
     }
 
