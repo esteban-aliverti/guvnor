@@ -60,6 +60,7 @@ public class ModuleItem extends VersionableItem {
     public static final String CATEGORY_RULE_KEYS_PROPERTY_NAME = "categoryRuleKeys";
     public static final String CATEGORY_RULE_VALUES_PROPERTY_NAME = "categoryRuleValues";
     public static final String WORKSPACE_PROPERTY_NAME = "drools:workspace";
+    public static final String DEFAULT_WORKING_SETS_PROPERTY_NAME = "drools:defaultWorkingSets";
     public static final String DEPENDENCIES_PROPERTY_NAME = "drools:dependencies";
 
     private static final String COMPILED_PACKAGE_PROPERTY_NAME = "drools:compiledPackage";
@@ -1145,5 +1146,36 @@ public class ModuleItem extends VersionableItem {
 
     private String getCurrentUserName() {
         return this.rulesRepository.getSession().getUserID();
+    }
+    
+    public void setDefaultWorkingSets(String[] defaultWorkingSets) {
+        updateStringArrayProperty(defaultWorkingSets,
+                DEFAULT_WORKING_SETS_PROPERTY_NAME, false);
+    }
+
+    public void updateDefaultWorkingSets(String[] defaultWorkingSets) throws RulesRepositoryException {
+        this.updateStringArrayProperty(defaultWorkingSets,
+                DEFAULT_WORKING_SETS_PROPERTY_NAME,
+                false);
+    }
+    
+    public String[] getDefaultWorkingSets() throws RulesRepositoryException {
+        return getStringPropertyArray(DEFAULT_WORKING_SETS_PROPERTY_NAME);
+    }
+    
+    public void removeDefaultWorkingSet(String workingSet) {
+        String[] existingDefaultWorkingSets = getStringPropertyArray(DEFAULT_WORKING_SETS_PROPERTY_NAME);
+        if (existingDefaultWorkingSets.length == 0) {
+            return;
+        }
+
+        List<String> existingDefaultWorkingSetsList = new ArrayList<String>(existingDefaultWorkingSets.length);
+        Collections.addAll(existingDefaultWorkingSetsList, existingDefaultWorkingSets);
+        existingDefaultWorkingSetsList.remove(workingSet);
+        if (existingDefaultWorkingSetsList.size() != existingDefaultWorkingSets.length) {
+            this.updateStringArrayProperty(existingDefaultWorkingSetsList.toArray(new String[existingDefaultWorkingSetsList.size()]),
+                    DEFAULT_WORKING_SETS_PROPERTY_NAME,
+                    false);
+        }
     }
 }

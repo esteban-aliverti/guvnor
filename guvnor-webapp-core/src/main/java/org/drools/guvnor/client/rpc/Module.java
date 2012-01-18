@@ -33,6 +33,11 @@ public class Module extends Artifact {
     public String[] workspaces;
     public String[] dependencies;
     
+    /**
+     * Default WorkingSets UUIDs
+     */ 
+    public String[] defaultWorkingSets;
+    
     public Module[] subModules;
 
     public Module() {
@@ -102,6 +107,15 @@ public class Module extends Artifact {
 
     public Module setWorkspaces(String[] workspaces) {
         this.workspaces = workspaces;
+        return this;
+    }
+        
+    public String[] getDefaultWorkingSets() {
+        return defaultWorkingSets;
+    }
+
+    public Module setDefaultWorkingSets(String[] defaultWorkingSets) {
+        this.defaultWorkingSets = defaultWorkingSets;
         return this;
     }
 

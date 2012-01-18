@@ -1070,6 +1070,50 @@ public class ModuleItemTest extends RepositoryTestCase {
         assertEquals("version 2", ai.getCheckinComment()); 
     }
     
+    @Test
+    public void testModuleItemDefaultWorkingSets(){
+        RulesRepository repo = getRepo();
+        ModuleItem item = repo.createModule("testWorkingSets", "lalalala");
+        getRepo().save();
+        
+        //No default WS 
+        String[] defaultWorkingSets = item.getDefaultWorkingSets();
+        assertEquals(defaultWorkingSets.length, 0);
+
+        //Add 3 WS and save
+        item.setDefaultWorkingSets(new String[]{"ws1", "ws2", "ws3"});
+        repo.save();
+        
+        //load and check that we have 3 WS now
+        item = repo.loadModule(item.getName());
+        defaultWorkingSets = item.getDefaultWorkingSets();
+        assertEquals(defaultWorkingSets.length, 3);
+        assertEquals("ws1", defaultWorkingSets[0]);
+        assertEquals("ws2", defaultWorkingSets[1]);
+        assertEquals("ws3", defaultWorkingSets[2]);
+        
+        //update the WS array and save
+        item.updateDefaultWorkingSets(new String[]{"ws1","ws2"});
+        repo.save();
+        
+        //load and check that we have 2 WS now
+        item = repo.loadModule(item.getName());
+        defaultWorkingSets = item.getDefaultWorkingSets();
+        assertEquals(defaultWorkingSets.length, 2);
+        assertEquals("ws1", defaultWorkingSets[0]);
+        assertEquals("ws2", defaultWorkingSets[1]);
+        
+        //remove "ws1" and save
+        item.removeDefaultWorkingSet("ws1");
+        repo.save();
+        
+        //load and check that we have only 1 WS now
+        item = repo.loadModule(item.getName());
+        defaultWorkingSets = item.getDefaultWorkingSets();
+        assertEquals(defaultWorkingSets.length, 1);
+        assertEquals("ws2", defaultWorkingSets[0]);
+    }
+    
     static class MockAssetItem extends AssetItem {
         private long version;
 

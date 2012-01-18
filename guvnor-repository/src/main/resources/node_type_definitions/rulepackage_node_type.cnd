@@ -52,6 +52,10 @@ copy
 //workspace property. One package can belong to multiple workspaces
 - drools:workspace (string)
   multiple
+
+//Default working-sets (UUIDs) property. One package can have multiple Default Working-Sets
+- drools:defaultWorkingSets (string)
+  multiple
   
 // use this to capture fields which are not known ahead of time 
 - * (undefined) 

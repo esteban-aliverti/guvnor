@@ -103,6 +103,7 @@ public class RepositoryModuleOperations {
             data.setName( packageItem.getName() );
             data.setArchived( packageItem.isArchived() );
             data.setWorkspaces( packageItem.getWorkspaces() );
+            data.setDefaultWorkingSets(packageItem.getDefaultWorkingSets());
             handleIsModuleListed( archive,
                     workspace,
                     filter,
@@ -311,6 +312,7 @@ public class RepositoryModuleOperations {
         updateCategoryRules( data,
                 moduleItem );
 
+        moduleItem.updateDefaultWorkingSets(data.getDefaultWorkingSets());
         moduleItem.updateExternalURI( data.getExternalURI() );
         moduleItem.updateDescription( data.getDescription() );
         moduleItem.archiveItem( data.isArchived() );
