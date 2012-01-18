@@ -430,5 +430,11 @@
       <scope>provided</scope><!-- HACK to remove it from the runtime classpath -->
     </dependency>
 
+    <dependency>
+        <groupId>org.drools</groupId>
+        <artifactId>drools-shapes-reasoner-generator</artifactId>
+        <version>5.4.0-SNAPSHOT</version>
+    </dependency>
+
   </dependencies>
 </project>

@@ -131,6 +131,10 @@
     <servlet-name>StandaloneEditorServiceImplementation</servlet-name>
     <servlet-class>org.drools.guvnor.server.StandaloneEditorServiceImplementation</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>OWLFileServlet</servlet-name>
+    <servlet-class>org.drools.guvnor.server.files.drools.OWLFileServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>CXFServlet</servlet-name>
     <url-pattern>/rest/*</url-pattern>
@@ -202,6 +206,10 @@
   <servlet-mapping>
     <servlet-name>configurationService</servlet-name>
     <url-pattern>/org.drools.guvnor.GuvnorDrools/configurationService</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>OWLFileServlet</servlet-name>
+    <url-pattern>/org.drools.guvnor.GuvnorDrools/owl</url-pattern>
   </servlet-mapping>
   <session-config>
     <session-timeout>180</session-timeout>

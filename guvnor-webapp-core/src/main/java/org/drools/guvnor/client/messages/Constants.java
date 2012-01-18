@@ -2606,4 +2606,15 @@ public interface Constants
     String PMMLModelWidgetDescription();
     
     String PMMLConfigurations();
+
+    String ImportFromOWLRadio();
+    
+    String OWLFileToImport();
+    
+    String NoteNewPackageOwlImportWarning();
+    
+    String ImportOWLDesc();
+    
+    String YouCanOnlyImportOwlOrTtlFiles();
+    
 }
