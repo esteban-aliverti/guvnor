@@ -2625,6 +2625,16 @@ public interface Constants
     String ConditionBRLFragmentConfiguration();
 
     String ActionBRLFragmentConfiguration();
+    
+    String DefaultWorkingSets();
+    
+    String AddDefaultWorkingSetToThePackage();
+    
+    String DefaultWorkingSetsInfo();
+    
+    String AddDefaultWorkingSetsToThePackage();
+    
+    String NoWorkingSetDefinedInThePackage();
 
     String DecisionTableBRLFragmentNothingDefined();
 
@@ -2840,4 +2850,10 @@ public interface Constants
     String PMMLModelWidgetDescription();
     
     String PMMLConfigurations();
+
+    String AvailableWorkingSets();
+    
+    String WarningWorkingSet0DoesNotExistInTheRepositoryAnymore(String workingSet);
+    
+    String RemoveThisWorkingSetFromTheDefaultWorkingSetsList();
 }
