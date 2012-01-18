@@ -43,6 +43,9 @@ public abstract class ModuleServiceAsyncMock implements ModuleServiceAsync {
 
     public void loadModule(String p0, AsyncCallback<Module> cb) {
     }
+    
+    public void loadModuleByName(String p0, AsyncCallback<Module> cb) {
+    }
 
     public void saveModule(Module p0, AsyncCallback cb) {
     }
