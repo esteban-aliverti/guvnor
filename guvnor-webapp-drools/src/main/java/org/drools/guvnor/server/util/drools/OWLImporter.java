@@ -32,6 +32,8 @@ import org.drools.guvnor.server.contenthandler.drools.WorkingSetHandler;
 import org.drools.io.ResourceFactory;
 import org.drools.repository.AssetItem;
 import org.drools.repository.PackageItem;
+import org.drools.repository.RulesRepository;
+import org.drools.repository.RulesRepositoryException;
 import org.drools.semantics.builder.DLFactory;
 import org.drools.semantics.builder.DLFactoryBuilder;
 import org.drools.semantics.builder.model.JarModel;
@@ -53,12 +55,14 @@ public class OWLImporter {
     
     private final RepositoryCategoryService categoryService;
     private final OntoModel ontoModel;
+    private final RulesRepository repositoryService;
 
-    public OWLImporter(RepositoryCategoryService categoryService, InputStream owlDefinitionStream) {
+    public OWLImporter(RulesRepository repository, RepositoryCategoryService categoryService, InputStream owlDefinitionStream) {
         this.categoryService = categoryService;
+        this.repositoryService = repository;
         
         DLFactory dLFactory = DLFactoryBuilder.newDLFactoryInstance();
-        ontoModel = dLFactory.buildModel(ResourceFactory.newInputStreamResource(owlDefinitionStream));
+        ontoModel = dLFactory.buildModel("ontomodel", ResourceFactory.newInputStreamResource(owlDefinitionStream));
     }
     
     public String getPackageName(){
@@ -151,7 +155,21 @@ public class OWLImporter {
         String name = workingSet.getName();
         String description = workingSet.getDescription();
         
-        categoryService.createCategory(path, name, description);
+        //ugly way to check whether a category exists or not
+        boolean alreadyExists = false;
+        try{
+            repositoryService.loadCategory(path+"/"+name);
+            alreadyExists = true;        
+        } catch (RulesRepositoryException ex){
+            if (!ex.getMessage().startsWith("Unable to load the category ")){
+                throw ex;
+            }
+        }
+        
+        if (!alreadyExists){
+            categoryService.createCategory(path, name, description);
+        }
+        
         
         if (workingSet.getWorkingSets() != null){
             for (WorkingSetConfigData child : workingSet.getWorkingSets()) {
