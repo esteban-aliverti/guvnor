@@ -137,11 +137,19 @@ public class SuggestionCompletionCache implements RefreshModuleDataModelEvent.Ha
                     //set the filter again
                     filters.put(packageName, filter);
                     getEngineFromCache(packageName).setFactTypeFilter(filter);
+                    
+                    if (done != null){
+                        done.execute();
+                    }
+                }else{
+                    //if we don't have any pre-existing filter could means 
+                    //2 things: we didn't apply package's default WS yet, or
+                    //we applied them but the package doesn't have any.
+                    //In both cases, let's try to apply any package's default
+                    //WS, if any.
+                    WorkingSetManager.getInstance().applyPackageDefaultWorkingSets(packageName, done);
                 }
                 
-                if (done != null){
-                    done.execute();
-                }
             }
         });
     }

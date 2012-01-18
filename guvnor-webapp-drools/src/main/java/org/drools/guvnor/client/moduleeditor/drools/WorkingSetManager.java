@@ -33,6 +33,7 @@ import org.drools.ide.common.client.factconstraints.helper.CustomFormsContainer;
 import com.google.gwt.user.client.Command;
 import java.util.ArrayList;
 import org.drools.guvnor.client.asseteditor.drools.modeldriven.SetFactTypeFilter;
+import org.drools.guvnor.client.rpc.Module;
 
 public class WorkingSetManager {
 
@@ -71,6 +72,27 @@ public class WorkingSetManager {
 
     }
 
+    public void applyPackageDefaultWorkingSets(final String packageName, final Command done){
+        RepositoryServiceFactory.getPackageService().loadModuleByName(packageName, new GenericCallback<Module>() {
+
+            public void onSuccess(Module result) {
+                String[] defaultWorkingSets = result.defaultWorkingSets;
+                
+                if (defaultWorkingSets == null || defaultWorkingSets.length == 0){
+                    //do nothing. Not even refresh the package in the Cache
+                    //to avoid an infinite-loop
+                    if (done != null){
+                        done.execute();
+                    }
+                    return;
+                }
+                
+                //apply the default working sets
+                applyWorkingSets(packageName, defaultWorkingSets, done);
+            }
+        });
+    }
+    
     /**
      * Applies the workingSets' valid facts to SCE. This method updates the
      * internal activeWorkingSets map. If no workingSet is supplied, the
