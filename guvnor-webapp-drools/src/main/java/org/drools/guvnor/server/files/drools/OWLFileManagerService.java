@@ -54,7 +54,7 @@ public class OWLFileManagerService {
                                                       DroolsParserException, 
                                                       SerializationException {
         
-        OWLImporter importer = new OWLImporter(repositoryCategoryService, owlStream);
+        OWLImporter importer = new OWLImporter(repository, repositoryCategoryService, owlStream);
         
         String packageName = importer.getPackageName();
         
