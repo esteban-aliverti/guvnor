@@ -23,6 +23,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
+import java.util.ArrayList;
 
 import org.drools.guvnor.client.common.*;
 import org.drools.guvnor.client.explorer.ClientFactory;
@@ -31,7 +32,7 @@ import org.drools.guvnor.client.messages.Constants;
 import org.drools.guvnor.client.moduleeditor.AbstractModuleEditor;
 import org.drools.guvnor.client.moduleeditor.DependencyWidget;
 import org.drools.guvnor.client.resources.Images;
-import org.drools.guvnor.client.rpc.PackageConfigData;
+import org.drools.guvnor.client.rpc.Module;
 import org.drools.guvnor.client.rpc.RepositoryServiceFactory;
 import org.drools.guvnor.client.rpc.TableDataResult;
 import org.drools.guvnor.client.rpc.ValidatedResponse;
@@ -41,6 +42,8 @@ import org.drools.guvnor.client.widgets.categorynav.CategorySelectHandler;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 /**
@@ -50,7 +53,7 @@ public class PackageEditor extends AbstractModuleEditor {
     private Constants constants = GWT.create( Constants.class );
     private static Images images = GWT.create( Images.class );
 
-    private final PackageConfigData packageConfigData;
+    private final Module packageConfigData;
     private boolean isHistoricalReadOnly = false;
     private Command refreshCommand;
 
@@ -58,7 +61,7 @@ public class PackageEditor extends AbstractModuleEditor {
     private final ClientFactory clientFactory;
     private final EventBus eventBus;
 
-    public PackageEditor(PackageConfigData data,
+    public PackageEditor(Module data,
                          ClientFactory clientFactory,
                          EventBus eventBus,
                          Command refreshCommand) {
@@ -69,7 +72,7 @@ public class PackageEditor extends AbstractModuleEditor {
                 refreshCommand );
     }
 
-    public PackageEditor(PackageConfigData data,
+    public PackageEditor(Module data,
                          ClientFactory clientFactory,
                          EventBus eventBus,
                          boolean historicalReadOnly,
@@ -102,6 +105,13 @@ public class PackageEditor extends AbstractModuleEditor {
         addAttribute( "",
                 getShowCatRules() );
 
+        if ( !isHistoricalReadOnly ) {
+            addAttribute( constants.DefaultWorkingSets(),
+                    getAddDefaultWorkingSets() );
+        }
+        addAttribute( "",
+                getShowDefaultWorkingSets() );
+        
         if ( !packageConfigData.isSnapshot() && !isHistoricalReadOnly ) {
             Button save = new Button( constants.ValidateConfiguration() );
             save.addClickHandler( new ClickHandler() {
@@ -221,7 +231,7 @@ public class PackageEditor extends AbstractModuleEditor {
 
         packageConfigurationValidationResult.add( busy );
 
-        RepositoryServiceFactory.getPackageService().validatePackageConfiguration( this.packageConfigData,
+        RepositoryServiceFactory.getPackageService().validateModule( this.packageConfigData,
                 new GenericCallback<ValidatedResponse>() {
                     public void onSuccess(ValidatedResponse data) {
                         showValidatePackageConfigurationResult( data );
@@ -362,41 +372,41 @@ public class PackageEditor extends AbstractModuleEditor {
         }
     }
 
-    static String getDocumentationDownload(PackageConfigData conf) {
+    static String getDocumentationDownload(Module conf) {
         return makeLink( conf ) + "/documentation.pdf"; //NON-NLS
     }
 
-    static String getSourceDownload(PackageConfigData conf) {
+    static String getSourceDownload(Module conf) {
         return makeLink( conf ) + ".drl"; //NON-NLS
     }
 
-    static String getBinaryDownload(PackageConfigData conf) {
+    static String getBinaryDownload(Module conf) {
         return makeLink( conf );
     }
 
-    static String getScenarios(PackageConfigData conf) {
+    static String getScenarios(Module conf) {
         return makeLink( conf ) + "/SCENARIOS"; //NON-NLS
     }
 
-    static String getChangeset(PackageConfigData conf) {
+    static String getChangeset(Module conf) {
         return makeLink( conf ) + "/ChangeSet.xml"; //NON-NLS
     }
 
-    public static String getModelDownload(PackageConfigData conf) {
+    public static String getModelDownload(Module conf) {
         return makeLink( conf ) + "/MODEL"; //NON-NLS
     }
 
-    static String getSpringContextDownload(PackageConfigData conf,
+    static String getSpringContextDownload(Module conf,
                                            String name) {
         return makeLink( conf ) + "/SpringContext/" + name;
     }
 
-    static String getVersionFeed(PackageConfigData conf) {
+    static String getVersionFeed(Module conf) {
         String hurl = RESTUtil.getRESTBaseURL() + "packages/" + conf.getName() + "/versions";
         return hurl;
     }
 
-    String getPackageSourceURL(PackageConfigData conf) {
+    String getPackageSourceURL(Module conf) {
         String url;
         if ( isHistoricalReadOnly ) {
             url = RESTUtil.getRESTBaseURL() + "packages/" + conf.getName() +
@@ -407,7 +417,7 @@ public class PackageEditor extends AbstractModuleEditor {
         return url;
     }
 
-    String getPackageBinaryURL(PackageConfigData conf) {
+    String getPackageBinaryURL(Module conf) {
         String url;
         if ( isHistoricalReadOnly ) {
             url = RESTUtil.getRESTBaseURL() + "packages/" + conf.getName() +
@@ -421,7 +431,7 @@ public class PackageEditor extends AbstractModuleEditor {
     /**
      * Get a download link for the binary package.
      */
-    public static String makeLink(PackageConfigData conf) {
+    public static String makeLink(Module conf) {
         String hurl = GWT.getModuleBaseURL() + "package/" + conf.getName();
         if ( !conf.isSnapshot() ) {
             hurl = hurl + "/" + SnapshotView.LATEST_SNAPSHOT;
@@ -442,4 +452,174 @@ public class PackageEditor extends AbstractModuleEditor {
             status.setHTML( "<b>" + state + "</b>" );
         }
     */
+    
+    private Widget getAddDefaultWorkingSets() {
+        Image add = new ImageButton( images.edit() );
+        add.setTitle( constants.AddDefaultWorkingSetToThePackage() );
+
+        add.addClickHandler( new ClickHandler() {
+
+            public void onClick(ClickEvent event) {
+                showDefaultWorkingSetSelector( (Widget) event.getSource() );
+            }
+        } );
+
+        HorizontalPanel hp = new HorizontalPanel();
+        hp.add( add );
+        hp.add( new InfoPopup( constants.DefaultWorkingSets(),
+                constants.DefaultWorkingSetsInfo() ) );
+        return hp;
+    }
+    
+    protected void showDefaultWorkingSetSelector(Widget w) {
+        //creates the popup
+        final FormStylePopup pop = new FormStylePopup( images.config(),
+                constants.AddDefaultWorkingSetsToThePackage() );
+        final Button addbutton = new Button( constants.OK() );
+        
+        
+        //Get all the package's working-sets:
+        RepositoryServiceFactory.getAssetService().listAssets(this.packageConfigData.uuid,
+        new String[]{AssetFormats.WORKING_SET}, 0, -1, "workingsetList",
+        new GenericCallback<TableDataResult>() {
+
+            public void onSuccess(TableDataResult result) {
+                //no working-sets? 
+                if (result.data.length == 0){
+                    pop.addRow(new HTMLPanel(constants.NoWorkingSetDefinedInThePackage()));
+                    addbutton.setTitle( constants.Close() );
+                    addbutton.addClickHandler( new ClickHandler() {
+
+                        public void onClick(ClickEvent event) {
+                            pop.hide();
+                        }
+                        
+                    });
+                    
+                    pop.addAttribute( "", addbutton );
+                    pop.show();
+                    
+                }else{
+                    //Define a ListBox to contain all the WorkingSets
+                    final ListBox workingSetsListBox = new ListBox(true);
+                    
+                    //get package's default workingSets to exclude them from the list
+                    final List<String> defaultWorkingSets = new ArrayList<String>();
+                    if (packageConfigData.getDefaultWorkingSets() != null){
+                        for (int i = 0; i < packageConfigData.getDefaultWorkingSets().length; i++) {
+                            String workingSet = packageConfigData.getDefaultWorkingSets()[i];
+                            defaultWorkingSets.add(workingSet);
+                        }
+                    }
+                    
+                    for (int i = 0; i < result.data.length; i++) {
+                        //only add those WorkingSets that are not already configured as default
+                        if (!defaultWorkingSets.contains(result.data[i].id)){
+                            workingSetsListBox.addItem(result.data[i].getDisplayName(), result.data[i].id);
+                        }
+                    }
+                    
+                    addbutton.addClickHandler( new ClickHandler() {
+
+                        public void onClick(ClickEvent event) {
+                            //get the selected WS:
+                            List<String> wsUUIDs = new ArrayList<String>();
+                            for (int i = 0; i < workingSetsListBox.getItemCount(); i++) {
+                                if (workingSetsListBox.isItemSelected(i)){
+                                    wsUUIDs.add(workingSetsListBox.getValue(i));
+                                }
+                            }
+                            
+                            //mix with already configured default WS
+                            defaultWorkingSets.addAll(wsUUIDs);
+                            
+                            //update packageConfigData
+                            packageConfigData.setDefaultWorkingSets(defaultWorkingSets.toArray(new String[defaultWorkingSets.size()]));
+                            
+                            //refresh main widget
+                            refreshWidgets();
+                            
+                            //hide the popup
+                            pop.hide();
+                        }
+                        
+                    });
+                    
+                    workingSetsListBox.setWidth("100%");
+                    
+                    pop.addRow(new SmallLabel(constants.AvailableWorkingSets()));
+                    pop.addRow(workingSetsListBox );
+                    pop.addRow(addbutton );
+                    pop.show();
+                }
+            }
+        });
+        
+    }
+
+    public Widget getShowDefaultWorkingSets(){
+        if ( packageConfigData.getDefaultWorkingSets() != null && packageConfigData.getDefaultWorkingSets().length > 0 ) {
+            
+            final VerticalPanel vp = new VerticalPanel();
+            
+            //Need to get WS from repository in order to show their names and not their UUIDs
+            RepositoryServiceFactory.getAssetService().listAssets(this.packageConfigData.uuid,
+                new String[]{AssetFormats.WORKING_SET}, 0, -1, "workingsetList",
+                new GenericCallback<TableDataResult>() {
+
+                    public void onSuccess(TableDataResult result) {
+                        //convert result into a HashMap to ease the search
+                        Map<String,String> workingSets = new HashMap<String, String>();
+                        for (int i = 0; i < result.data.length; i++) {
+                            workingSets.put(result.data[i].id, result.data[i].getDisplayName());
+                        }
+                        
+                        //show configured WS
+                        for (int i = 0; i < packageConfigData.getDefaultWorkingSets().length; i++) {
+                            String defaultWorkingSet = packageConfigData.getDefaultWorkingSets()[i];
+
+                            HorizontalPanel hp = new HorizontalPanel();
+                            if (workingSets.containsKey(defaultWorkingSet)){
+                                hp.add(new SmallLabel(workingSets.get(defaultWorkingSet)));
+                            }else{
+                                //this means that the WS was removed and the package configuration
+                                //was not updated! Even if this should never happen, It is 
+                                //better to show a warning instead of fail with an Exception.
+                                //This solution also gives the User a chance to correct this error
+                                hp.add(new SmallLabel(constants.WarningWorkingSet0DoesNotExistInTheRepositoryAnymore(defaultWorkingSet)));
+                            }
+                            hp.add( getRemoveDefaultWorkingSetIcon(defaultWorkingSet));
+                            vp.add( hp );
+                        }
+                    }
+                }
+            );
+            
+            return (vp);
+        }
+        return new HTML( "&nbsp;&nbsp;" );
+    }
+    
+    protected Widget getRemoveDefaultWorkingSetIcon(final String defaultWorkingSetUUIDToRemove){
+        Image remove = new Image( images.deleteItemSmall() );
+        remove.addClickHandler( new ClickHandler() {
+
+            public void onClick(ClickEvent event) {
+                if ( Window.confirm( constants.RemoveThisWorkingSetFromTheDefaultWorkingSetsList() ) ) {
+                    List<String> defaultWorkingSets = new ArrayList<String>();
+                    
+                    for (int i = 0; i < packageConfigData.getDefaultWorkingSets().length; i++) {
+                        String workingSet = packageConfigData.getDefaultWorkingSets()[i];
+                        if (!workingSet.equals(defaultWorkingSetUUIDToRemove)){
+                            defaultWorkingSets.add(workingSet);
+                        }
+                    }
+                    
+                    packageConfigData.setDefaultWorkingSets(defaultWorkingSets.toArray(new String[defaultWorkingSets.size()]));
+                    refreshWidgets();
+                }
+            }
+        } );
+        return remove;
+    }
 }

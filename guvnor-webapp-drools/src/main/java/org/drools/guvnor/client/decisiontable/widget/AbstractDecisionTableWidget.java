@@ -62,6 +62,7 @@ import org.drools.ide.common.client.modeldriven.dt52.BRLActionColumn;
 import org.drools.ide.common.client.modeldriven.dt52.BRLActionVariableColumn;
 import org.drools.ide.common.client.modeldriven.dt52.BRLConditionColumn;
 import org.drools.ide.common.client.modeldriven.dt52.BRLConditionVariableColumn;
+import org.drools.ide.common.client.modeldriven.dt52.BRLRuleModel;
 import org.drools.ide.common.client.modeldriven.dt52.BaseColumn;
 import org.drools.ide.common.client.modeldriven.dt52.CompositeColumn;
 import org.drools.ide.common.client.modeldriven.dt52.ConditionCol52;
@@ -103,6 +104,7 @@ public abstract class AbstractDecisionTableWidget extends Composite
     protected DecisionTableCellValueFactory               cellValueFactory;
     protected DecisionTableControlsWidget                 dtableCtrls;
     protected final EventBus                              eventBus;
+    private BRLRuleModel                                  rm;
 
     protected static final DecisionTableResourcesProvider resources = new DecisionTableResourcesProvider();
 
@@ -267,7 +269,7 @@ public abstract class AbstractDecisionTableWidget extends Composite
             model.getConditions().add( pattern );
 
             //Signal patterns changed event
-            PatternsChangedEvent pce = new PatternsChangedEvent( model.getPatterns() );
+            BoundFactsChangedEvent pce = new BoundFactsChangedEvent( rm.getLHSBoundFacts() );
             eventBus.fireEvent( pce );
         }
 
@@ -368,7 +370,7 @@ public abstract class AbstractDecisionTableWidget extends Composite
             model.getConditions().remove( pattern );
 
             //Signal patterns changed event to Decision Table Widget
-            PatternsChangedEvent pce = new PatternsChangedEvent( model.getPatterns() );
+            BoundFactsChangedEvent pce = new BoundFactsChangedEvent( rm.getLHSBoundFacts() );
             eventBus.fireEvent( pce );
         }
 
@@ -435,6 +437,7 @@ public abstract class AbstractDecisionTableWidget extends Composite
         this.model = model;
         this.cellFactory.setModel( model );
         this.cellValueFactory.setModel( model );
+        this.rm = new BRLRuleModel( model );
 
         //Ensure field data-type is set (field did not exist before 5.2)
         for ( CompositeColumn< ? > cc : model.getConditions() ) {
@@ -848,7 +851,7 @@ public abstract class AbstractDecisionTableWidget extends Composite
         Map<String, List<DTCellValue52>> origColumnVariables = new HashMap<String, List<DTCellValue52>>();
         for ( BRLActionVariableColumn variable : origColumn.getChildColumns() ) {
             int iCol = model.getAllColumns().indexOf( variable );
-            StringBuilder key = new StringBuilder( variable.getDataType() ).append( ":" ).append( variable.getFactField() ).append( ":" ).append( variable.getFactType() );
+            StringBuilder key = new StringBuilder( variable.getFieldType() ).append( ":" ).append( variable.getFactField() ).append( ":" ).append( variable.getFactType() );
             List<DTCellValue52> columnData = new ArrayList<DTCellValue52>();
             for ( List<DTCellValue52> row : model.getData() ) {
                 columnData.add( row.get( iCol ) );
@@ -859,7 +862,7 @@ public abstract class AbstractDecisionTableWidget extends Composite
 
         int index = model.getAllColumns().indexOf( origColumn.getChildColumns().get( 0 ) );
         for ( BRLActionVariableColumn variable : editColumn.getChildColumns() ) {
-            StringBuilder key = new StringBuilder( variable.getDataType() ).append( ":" ).append( variable.getFactField() ).append( ":" ).append( variable.getFactType() );
+            StringBuilder key = new StringBuilder( variable.getFieldType() ).append( ":" ).append( variable.getFactField() ).append( ":" ).append( variable.getFactType() );
             List<DTCellValue52> columnData = origColumnVariables.get( key.toString() );
             if ( columnData == null ) {
                 columnData = cellValueFactory.makeColumnData( variable );
@@ -882,7 +885,6 @@ public abstract class AbstractDecisionTableWidget extends Composite
         // Copy new values into original column definition
         populateModelColumn( origColumn,
                              editColumn );
-
     }
 
     /**
@@ -906,7 +908,7 @@ public abstract class AbstractDecisionTableWidget extends Composite
         Map<String, List<DTCellValue52>> origColumnVariables = new HashMap<String, List<DTCellValue52>>();
         for ( BRLConditionVariableColumn variable : origColumn.getChildColumns() ) {
             int iCol = model.getAllColumns().indexOf( variable );
-            StringBuilder key = new StringBuilder( variable.getFactType() ).append( ":" ).append( variable.getFactField() ).append( ":" ).append( variable.getFieldType() );
+            StringBuilder key = new StringBuilder( variable.getFieldType() ).append( ":" ).append( variable.getFactField() ).append( ":" ).append( variable.getFactType() );
             List<DTCellValue52> columnData = new ArrayList<DTCellValue52>();
             for ( List<DTCellValue52> row : model.getData() ) {
                 columnData.add( row.get( iCol ) );
@@ -917,7 +919,7 @@ public abstract class AbstractDecisionTableWidget extends Composite
 
         int index = model.getAllColumns().indexOf( origColumn.getChildColumns().get( 0 ) );
         for ( BRLConditionVariableColumn variable : editColumn.getChildColumns() ) {
-            StringBuilder key = new StringBuilder( variable.getFactType() ).append( ":" ).append( variable.getFactField() ).append( ":" ).append( variable.getFieldType() );
+            StringBuilder key = new StringBuilder( variable.getFieldType() ).append( ":" ).append( variable.getFactField() ).append( ":" ).append( variable.getFactType() );
             List<DTCellValue52> columnData = origColumnVariables.get( key.toString() );
             if ( columnData == null ) {
                 columnData = cellValueFactory.makeColumnData( variable );
@@ -941,6 +943,9 @@ public abstract class AbstractDecisionTableWidget extends Composite
         populateModelColumn( origColumn,
                              editColumn );
 
+        //Signal patterns changed event to Decision Table Widget
+        BoundFactsChangedEvent pce = new BoundFactsChangedEvent( rm.getLHSBoundFacts() );
+        eventBus.fireEvent( pce );
     }
 
     /**
@@ -977,7 +982,7 @@ public abstract class AbstractDecisionTableWidget extends Composite
             model.getConditions().add( editPattern );
 
             //Signal patterns changed event
-            PatternsChangedEvent pce = new PatternsChangedEvent( model.getPatterns() );
+            BoundFactsChangedEvent pce = new BoundFactsChangedEvent( rm.getLHSBoundFacts() );
             eventBus.fireEvent( pce );
         }
 
@@ -1017,7 +1022,8 @@ public abstract class AbstractDecisionTableWidget extends Composite
                 model.getConditions().remove( origPattern );
 
                 //Signal patterns changed event to Decision Table Widget
-                PatternsChangedEvent pce = new PatternsChangedEvent( model.getPatterns() );
+                BRLRuleModel rm = new BRLRuleModel( model );
+                BoundFactsChangedEvent pce = new BoundFactsChangedEvent( rm.getLHSBoundFacts() );
                 eventBus.fireEvent( pce );
             }
             deleteColumn( origColumnIndex,

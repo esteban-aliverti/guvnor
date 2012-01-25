@@ -54,7 +54,7 @@ public class ActionAPIServletTest extends GuvnorTestBase {
     public void testCompilation() throws Exception {
         final String dynamicPackage = "test-action" + UUID.randomUUID();
 
-        rulesRepository.createPackage(dynamicPackage,
+        rulesRepository.createModule(dynamicPackage,
                 "test-action package for testing");
         HashMap<String, String> headers = new HashMap<String, String>() {
             {
@@ -76,14 +76,13 @@ public class ActionAPIServletTest extends GuvnorTestBase {
                      res );
         assertEquals( 200,
                       res.status );
-        rulesRepository.logout();
     }
 
     @Test
     public void testSnapshotCreation() throws Exception {
         final String dynamicPackage = "test-snap" + UUID.randomUUID();
 
-        rulesRepository.createPackage(dynamicPackage,
+        rulesRepository.createModule(dynamicPackage,
                 "test-snapshot package for testing");
         HashMap<String, String> headers = new HashMap<String, String>() {
             {
@@ -110,7 +109,6 @@ public class ActionAPIServletTest extends GuvnorTestBase {
                      res );
         assertEquals( 200,
                       res.status );
-        rulesRepository.logout();
     }
 
 }

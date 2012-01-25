@@ -18,7 +18,6 @@ package org.drools.guvnor.server.contenthandler.drools;
 
 import com.google.gwt.user.client.rpc.SerializationException;
 import org.drools.compiler.DroolsParserException;
-import org.drools.guvnor.client.rpc.RuleAsset;
 import org.drools.guvnor.server.builder.AssemblyErrorLogger;
 import org.drools.guvnor.server.builder.BRMSPackageBuilder;
 import org.drools.repository.AssetItem;
@@ -28,6 +27,7 @@ import java.io.InputStream;
 import java.io.StringReader;
 import org.drools.compiler.PMMLCompiler;
 import org.drools.compiler.PMMLCompilerFactory;
+import org.drools.guvnor.client.rpc.Asset;
 import org.drools.guvnor.server.contenthandler.ContentHandler;
 import org.drools.guvnor.server.contenthandler.IRuleAsset;
 
@@ -47,18 +47,18 @@ public class PMMLHandler extends ContentHandler
      */
     private static PMMLCompiler pMMLCompiler;
     
-    public void retrieveAssetContent(RuleAsset asset,
+    public void retrieveAssetContent(Asset asset,
                                      AssetItem item) throws SerializationException {
         //do nothing, as we have an attachment
     }
 
-    public void storeAssetContent(RuleAsset asset,
+    public void storeAssetContent(Asset asset,
                                   AssetItem repoAsset) throws SerializationException {
         //do nothing, as we have an attachment
     }
 
     public void assembleDRL(BRMSPackageBuilder builder,
-                            RuleAsset asset,
+                            Asset asset,
                             StringBuilder stringBuilder) {
         // TODO Auto-generated method stub
 

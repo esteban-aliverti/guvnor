@@ -23,12 +23,12 @@ import java.io.InputStream;
 import javax.enterprise.context.ApplicationScoped;
 
 import org.drools.compiler.DroolsParserException;
-import org.drools.repository.PackageItem;
 import org.drools.repository.RulesRepository;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.drools.guvnor.server.RepositoryCategoryService;
 import org.drools.guvnor.server.util.drools.OWLImporter;
+import org.drools.repository.ModuleItem;
 import org.jboss.seam.security.annotations.LoggedIn;
 import org.jboss.seam.security.Identity;
 
@@ -62,24 +62,24 @@ public class OWLFileManagerService {
             throw new IllegalArgumentException( "Missing package name." );
         }
         
-        boolean existing = repository.containsPackage( packageName );
+        boolean existing = repository.containsModule( packageName );
 
         // Check if the package is archived
-        if ( existing && repository.isPackageArchived( packageName ) ) {
+        if ( existing && repository.isModuleArchived( packageName ) ) {
             // Remove the package so it can be created again.
-            PackageItem item = repository.loadPackage( packageName );
+            ModuleItem item = repository.loadModule( packageName );
             item.remove();
             existing = false;
         }
         
         
-        PackageItem pkg = null;
+        ModuleItem pkg = null;
         
         if (existing ) {
             throw new IllegalArgumentException( "A package with the same name already exist." );
         }            
 
-        pkg = repository.createPackage( packageName,
+        pkg = repository.createModule( packageName,
                                             "<importedfom OWL>" );
         
         importer.processOWLDefinition(pkg);

@@ -29,7 +29,7 @@ import org.drools.guvnor.server.jaxrs.jaxb.Asset;
 import org.drools.guvnor.server.util.DroolsHeader;
 import org.drools.repository.AssetItem;
 import org.drools.repository.CategoryItem;
-import org.drools.repository.PackageItem;
+import org.drools.repository.ModuleItem;
 import org.drools.repository.utils.IOUtils;
 import org.drools.util.codec.Base64;
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -82,7 +82,7 @@ public class AssetPackageResourceTest extends GuvnorTestBase {
         rulesRepository.createState( "Dev" );
         
         //Package version 1(Initial version)
-        PackageItem pkg = rulesRepository.createPackage("restPackage1",
+        ModuleItem pkg = rulesRepository.createModule("restPackage1",
                 "this is package restPackage1");
 
         //Package version 2	
@@ -394,9 +394,9 @@ public class AssetPackageResourceTest extends GuvnorTestBase {
         //Update category. Add a new category tag
         categoryExtension.addSimpleExtension(Translator.VALUE, "AssetPackageResourceTestCategory2");
         //Update state
-        stateExtension.getExtension(Translator.VALUE).setText("Dev");
+        stateExtension.<Element>getExtension(Translator.VALUE).setText("Dev");
         //Update format
-        formatExtension.getExtension(Translator.VALUE).setText("anotherformat");
+        formatExtension.<Element>getExtension(Translator.VALUE).setText("anotherformat");
         
         connection = (HttpURLConnection) url.openConnection();
         connection.setRequestProperty("Authorization",
@@ -467,7 +467,7 @@ public class AssetPackageResourceTest extends GuvnorTestBase {
         //Update state
         ExtensibleElement metadataExtension  = entry.getExtension(Translator.METADATA); 
         ExtensibleElement stateExtension = metadataExtension.getExtension(Translator.STATE);   
-        stateExtension.getExtension(Translator.VALUE).setText("NonExistState");
+        stateExtension.<Element>getExtension(Translator.VALUE).setText("NonExistState");
         
         connection = (HttpURLConnection) url.openConnection();
         connection.setRequestProperty("Authorization",

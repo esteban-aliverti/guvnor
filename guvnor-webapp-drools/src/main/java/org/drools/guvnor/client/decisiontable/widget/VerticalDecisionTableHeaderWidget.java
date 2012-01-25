@@ -37,6 +37,9 @@ import org.drools.ide.common.client.modeldriven.dt52.ActionWorkItemCol52;
 import org.drools.ide.common.client.modeldriven.dt52.AnalysisCol52;
 import org.drools.ide.common.client.modeldriven.dt52.AttributeCol52;
 import org.drools.ide.common.client.modeldriven.dt52.BRLActionVariableColumn;
+import org.drools.ide.common.client.modeldriven.dt52.BRLColumn;
+import org.drools.ide.common.client.modeldriven.dt52.BRLConditionVariableColumn;
+import org.drools.ide.common.client.modeldriven.dt52.BRLVariableColumn;
 import org.drools.ide.common.client.modeldriven.dt52.BaseColumn;
 import org.drools.ide.common.client.modeldriven.dt52.ConditionCol52;
 import org.drools.ide.common.client.modeldriven.dt52.DTCellValue52;
@@ -307,38 +310,38 @@ public class VerticalDecisionTableHeaderWidget extends AbstractDecoratedGridHead
         }
 
         // Populate a default header element
-        private void populateTableCellElement(DynamicColumn<BaseColumn> col,
+        private void populateTableCellElement(BaseColumn modelCol,
+                                              int width,
                                               Element tce) {
 
-            BaseColumn modelCol = col.getModelColumn();
             if ( modelCol instanceof RowNumberCol52 ) {
                 tce.appendChild( makeLabel( "#",
-                                            col.getWidth(),
+                                            width,
                                             resources.rowHeaderHeight() ) );
                 tce.<TableCellElement> cast().setRowSpan( 4 );
                 tce.addClassName( resources.headerRowIntermediate() );
-                tce.addClassName( resources.cellTableColumn( col.getModelColumn() ) );
+                tce.addClassName( resources.cellTableColumn( modelCol ) );
             } else if ( modelCol instanceof DescriptionCol52 ) {
                 tce.appendChild( makeLabel( constants.Description(),
-                                            col.getWidth(),
+                                            width,
                                             resources.rowHeaderHeight() ) );
                 tce.<TableCellElement> cast().setRowSpan( 4 );
                 tce.addClassName( resources.headerRowIntermediate() );
-                tce.addClassName( resources.cellTableColumn( col.getModelColumn() ) );
+                tce.addClassName( resources.cellTableColumn( modelCol ) );
             } else if ( modelCol instanceof MetadataCol52 ) {
                 tce.appendChild( makeLabel( ((MetadataCol52) modelCol).getMetadata(),
-                                            col.getWidth(),
+                                            width,
                                             resources.rowHeaderHeight() ) );
                 tce.<TableCellElement> cast().setRowSpan( 4 );
                 tce.addClassName( resources.headerRowIntermediate() );
-                tce.addClassName( resources.cellTableColumn( col.getModelColumn() ) );
+                tce.addClassName( resources.cellTableColumn( modelCol ) );
             } else if ( modelCol instanceof AttributeCol52 ) {
                 tce.appendChild( makeLabel( ((AttributeCol52) modelCol).getAttribute(),
-                                            col.getWidth(),
+                                            width,
                                             resources.rowHeaderHeight() ) );
                 tce.<TableCellElement> cast().setRowSpan( 4 );
                 tce.addClassName( resources.headerRowIntermediate() );
-                tce.addClassName( resources.cellTableColumn( col.getModelColumn() ) );
+                tce.addClassName( resources.cellTableColumn( modelCol ) );
             } else if ( modelCol instanceof ConditionCol52 ) {
                 ConditionCol52 cc = (ConditionCol52) modelCol;
                 StringBuilder header = new StringBuilder();
@@ -348,21 +351,21 @@ public class VerticalDecisionTableHeaderWidget extends AbstractDecoratedGridHead
                 }
                 header.append( cc.getHeader() );
                 tce.appendChild( makeLabel( header.toString(),
-                                            col.getWidth(),
+                                            width,
                                             resources.rowHeaderHeight() ) );
-                tce.addClassName( resources.cellTableColumn( col.getModelColumn() ) );
+                tce.addClassName( resources.cellTableColumn( modelCol ) );
             } else if ( modelCol instanceof ActionCol52 ) {
                 tce.appendChild( makeLabel( ((ActionCol52) modelCol).getHeader(),
-                                            col.getWidth(),
+                                            width,
                                             resources.rowHeaderHeight() ) );
-                tce.addClassName( resources.cellTableColumn( col.getModelColumn() ) );
+                tce.addClassName( resources.cellTableColumn( modelCol ) );
             } else if ( modelCol instanceof AnalysisCol52 ) {
                 tce.appendChild( makeLabel( constants.Analysis(),
-                                            col.getWidth(),
+                                            width,
                                             resources.rowHeaderHeight() ) );
                 tce.<TableCellElement> cast().setRowSpan( 4 );
                 tce.addClassName( resources.headerRowIntermediate() );
-                tce.addClassName( resources.cellTableColumn( col.getModelColumn() ) );
+                tce.addClassName( resources.cellTableColumn( modelCol ) );
             }
 
         }
@@ -423,14 +426,41 @@ public class VerticalDecisionTableHeaderWidget extends AbstractDecoratedGridHead
             switch ( iRow ) {
                 case 0 :
                     // General row, all visible cells included
-                    for ( DynamicColumn<BaseColumn> col : sortableColumns ) {
-                        if ( col.isVisible() ) {
-                            tce = DOM.createTD();
-                            tce.addClassName( resources.headerText() );
-                            tre.appendChild( tce );
-                            populateTableCellElement( col,
-                                                      tce );
+                    for ( int iCol = 0; iCol < visibleCols.size(); iCol++ ) {
+                        DynamicColumn<BaseColumn> col = visibleCols.get( iCol );
+                        BaseColumn modelCol = col.getModelColumn();
+                        tce = DOM.createTD();
+                        tce.addClassName( resources.headerText() );
+                        tre.appendChild( tce );
+
+                        // Merging
+                        int colSpan = 1;
+                        int width = col.getWidth();
+                        if ( modelCol instanceof BRLVariableColumn ) {
+                            BRLVariableColumn brlColumn = (BRLVariableColumn) col.getModelColumn();
+                            BRLColumn< ? , ? > brlColumnParent = model.getBRLColumn( brlColumn );
+
+                            while ( iCol + colSpan < visibleCols.size() ) {
+                                DynamicColumn<BaseColumn> mergeCol = visibleCols.get( iCol + colSpan );
+                                BaseColumn mergeModelCol = mergeCol.getModelColumn();
+                                if ( !(mergeModelCol instanceof BRLVariableColumn) ) {
+                                    break;
+                                }
+                                BRLVariableColumn mergeBRLColumn = (BRLVariableColumn) mergeModelCol;
+                                BRLColumn< ? , ? > mergeBRLColumnParent = model.getBRLColumn( mergeBRLColumn );
+                                if ( mergeBRLColumnParent != brlColumnParent ) {
+                                    break;
+                                }
+                                width = width + mergeCol.getWidth();
+                                colSpan++;
+                            }
+                            iCol = iCol + colSpan - 1;
                         }
+
+                        populateTableCellElement( modelCol,
+                                                  width,
+                                                  tce );
+                        tce.<TableCellElement> cast().setColSpan( colSpan );
                     }
                     break;
 
@@ -467,33 +497,32 @@ public class VerticalDecisionTableHeaderWidget extends AbstractDecoratedGridHead
                             DynamicColumn<BaseColumn> mergeCol = visibleConditionCols.get( iCol + colSpan );
                             ConditionCol52 mergeCondCol = (ConditionCol52) mergeCol.getModelColumn();
                             Pattern52 mergeCondColPattern = model.getPattern( mergeCondCol );
-
-                            //Only merge columns if FactType and BoundName are identical
-                            if ( mergeCondColPattern.getFactType() == null || mergeCondColPattern.getFactType().length() == 0 ) {
+                            if ( mergeCondColPattern != ccPattern ) {
                                 break;
                             }
-                            if ( !mergeCondColPattern.getFactType().equals( ccPattern.getFactType() )
-                                 || !mergeCondColPattern.getBoundName().equals( ccPattern.getBoundName() ) ) {
-                                break;
-                            }
-
                             width = width + mergeCol.getWidth();
                             colSpan++;
                         }
-
-                        // Make cell
                         iCol = iCol + colSpan - 1;
-                        StringBuilder patternLabel = new StringBuilder();
-                        String factType = ccPattern.getFactType();
-                        String boundName = ccPattern.getBoundName();
-                        if ( factType != null && factType.length() > 0 ) {
-                            if ( ccPattern.isNegated() ) {
-                                patternLabel.append( constants.negatedPattern() ).append( " " ).append( factType );
-                            } else {
-                                patternLabel.append( factType ).append( " [" ).append( boundName ).append( "]" );
+
+                        //Make applicable label (TODO move to Factory method)
+                        StringBuilder label = new StringBuilder();
+                        if ( cc instanceof BRLConditionVariableColumn ) {
+                            BRLConditionVariableColumn brl = (BRLConditionVariableColumn) cc;
+                            label.append( brl.getVarName() );
+                        } else if ( cc instanceof ConditionCol52 ) {
+                            String factType = ccPattern.getFactType();
+                            String boundName = ccPattern.getBoundName();
+                            if ( factType != null && factType.length() > 0 ) {
+                                if ( ccPattern.isNegated() ) {
+                                    label.append( constants.negatedPattern() ).append( " " ).append( factType );
+                                } else {
+                                    label.append( factType ).append( " [" ).append( boundName ).append( "]" );
+                                }
                             }
                         }
-                        tce.appendChild( makeLabel( patternLabel.toString(),
+
+                        tce.appendChild( makeLabel( label.toString(),
                                                     width,
                                                     (splitter.isCollapsed ? 0 : resources.rowHeaderHeight()) ) );
                         tce.<TableCellElement> cast().setColSpan( colSpan );
@@ -508,32 +537,43 @@ public class VerticalDecisionTableHeaderWidget extends AbstractDecoratedGridHead
                         tce = DOM.createTD();
                         tce.addClassName( resources.headerText() );
                         tce.addClassName( resources.cellTableColumn( col.getModelColumn() ) );
+                        tce.addClassName( resources.headerRowIntermediate() );
                         tre.appendChild( tce );
 
-                        String factType = "";
-                        String binding = null;
+                        //Make applicable label (TODO move to Factory method)
+                        StringBuilder label = new StringBuilder();
                         if ( ac instanceof ActionInsertFactCol52 ) {
                             ActionInsertFactCol52 aifc = (ActionInsertFactCol52) ac;
-                            factType = aifc.getFactType();
-                            binding = aifc.getBoundName();
+                            String factType = aifc.getFactType();
+                            String binding = aifc.getBoundName();
+                            if ( factType != null && factType.length() > 0 ) {
+                                label.append( factType );
+                                if ( binding != null ) {
+                                    label.append( " [" + binding + "]" );
+                                }
+                            }
                         } else if ( ac instanceof ActionSetFieldCol52 ) {
-                            factType = ((ActionSetFieldCol52) ac).getBoundName();
+                            String factType = ((ActionSetFieldCol52) ac).getBoundName();
+                            if ( factType != null && factType.length() > 0 ) {
+                                label.append( factType );
+                            }
                         } else if ( ac instanceof LimitedEntryActionRetractFactCol52 ) {
-                            factType = ((LimitedEntryActionRetractFactCol52) ac).getValue().getStringValue();
+                            String factType = ((LimitedEntryActionRetractFactCol52) ac).getValue().getStringValue();
+                            if ( factType != null && factType.length() > 0 ) {
+                                label.append( factType );
+                            }
                         } else if ( ac instanceof ActionWorkItemCol52 ) {
-                            factType = ((ActionWorkItemCol52) ac).getWorkItemDefinition().getDisplayName();
+                            String factType = ((ActionWorkItemCol52) ac).getWorkItemDefinition().getDisplayName();
+                            if ( factType != null && factType.length() > 0 ) {
+                                label.append( factType );
+                            }
                         } else if ( ac instanceof BRLActionVariableColumn ) {
-                            factType = ((BRLActionVariableColumn) ac).getVarName();
-                        }
-
-                        tce.addClassName( resources.headerRowIntermediate() );
-                        StringBuilder label = new StringBuilder();
-                        if ( factType != null && factType.length() > 0 ) {
-                            label.append( factType );
-                            if ( binding != null ) {
-                                label.append( " [" + binding + "]" );
+                            String factType = ((BRLActionVariableColumn) ac).getVarName();
+                            if ( factType != null && factType.length() > 0 ) {
+                                label.append( factType );
                             }
                         }
+
                         tce.appendChild( makeLabel( label.toString(),
                                                     col.getWidth(),
                                                     (splitter.isCollapsed ? 0 : resources.rowHeaderHeight()) ) );
@@ -549,20 +589,28 @@ public class VerticalDecisionTableHeaderWidget extends AbstractDecoratedGridHead
                         tce.addClassName( resources.cellTableColumn( col.getModelColumn() ) );
                         tre.appendChild( tce );
                         ConditionCol52 cc = (ConditionCol52) col.getModelColumn();
+
+                        //Make applicable label (TODO move to Factory method)
                         StringBuilder label = new StringBuilder();
-                        String factField = cc.getFactField();
-                        if ( factField != null && factField.length() > 0 ) {
-                            label.append( factField );
-                        }
-                        if ( cc.getConstraintValueType() != BaseSingleFieldConstraint.TYPE_PREDICATE ) {
-                            String lev = getLimitedEntryValue( cc );
-                            label.append( " [" );
-                            label.append( cc.getOperator() );
-                            if ( lev != null ) {
-                                label.append( lev );
+                        if ( cc instanceof BRLConditionVariableColumn ) {
+                            BRLConditionVariableColumn brl = (BRLConditionVariableColumn) cc;
+                            label.append( brl.getFactField() );
+                        } else if ( cc instanceof ConditionCol52 ) {
+                            String factField = cc.getFactField();
+                            if ( factField != null && factField.length() > 0 ) {
+                                label.append( factField );
                             }
-                            label.append( "]" );
+                            if ( cc.getConstraintValueType() != BaseSingleFieldConstraint.TYPE_PREDICATE ) {
+                                label.append( " [" );
+                                label.append( cc.getOperator() );
+                                String lev = getLimitedEntryValue( cc );
+                                if ( lev != null ) {
+                                    label.append( lev );
+                                }
+                                label.append( "]" );
+                            }
                         }
+
                         tce.appendChild( makeLabel( label.toString(),
                                                     col.getWidth(),
                                                     (splitter.isCollapsed ? 0 : resources.rowHeaderHeight()) ) );
@@ -576,32 +624,42 @@ public class VerticalDecisionTableHeaderWidget extends AbstractDecoratedGridHead
                         tce.addClassName( resources.cellTableColumn( col.getModelColumn() ) );
                         tre.appendChild( tce );
                         ActionCol52 ac = (ActionCol52) col.getModelColumn();
-                        StringBuilder label = new StringBuilder();
 
-                        String lev = null;
-                        String factField = null;
+                        //Make applicable label (TODO move to Factory method)
+                        StringBuilder label = new StringBuilder();
                         if ( ac instanceof ActionInsertFactCol52 ) {
                             ActionInsertFactCol52 aifc = (ActionInsertFactCol52) ac;
-                            lev = getLimitedEntryValue( aifc );
-                            factField = aifc.getFactField();
-                        } else if ( ac instanceof ActionSetFieldCol52 ) {
-                            ActionSetFieldCol52 asf = (ActionSetFieldCol52) ac;
-                            lev = getLimitedEntryValue( asf );
-                            factField = asf.getFactField();
-                        } else if ( ac instanceof ActionRetractFactCol52 ) {
-                            factField = "[" + constants.Retract() + "]";
-                        } else if ( ac instanceof ActionWorkItemCol52 ) {
-                            factField = "[" + constants.WorkItemAction() + "]";
-                        }
-
-                        if ( factField != null && factField.length() > 0 ) {
-                            label.append( factField );
+                            String factField = aifc.getFactField();
+                            if ( factField != null && factField.length() > 0 ) {
+                                label.append( factField );
+                            }
+                            String lev = getLimitedEntryValue( aifc );
                             if ( lev != null ) {
                                 label.append( " [" );
                                 label.append( lev );
                                 label.append( "]" );
                             }
+                        } else if ( ac instanceof ActionSetFieldCol52 ) {
+                            ActionSetFieldCol52 asf = (ActionSetFieldCol52) ac;
+                            String factField = asf.getFactField();
+                            if ( factField != null && factField.length() > 0 ) {
+                                label.append( factField );
+                            }
+                            String lev = getLimitedEntryValue( asf );
+                            if ( lev != null ) {
+                                label.append( " [" );
+                                label.append( lev );
+                                label.append( "]" );
+                            }
+                        } else if ( ac instanceof ActionRetractFactCol52 ) {
+                            label.append( "[" + constants.Retract() + "]" );
+                        } else if ( ac instanceof ActionWorkItemCol52 ) {
+                            label.append( "[" + constants.WorkItemAction() + "]" );
+                        } else if ( ac instanceof BRLActionVariableColumn ) {
+                            BRLActionVariableColumn brl = (BRLActionVariableColumn) ac;
+                            label.append( brl.getFactField() );
                         }
+
                         tce.appendChild( makeLabel( label.toString(),
                                                     col.getWidth(),
                                                     (splitter.isCollapsed ? 0 : resources.rowHeaderHeight()) ) );
@@ -713,7 +771,7 @@ public class VerticalDecisionTableHeaderWidget extends AbstractDecoratedGridHead
     }
 
     // Set the cursor type for all cells on the table as
-    // we only use rowHeader[0] to check which column
+    // we only use rowHeader[4] to check which column
     // needs resizing however the mouse could be over any
     // row
     private void setCursorType(Cursor cursor) {
@@ -739,8 +797,8 @@ public class VerticalDecisionTableHeaderWidget extends AbstractDecoratedGridHead
     protected ResizerInformation getResizerInformation(int mx) {
         boolean isPrimed = false;
         ResizerInformation resizerInfo = new ResizerInformation();
-        for ( int iCol = 0; iCol < widget.rowHeaders[0].getChildCount(); iCol++ ) {
-            TableCellElement tce = widget.rowHeaders[0].getChild( iCol ).<TableCellElement> cast();
+        for ( int iCol = 0; iCol < widget.rowHeaders[4].getChildCount(); iCol++ ) {
+            TableCellElement tce = widget.rowHeaders[4].getChild( iCol ).<TableCellElement> cast();
             int cx = tce.getAbsoluteRight();
             if ( Math.abs( mx - cx ) <= 5 ) {
                 isPrimed = true;
@@ -770,13 +828,47 @@ public class VerticalDecisionTableHeaderWidget extends AbstractDecoratedGridHead
         // This is also set in the ColumnResizeEvent handler, however it makes
         // resizing columns in the header more simple too
         resizeColumn.setWidth( resizeColumnWidth );
+        resizeColumn.getModelColumn().setWidth( resizeColumnWidth );
         int resizeColumnIndex = widget.visibleCols.indexOf( resizeColumn );
 
         // Row 0 (General\Fact Type)
-        tce = widget.rowHeaders[0].getChild( resizeColumnIndex ).<TableCellElement> cast();
-        div = tce.getFirstChild().<DivElement> cast();
-        div.getStyle().setWidth( resizeColumnWidth,
-                                 Unit.PX );
+        // General row, all visible cells included
+        int iRow0ColColumn = 0;
+        for ( int iCol = 0; iCol < widget.visibleCols.size(); iCol++ ) {
+            DynamicColumn<BaseColumn> col = widget.visibleCols.get( iCol );
+            BaseColumn modelCol = col.getModelColumn();
+
+            // Merging
+            int colSpan = 1;
+            int width = col.getWidth();
+            if ( modelCol instanceof BRLVariableColumn ) {
+                BRLVariableColumn brlColumn = (BRLVariableColumn) col.getModelColumn();
+                BRLColumn< ? , ? > brlColumnParent = model.getBRLColumn( brlColumn );
+
+                while ( iCol + colSpan < widget.visibleCols.size() ) {
+                    DynamicColumn<BaseColumn> mergeCol = widget.visibleCols.get( iCol + colSpan );
+                    BaseColumn mergeModelCol = mergeCol.getModelColumn();
+                    if ( !(mergeModelCol instanceof BRLVariableColumn) ) {
+                        break;
+                    }
+                    BRLVariableColumn mergeBRLColumn = (BRLVariableColumn) mergeModelCol;
+                    BRLColumn< ? , ? > mergeBRLColumnParent = model.getBRLColumn( mergeBRLColumn );
+                    if ( mergeBRLColumnParent != brlColumnParent ) {
+                        break;
+                    }
+                    width = width + mergeCol.getWidth();
+                    colSpan++;
+                }
+                iCol = iCol + colSpan - 1;
+            }
+
+            // Resize cell
+            tce = widget.rowHeaders[0].getChild( iRow0ColColumn ).<TableCellElement> cast();
+            div = tce.getFirstChild().<DivElement> cast();
+            div.getStyle().setWidth( width,
+                                     Unit.PX );
+            iRow0ColColumn++;
+        }
 
         // Row 4 (Sorters)
         tce = widget.rowHeaders[4].getChild( resizeColumnIndex ).<TableCellElement> cast();
@@ -797,7 +889,7 @@ public class VerticalDecisionTableHeaderWidget extends AbstractDecoratedGridHead
         }
 
         // Row 2 (Fact Types) - Condition Columns
-        int iColColumn = 0;
+        int iRow2ColColumn = 0;
         for ( int iCol = 0; iCol < widget.visibleConditionCols.size(); iCol++ ) {
             DynamicColumn<BaseColumn> col = widget.visibleConditionCols.get( iCol );
             ConditionCol52 cc = (ConditionCol52) col.getModelColumn();
@@ -810,34 +902,27 @@ public class VerticalDecisionTableHeaderWidget extends AbstractDecoratedGridHead
                 DynamicColumn<BaseColumn> mergeCol = widget.visibleConditionCols.get( iCol + colSpan );
                 ConditionCol52 mergeCondCol = (ConditionCol52) mergeCol.getModelColumn();
                 Pattern52 mergeCondColPattern = model.getPattern( mergeCondCol );
-
-                //Only merge columns if FactType and BoundName are identical
-                if ( mergeCondColPattern.getFactType() == null || mergeCondColPattern.getFactType().length() == 0 ) {
+                if ( mergeCondColPattern != ccPattern ) {
                     break;
                 }
-                if ( !mergeCondColPattern.getFactType().equals( ccPattern.getFactType() )
-                     || !mergeCondColPattern.getBoundName().equals( ccPattern.getBoundName() ) ) {
-                    break;
-                }
-
                 width = width + mergeCol.getWidth();
                 colSpan++;
             }
 
-            // Make cell
+            // Resize cell
             iCol = iCol + colSpan - 1;
-            tce = widget.rowHeaders[2].getChild( iColColumn ).<TableCellElement> cast();
+            tce = widget.rowHeaders[2].getChild( iRow2ColColumn ).<TableCellElement> cast();
             div = tce.getFirstChild().<DivElement> cast();
             div.getStyle().setWidth( width,
                                      Unit.PX );
-            iColColumn++;
+            iRow2ColColumn++;
         }
 
         // Row 2 (Fact Types) - Action Columns
         if ( multiRowColumnActionsOffset != -1 ) {
             colOffsetIndex = resizeColumnIndex - multiRowColumnActionsOffset;
             if ( colOffsetIndex >= 0 && !(resizeColumn.getModelColumn() instanceof AnalysisCol52) ) {
-                colOffsetIndex = colOffsetIndex + iColColumn;
+                colOffsetIndex = colOffsetIndex + iRow2ColColumn;
                 DynamicColumn<BaseColumn> col = widget.visibleCols.get( resizeColumnIndex );
                 tce = widget.rowHeaders[2].getChild( colOffsetIndex ).<TableCellElement> cast();
                 div = tce.getFirstChild().<DivElement> cast();
