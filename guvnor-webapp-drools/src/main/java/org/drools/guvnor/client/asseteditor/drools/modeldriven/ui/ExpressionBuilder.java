@@ -55,7 +55,6 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
-import org.drools.ide.common.client.modeldriven.brl.FieldConstraint;
 
 public class ExpressionBuilder extends RuleModellerWidget
     implements
@@ -253,7 +252,9 @@ public class ExpressionBuilder extends RuleModellerWidget
                                                          SuggestionCompletionEngine.TYPE_BOOLEAN ) );
         } else {
             ExpressionCollectionIndex collectionIndex;
+            getCompletionEngine().setFilteringFacts(false);
             String factName = getCompletionEngine().getFactNameFromType( getCurrentParametricType() );
+            getCompletionEngine().setFilteringFacts(true);
             if ( getCurrentParametricType() != null && factName != null ) {
                 collectionIndex = new ExpressionCollectionIndex( "get",
                                                                  getCurrentParametricType(),
@@ -305,6 +306,7 @@ public class ExpressionBuilder extends RuleModellerWidget
                                              dotPos );
             String attrib = value.substring( dotPos + 1 );
 
+            getCompletionEngine().setFilteringFacts(false);
             prevFactName = getCompletionEngine().getFactNameFromType( getCurrentClassType() );
             // String genericType = SuggestionCompletionEngine.TYPE_OBJECT;
             if ( FIElD_VALUE_PREFIX.equals( prefix ) ) {
@@ -316,6 +318,7 @@ public class ExpressionBuilder extends RuleModellerWidget
                                                                    prevFactName,
                                                                    attrib ) );
             }
+            getCompletionEngine().setFilteringFacts(true);
         }
         Widget w = getWidgetForCurrentType();
 
@@ -361,7 +364,8 @@ public class ExpressionBuilder extends RuleModellerWidget
              || SuggestionCompletionEngine.TYPE_OBJECT.equals( getCurrentGenericType() ) ) {
             return completions;
         }
-
+        
+        getCompletionEngine().setFilteringFacts(false);
         String factName = getCompletionEngine().getFactNameFromType( getCurrentClassType() );
         if ( factName != null ) {
             // we currently only support 0 param method calls
@@ -390,6 +394,7 @@ public class ExpressionBuilder extends RuleModellerWidget
                 }
             }
         }
+        getCompletionEngine().setFilteringFacts(true);
         // else {We don't know anything about this type, so return empty map}
         return completions;
     }
@@ -405,7 +410,7 @@ public class ExpressionBuilder extends RuleModellerWidget
     private SuggestionCompletionEngine getCompletionEngine() {
         return this.getModeller().getSuggestionCompletions();
     }
-
+    
     private String getCurrentClassType() {
         return expression.getClassType();
     }
