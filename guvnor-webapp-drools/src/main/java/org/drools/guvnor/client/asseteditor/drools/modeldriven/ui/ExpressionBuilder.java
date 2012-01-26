@@ -54,6 +54,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import org.drools.ide.common.client.modeldriven.brl.FieldConstraint;
 
 public class ExpressionBuilder extends RuleModellerWidget
     implements
