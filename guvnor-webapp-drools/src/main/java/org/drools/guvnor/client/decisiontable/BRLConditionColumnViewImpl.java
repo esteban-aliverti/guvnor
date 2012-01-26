@@ -127,8 +127,8 @@ public class BRLConditionColumnViewImpl extends AbstractBRLColumnViewImpl<IPatte
         BRLConditionColumn clone = new BRLConditionColumn();
         clone.setHeader( col.getHeader() );
         clone.setHideColumn( col.isHideColumn() );
-        clone.setChildColumns( cloneVariables( col.getChildColumns() ) );
         clone.setDefinition( cloneDefinition( col.getDefinition() ) );
+        clone.setChildColumns( cloneVariables( col.getChildColumns() ) );
         return clone;
     }
 

@@ -26,7 +26,8 @@ import org.apache.abdera.model.Feed;
 import org.apache.abdera.model.Link;
 import org.drools.guvnor.client.rpc.BuilderResult;
 import org.drools.guvnor.client.rpc.BuilderResultLine;
-import org.drools.guvnor.server.builder.PackageDRLAssembler;
+import org.drools.guvnor.server.builder.ModuleAssembler;
+import org.drools.guvnor.server.builder.ModuleAssemblerManager;
 import org.drools.guvnor.server.jaxrs.jaxb.Asset;
 import org.drools.guvnor.server.jaxrs.jaxb.Package;
 import org.drools.repository.AssetHistoryIterator;
@@ -205,11 +206,11 @@ public class PackageResource extends Resource {
     @Produces(MediaType.TEXT_PLAIN)
     public Response getPackageSource(@PathParam("packageName") String packageName) {
         try {
-            ModuleItem packageItem = rulesRepository.loadModule(packageName);
-            PackageDRLAssembler asm = new PackageDRLAssembler(packageItem);
-            String drl = asm.getDRL();
+            ModuleItem moduleItem = rulesRepository.loadModule(packageName);
+            ModuleAssembler moduleAssembler = ModuleAssemblerManager.getModuleAssembler(moduleItem.getFormat(), moduleItem, null);
+            String drl = moduleAssembler.getCompiledSource();
             return Response.ok(drl).header("Content-Disposition", "attachment; filename=" + packageName).
-                    header("Last-Modified", createDateFormat().format(this.convertToGmt(packageItem.getLastModified()).getTime())).build();
+                    header("Last-Modified", createDateFormat().format(this.convertToGmt(moduleItem.getLastModified()).getTime())).build();
         } catch (Exception e) {
             //catch RulesRepositoryException and other exceptions. For example when the package does not exists.
             throw new WebApplicationException(e);
@@ -225,7 +226,7 @@ public class PackageResource extends Resource {
             String fileName = packageName + ".pkg";
             byte[] result;
             if (p.isBinaryUpToDate()) {
-                result = p.getCompiledPackageBytes();
+                result = p.getCompiledBinaryBytes();
             } else {
                 BuilderResult builderResult = repositoryPackageService.buildPackage(p.getUUID(), true);
                 if (builderResult != null) {
@@ -236,7 +237,7 @@ public class PackageResource extends Resource {
                     }
                     return Response.status(500).entity(errs.toString()).build();
                 }
-                result = rulesRepository.loadModule(packageName).getCompiledPackageBytes();
+                result = rulesRepository.loadModule(packageName).getCompiledBinaryBytes();
             }
             return Response.ok(result).header("Content-Disposition", "attachment; filename=" + fileName).
                     header("Last-Modified", createDateFormat().format(this.convertToGmt(p.getLastModified()).getTime())).build();
@@ -297,8 +298,8 @@ public class PackageResource extends Resource {
     public Response getHistoricalPackageSource(@PathParam("packageName") String packageName,
                                                @PathParam("versionNumber") long versionNumber) {
         ModuleItem item = rulesRepository.loadModule(packageName, versionNumber);
-        PackageDRLAssembler asm = new PackageDRLAssembler(item);
-        String drl = asm.getDRL();
+        ModuleAssembler moduleAssembler = ModuleAssemblerManager.getModuleAssembler(item.getFormat(), item, null);
+        String drl = moduleAssembler.getCompiledSource();
         return Response.ok(drl).header("Content-Disposition", "attachment; filename=" + packageName).
                     header("Last-Modified", createDateFormat().format(this.convertToGmt(item.getLastModified()).getTime())).build();
     }
@@ -309,7 +310,7 @@ public class PackageResource extends Resource {
     public Response getHistoricalPackageBinary(@PathParam("packageName") String packageName,
                                                @PathParam("versionNumber") long versionNumber) throws SerializationException {
         ModuleItem p = rulesRepository.loadModule(packageName, versionNumber);
-        byte[] result = p.getCompiledPackageBytes();
+        byte[] result = p.getCompiledBinaryBytes();
         if (result != null) {
             String fileName = packageName + ".pkg";
             return Response.ok(result).header("Content-Disposition", "attachment; filename=" + fileName).

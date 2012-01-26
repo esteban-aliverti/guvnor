@@ -2617,4 +2617,18 @@ public interface Constants
     
     String YouCanOnlyImportOwlOrTtlFiles();
     
+    String DecisionTableBRLFragmentNothingDefined();
+    
+    String DecisionTableBRLFragmentNoTemplateKeysFound();
+    
+    String Paste();
+
+    String RemoveConstraintValueDefinition();
+
+    String RemoveConstraintValueDefinitionQuestion();
+    
+    String RemoveActionValueDefinition();
+
+    String RemoveActionValueDefinitionQuestion();
+
 }

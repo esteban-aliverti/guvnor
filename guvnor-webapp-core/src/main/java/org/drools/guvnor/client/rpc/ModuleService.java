@@ -161,7 +161,7 @@ public interface ModuleService
      *
      * @throws SerializationException
      */
-    public String buildPackageSource(String packageUUID) throws SerializationException;
+    public String buildModuleSource(String packageUUID) throws SerializationException;
 
     /**
      * Copy the module (everything).

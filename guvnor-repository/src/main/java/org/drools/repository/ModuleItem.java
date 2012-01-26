@@ -1022,11 +1022,7 @@ public class ModuleItem extends VersionableItem {
         }
     }
 
-    /**
-     * If the asset is a binary asset, then use this to update the content (do
-     * NOT use text).
-     */
-    public ModuleItem updateCompiledPackage(InputStream data) {
+    public ModuleItem updateCompiledBinary(InputStream data) {
         checkout();
         try {
             Binary binary = this.node.getSession().getValueFactory().createBinary(data);
@@ -1046,7 +1042,7 @@ public class ModuleItem extends VersionableItem {
      * This is a convenience method for returning the binary data as a byte
      * array.
      */
-    public byte[] getCompiledPackageBytes() {
+    public byte[] getCompiledBinaryBytes() {
 
         try {
             Node ruleNode = getVersionContentNode();

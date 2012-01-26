@@ -25,7 +25,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.RequestScoped;
 import javax.jcr.RepositoryException;
 import javax.servlet.http.HttpServletRequest;
 
@@ -38,7 +37,8 @@ import org.drools.compiler.DroolsParserException;
 import org.drools.guvnor.client.common.HTMLFileManagerFields;
 import org.drools.guvnor.server.builder.BRMSPackageBuilder;
 import org.drools.guvnor.server.builder.DSLLoader;
-import org.drools.guvnor.server.builder.PackageDRLAssembler;
+import org.drools.guvnor.server.builder.ModuleAssembler;
+import org.drools.guvnor.server.builder.ModuleAssemblerManager;
 import org.drools.guvnor.server.cache.RuleBaseCache;
 import org.drools.guvnor.server.contenthandler.ContentHandler;
 import org.drools.guvnor.server.contenthandler.ContentManager;
@@ -181,14 +181,14 @@ public class FileManagerService {
         ModuleItem item = null;
         if ( isLatest ) {
             item = repository.loadModule( packageName );
-            byte[] data = item.getCompiledPackageBytes();
+            byte[] data = item.getCompiledBinaryBytes();
             out.write( data );
             out.flush();
             return packageName + ".pkg";
         } else {
             item = repository.loadModuleSnapshot( packageName,
                                                    packageVersion );
-            byte[] data = item.getCompiledPackageBytes();
+            byte[] data = item.getCompiledBinaryBytes();
             out.write( data );
             out.flush();
             return packageName + "_" + URLEncoder.encode( packageVersion,
@@ -211,16 +211,16 @@ public class FileManagerService {
         ModuleItem item = null;
         if ( isLatest ) {
             item = repository.loadModule( packageName );
-            PackageDRLAssembler asm = new PackageDRLAssembler( item );
-            String drl = asm.getDRL();
+            ModuleAssembler moduleAssembler = ModuleAssemblerManager.getModuleAssembler(item.getFormat(), item, null);
+            String drl = moduleAssembler.getCompiledSource();
             out.write( drl.getBytes() );
             out.flush();
             return packageName + ".drl";
         } else {
             item = repository.loadModuleSnapshot( packageName,
                                                    packageVersion );
-            PackageDRLAssembler asm = new PackageDRLAssembler( item );
-            String drl = asm.getDRL();
+            ModuleAssembler moduleAssembler = ModuleAssemblerManager.getModuleAssembler(item.getFormat(), item, null);
+            String drl = moduleAssembler.getCompiledSource();
             out.write( drl.getBytes() );
             out.flush();
             return packageName + "_" + URLEncoder.encode( packageVersion,

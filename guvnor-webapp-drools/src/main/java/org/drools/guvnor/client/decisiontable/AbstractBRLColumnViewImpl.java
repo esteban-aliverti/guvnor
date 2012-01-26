@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.drools.guvnor.client.asseteditor.drools.modeldriven.ui.ModellerWidgetFactory;
 import org.drools.guvnor.client.asseteditor.drools.modeldriven.ui.RuleModelEditor;
 import org.drools.guvnor.client.asseteditor.drools.modeldriven.ui.RuleModeller;
 import org.drools.guvnor.client.asseteditor.drools.modeldriven.ui.RuleModellerConfiguration;
@@ -92,12 +93,6 @@ public abstract class AbstractBRLColumnViewImpl<T, C extends BaseColumn> extends
 
     private static AbstractBRLColumnEditorBinder uiBinder = GWT.create( AbstractBRLColumnEditorBinder.class );
 
-    //TODO {manstis} For Limited Entry
-    @SuppressWarnings("unused")
-    private final SuggestionCompletionEngine     sce;
-    @SuppressWarnings("unused")
-    private final DTCellValueWidgetFactory       factory;
-
     protected final GuidedDecisionTable52        model;
     protected final ClientFactory                clientFactory;
     protected final EventBus                     eventBus;
@@ -116,7 +111,6 @@ public abstract class AbstractBRLColumnViewImpl<T, C extends BaseColumn> extends
                                      final ClientFactory clientFactory,
                                      final EventBus eventBus) {
         this.model = model;
-        this.sce = sce;
         this.isNew = isNew;
         this.eventBus = eventBus;
         this.clientFactory = clientFactory;
@@ -124,17 +118,16 @@ public abstract class AbstractBRLColumnViewImpl<T, C extends BaseColumn> extends
         this.originalCol = column;
         this.editingCol = cloneBRLColumn( column );
 
-        //TODO {manstis} Limited Entry - Set-up factory for common widgets
-        factory = new DTCellValueWidgetFactory( model,
-                                                sce );
-
         setModal( false );
 
         this.ruleModel = getRuleModel( editingCol );
+
+        ModellerWidgetFactory widgetFactory = new TemplateModellerWidgetFactory();
+
         this.ruleModeller = new RuleModeller( asset,
                                               this.ruleModel,
                                               getRuleModellerConfiguration(),
-                                              new TemplateModellerWidgetFactory(),
+                                              widgetFactory,
                                               clientFactory,
                                               eventBus );
 
@@ -146,7 +139,6 @@ public abstract class AbstractBRLColumnViewImpl<T, C extends BaseColumn> extends
         this.brlEditorContainer.setWidth( getPopupWidth() + "px" );
         this.txtColumnHeader.setText( editingCol.getHeader() );
         this.chkHideColumn.setValue( editingCol.isHideColumn() );
-        this.cmdApplyChanges.setEnabled( editingCol.getChildColumns().size() > 0 );
     }
 
     @Override
@@ -239,8 +231,12 @@ public abstract class AbstractBRLColumnViewImpl<T, C extends BaseColumn> extends
                 return;
             }
             //Ensure variables reflect (name) changes made in RuleModeller
-            getDefinedVariables( this.ruleModel );
-            doInsertColumn();
+            if ( getDefinedVariables( this.ruleModel ) ) {
+                doInsertColumn();
+            } else {
+                Window.alert( constants.DecisionTableBRLFragmentNoTemplateKeysFound() );
+                return;
+            }
 
         } else {
             if ( !originalCol.getHeader().equals( editingCol.getHeader() ) ) {
@@ -250,8 +246,12 @@ public abstract class AbstractBRLColumnViewImpl<T, C extends BaseColumn> extends
                 }
             }
             //Ensure variables reflect (name) changes made in RuleModeller
-            getDefinedVariables( this.ruleModel );
-            doUpdateColumn();
+            if ( getDefinedVariables( this.ruleModel ) ) {
+                doUpdateColumn();
+            } else {
+                Window.alert( constants.DecisionTableBRLFragmentNoTemplateKeysFound() );
+                return;
+            }
         }
 
         hide();
@@ -264,15 +264,16 @@ public abstract class AbstractBRLColumnViewImpl<T, C extends BaseColumn> extends
         }
     }
 
-    private void getDefinedVariables(RuleModel ruleModel) {
-        //Extract Template Keys from RuleModel
+    //Extract Template Keys from RuleModel
+    private boolean getDefinedVariables(RuleModel ruleModel) {
         Map<InterpolationVariable, Integer> ivs = new HashMap<InterpolationVariable, Integer>();
         RuleModelVisitor rmv = new RuleModelVisitor( ivs );
         rmv.visit( ruleModel );
 
         //Update column and UI
         editingCol.setChildColumns( convertInterpolationVariables( ivs ) );
-        cmdApplyChanges.setEnabled( editingCol.getChildColumns().size() > 0 );
+
+        return ivs.size() > 0;
     }
 
 }

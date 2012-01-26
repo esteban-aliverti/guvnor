@@ -272,6 +272,8 @@ public class StandaloneEditorManager {
             
             beforeSaveAllButtonCallbackFunction: null,
 
+            afterCloseButtonCallbackFunction: null,
+
             getDRL: function (callbackFunction) {
                 this.drlCallbackFunction = callbackFunction;
                 app.@org.drools.guvnor.client.asseteditor.drools.standalone.StandaloneEditorManager::getDRLs()();
@@ -296,6 +298,10 @@ public class StandaloneEditorManager {
 
             registerAfterCancelButtonCallbackFunction: function (callbackFunction) {
                 this.afterCancelButtonCallbackFunction = callbackFunction;
+            },
+            
+            registerAfterCloseButtonCallbackFunction: function (callbackFunction) {
+                this.afterCloseButtonCallbackFunction = callbackFunction;
             },
 
             getAssetsUUIDs: function() {
@@ -362,9 +368,14 @@ public class StandaloneEditorManager {
     }-*/;
 
     public native void afterCloseButtonCallbackFunction()/*-{
-        $wnd.opener.location.reload();
-        if (confirm("Are you sure you want to close this window?")) {
-            $wnd.close();
+        if ($wnd.guvnorEditorObject.afterCloseButtonCallbackFunction) {
+            $wnd.guvnorEditorObject.afterCloseButtonCallbackFunction();
+        }else{         
+            //default behavior
+            $wnd.opener.location.reload();
+            if (confirm("Are you sure you want to close this window?")) {
+                $wnd.close();
+            }
         }
     }-*/;
 }

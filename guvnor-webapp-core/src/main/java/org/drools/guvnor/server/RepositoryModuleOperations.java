@@ -16,35 +16,25 @@
 package org.drools.guvnor.server;
 
 import com.google.gwt.user.client.rpc.SerializationException;
-import org.drools.RuleBase;
-import org.drools.RuleBaseConfiguration;
-import org.drools.RuleBaseFactory;
-import org.drools.common.DroolsObjectOutputStream;
 import org.drools.compiler.DroolsParserException;
-import org.drools.core.util.DroolsStreamUtils;
 import org.drools.guvnor.client.rpc.*;
 import org.drools.guvnor.server.builder.ModuleAssembler;
-import org.drools.guvnor.server.builder.PackageAssembler;
+import org.drools.guvnor.server.builder.ModuleAssemblerManager;
 import org.drools.guvnor.server.builder.ModuleAssemblerConfiguration;
-import org.drools.guvnor.server.builder.PackageDRLAssembler;
 import org.drools.guvnor.server.builder.pagerow.SnapshotComparisonPageRowBuilder;
 import org.drools.guvnor.server.cache.RuleBaseCache;
 import org.drools.guvnor.server.security.RoleType;
 import org.drools.guvnor.server.util.*;
 import org.drools.repository.*;
-import org.drools.rule.Package;
 import org.jboss.seam.security.Identity;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import javax.jcr.PathNotFoundException;
 import javax.jcr.RepositoryException;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutput;
 import java.util.*;
 
 import static org.drools.guvnor.server.util.ClassicDRLImporter.getRuleName;
@@ -494,10 +484,10 @@ public class RepositoryModuleOperations {
                             enableCategorySelector,
                             customSelectorName ) );
         } catch (NoClassDefFoundError e) {
-            throw new DetailedSerializationException( "Unable to find a class that was needed when building the package  [" + e.getMessage() + "]",
+            throw new DetailedSerializationException( "Unable to find a class that was needed when building the module  [" + e.getMessage() + "]",
                     "Perhaps you are missing them from the model jars, or from the BRMS itself (lib directory)." );
         } catch (UnsupportedClassVersionError e) {
-            throw new DetailedSerializationException( "Can not build the package. One or more of the classes that are needed were compiled with an unsupported Java version.",
+            throw new DetailedSerializationException( "Can not build the module. One or more of the classes that are needed were compiled with an unsupported Java version.",
                     "For example the pojo classes were compiled with Java 1.6 and Guvnor is running on Java 1.5. [" + e.getMessage() + "]" );
         }
     }
@@ -509,10 +499,8 @@ public class RepositoryModuleOperations {
             // we can just return all OK if its up to date.
             return BuilderResult.emptyResult();
         }
-        //TODO: get ModuleAssembler based on module type (ie, drools or SOA etc). This information should be captured by module configuration file.
-        ModuleAssembler moduleAssembler = new PackageAssembler( item,
-                moduleAssemblerConfiguration );
-
+        
+        ModuleAssembler moduleAssembler = ModuleAssemblerManager.getModuleAssembler(item.getFormat(), item, moduleAssemblerConfiguration);
         moduleAssembler.compile();
 
         if ( moduleAssembler.hasErrors() ) {
@@ -522,34 +510,7 @@ public class RepositoryModuleOperations {
             return result;
         }
 
-        updateModuleBinaries( item, moduleAssembler );
-
         return BuilderResult.emptyResult();
-    }
-
-    private void updateModuleBinaries(ModuleItem item, ModuleAssembler modulegeAssembler) throws DetailedSerializationException {
-        try {
-            byte[] compiledPackageByte = modulegeAssembler.getCompiledBinary();
-            item.updateCompiledPackage( new ByteArrayInputStream(compiledPackageByte) );            
-            item.updateBinaryUpToDate( true );
-
-            //REVISIT: This should be handled by PackageAssembler internally
-            if(modulegeAssembler instanceof PackageAssembler) {
-                RuleBase ruleBase = RuleBaseFactory.newRuleBase(
-                    new RuleBaseConfiguration( getClassLoaders( (PackageAssembler)modulegeAssembler ) )
-                );
-                Package binPkg = (Package) DroolsStreamUtils.streamIn( compiledPackageByte );
-
-                ruleBase.addPackage( binPkg );
-            }
-
-            rulesRepository.save();
-        } catch (Exception e) {
-            e.printStackTrace();
-            log.error( "An error occurred building the module [" + item.getName() + "]: " + e.getMessage() );
-            throw new DetailedSerializationException( "An error occurred building the module.",
-                    e.getMessage() );
-        }
     }
 
     private ModuleAssemblerConfiguration createConfiguration(String buildMode, String statusOperator, String statusDescriptionValue, boolean enableStatusSelector, String categoryOperator, String category, boolean enableCategorySelector, String selectorConfigName) {
@@ -563,11 +524,6 @@ public class RepositoryModuleOperations {
         moduleAssemblerConfiguration.setEnableCategorySelector( enableCategorySelector );
         moduleAssemblerConfiguration.setCustomSelectorConfigName( selectorConfigName );
         return moduleAssemblerConfiguration;
-    }
-
-    private ClassLoader[] getClassLoaders(PackageAssembler packageAssembler) {
-        Collection<ClassLoader> loaders = packageAssembler.getBuilder().getRootClassLoader().getClassLoaders();
-        return loaders.toArray( new ClassLoader[loaders.size()] );
     }
 
     private String getCurrentUserName() {
@@ -589,29 +545,26 @@ public class RepositoryModuleOperations {
                         null ) );
     }
 
-    //Drools specific
-    protected String buildPackageSource(String packageUUID) throws SerializationException {
-
-        ModuleItem item = rulesRepository.loadModuleByUUID( packageUUID );
-        PackageDRLAssembler asm = new PackageDRLAssembler( item );
-        return asm.getDRL();
+    protected String buildModuleSource(String moduleUUID) throws SerializationException {
+        ModuleItem item = rulesRepository.loadModuleByUUID( moduleUUID );
+        ModuleAssembler moduleAssembler = ModuleAssemblerManager.getModuleAssembler(item.getFormat(), item, null);
+        return moduleAssembler.getCompiledSource();
     }
 
     //Drools specific
     protected String[] listRulesInPackage(String packageName) throws SerializationException {
-        // load package
         ModuleItem item = rulesRepository.loadModule( packageName );
 
-        PackageDRLAssembler assembler = createPackageDRLAssembler( item );
+        ModuleAssembler moduleAssembler = ModuleAssemblerManager.getModuleAssembler(item.getFormat(), item, null);
 
         List<String> result = new ArrayList<String>();
         try {
 
-            String drl = assembler.getDRL();
+            String drl = moduleAssembler.getCompiledSource();
             if ( drl == null || "".equals( drl ) ) {
                 return new String[0];
             } else {
-                parseRulesToPackageList( assembler,
+                parseRulesToPackageList( moduleAssembler,
                         result );
             }
 
@@ -636,14 +589,10 @@ public class RepositoryModuleOperations {
         return retList.toArray( new String[]{} );
     }
 
-    PackageDRLAssembler createPackageDRLAssembler(final ModuleItem packageItem) {
-        return new PackageDRLAssembler( packageItem );
-    }
-
-    void parseRulesToPackageList(PackageDRLAssembler asm,
+    void parseRulesToPackageList(ModuleAssembler asm,
                                  List<String> result) throws DroolsParserException {
         int count = 0;
-        StringTokenizer stringTokenizer = new StringTokenizer( asm.getDRL(),
+        StringTokenizer stringTokenizer = new StringTokenizer( asm.getCompiledSource(),
                 "\n\r" );
         while (stringTokenizer.hasMoreTokens()) {
             String line = stringTokenizer.nextToken().trim();

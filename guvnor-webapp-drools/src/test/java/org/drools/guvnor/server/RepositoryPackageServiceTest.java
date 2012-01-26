@@ -28,6 +28,7 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import org.drools.Person;
 import org.drools.RuleBase;
@@ -38,6 +39,7 @@ import org.drools.guvnor.client.common.AssetFormats;
 import org.drools.guvnor.client.explorer.ExplorerNodeConfig;
 import org.drools.guvnor.client.rpc.Asset;
 import org.drools.guvnor.client.rpc.BuilderResult;
+import org.drools.guvnor.client.rpc.BuilderResultLine;
 import org.drools.guvnor.client.rpc.DetailedSerializationException;
 import org.drools.guvnor.client.rpc.Module;
 import org.drools.guvnor.client.rpc.SnapshotComparisonPageRequest;
@@ -63,6 +65,7 @@ import org.drools.repository.ModuleItem;
 import org.drools.repository.RulesRepository;
 import org.drools.repository.RulesRepositoryException;
 import org.drools.rule.Package;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.gwt.user.client.rpc.SerializationException;
@@ -248,7 +251,7 @@ public class RepositoryPackageServiceTest extends GuvnorTestBase {
         assertEquals( "version1",
                       p.getCheckinComment() );
         assertFalse( p.isBinaryUpToDate() );
-        byte[] result = p.getCompiledPackageBytes();
+        byte[] result = p.getCompiledBinaryBytes();
         assertNull( result );
 
         //Build package update package node to store compiled binary. This is wont work for a history version
@@ -518,7 +521,7 @@ public class RepositoryPackageServiceTest extends GuvnorTestBase {
         item.updateContent( " rule abc \n when \n then \n System.out.println(42); \n end" );
         item.checkin( "" );
 
-        assertNull( pkg.getCompiledPackageBytes() );
+        assertNull( pkg.getCompiledBinaryBytes() );
 
         long last = pkg.getLastModified().getTimeInMillis();
         Thread.sleep( 100 );
@@ -530,7 +533,7 @@ public class RepositoryPackageServiceTest extends GuvnorTestBase {
         }
 
         assertFalse( pkg.getLastModified().getTimeInMillis() == last );
-        assertNotNull( pkg.getCompiledPackageBytes() );
+        assertNotNull( pkg.getCompiledBinaryBytes() );
 
     }
 
@@ -1088,10 +1091,12 @@ public class RepositoryPackageServiceTest extends GuvnorTestBase {
 
         BuilderResult result = repositoryPackageService.buildPackage( pkg.getUUID(),
                                                                       true );
+        
+        List<BuilderResultLine> lines = result.getLines();
         assertFalse( result.hasLines() );
 
         pkg = repo.loadModule( "testBinaryPackageCompile" );
-        byte[] binPackage = pkg.getCompiledPackageBytes();
+        byte[] binPackage = pkg.getCompiledBinaryBytes();
 
         assertNotNull( binPackage );
 
@@ -1195,7 +1200,7 @@ public class RepositoryPackageServiceTest extends GuvnorTestBase {
         assertFalse( result.hasLines() );
 
         pkg = repo.loadModule( "testBinaryPackageCompileBRL" );
-        byte[] binPackage = pkg.getCompiledPackageBytes();
+        byte[] binPackage = pkg.getCompiledBinaryBytes();
 
         // Here is where we write it out is needed... set to true if needed for
         // the binary test below "testLoadAndExecBinary"
@@ -1318,7 +1323,7 @@ public class RepositoryPackageServiceTest extends GuvnorTestBase {
         func.updateContent( "this is a func" );
         func.checkin( "" );
 
-        String drl = repositoryPackageService.buildPackageSource( pkg.getUUID() );
+        String drl = repositoryPackageService.buildModuleSource( pkg.getUUID() );
         assertNotNull( drl );
 
         assertTrue( drl.indexOf( "import org.goo.Ber" ) > -1 );
@@ -1341,7 +1346,7 @@ public class RepositoryPackageServiceTest extends GuvnorTestBase {
         asset.updateContent( "when \n This is foo \n then \n do something" );
         asset.checkin( "" );
 
-        drl = repositoryPackageService.buildPackageSource( pkg.getUUID() );
+        drl = repositoryPackageService.buildModuleSource( pkg.getUUID() );
         assertNotNull( drl );
 
         assertTrue( drl.indexOf( "import org.goo.Ber" ) > -1 );
