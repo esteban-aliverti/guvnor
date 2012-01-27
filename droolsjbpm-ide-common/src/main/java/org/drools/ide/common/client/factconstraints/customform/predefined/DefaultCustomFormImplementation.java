@@ -27,6 +27,7 @@ public class DefaultCustomFormImplementation implements CustomFormConfiguration,
     private String factType;
     private String fieldName;
     private String url;
+    private boolean useFormIdForRule;
 
     public String getFactType() {
         return this.factType;
@@ -66,6 +67,16 @@ public class DefaultCustomFormImplementation implements CustomFormConfiguration,
 
     public void setCustomFormWidth(int width) {
         this.width = width;
+    }
+
+    @Override
+    public boolean isUseFormIdForRule() {
+        return this.useFormIdForRule;
+    }
+
+    @Override
+    public void setUseFormIdForRule(boolean useFormIdForRule) {
+        this.useFormIdForRule = useFormIdForRule;
     }
 
 }

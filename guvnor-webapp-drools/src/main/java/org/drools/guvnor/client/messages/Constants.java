@@ -2647,4 +2647,18 @@ public interface Constants
 
     String RemoveActionValueDefinitionQuestion();
     
+    String UseFormIdForRuleCreation();
+    
+    String UseFormIdForRuleCreationHelp();
+    
+    String LeaveItBlankIfYouWantToRemoveTheCustomFormURL();
+    
+    String CustomFormURL();
+    
+    String WidthAndHeightMustBeIntegerValues();
+    
+    String WidthColon();
+    
+    String HeightColon();
+    
 }
