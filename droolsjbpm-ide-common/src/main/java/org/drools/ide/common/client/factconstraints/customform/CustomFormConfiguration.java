@@ -20,6 +20,9 @@ import java.io.Serializable;
 
 public interface CustomFormConfiguration extends Serializable{
 
+    boolean isUseFormIdForRule();
+    void setUseFormIdForRule(boolean useFormIdForRule);
+    
     String getFactType();
     void setFactType(String factType);
 

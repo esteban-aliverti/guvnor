@@ -43,11 +43,14 @@ public class CustomFormsEditorPanel extends Composite {
     private TextBox customFormURL = new TextBox();
     private TextBox customFormWidth = new TextBox();
     private TextBox customFormHeight = new TextBox();
+    private CheckBox customFormUseFormIdForRule = new CheckBox();
     private boolean validFactsChanged = true;
     private Map<String, ConstraintConfiguration> contraintsMap = new HashMap<String, ConstraintConfiguration>();
     private final Asset workingSet;
     private final WorkingSetEditor workingSetEditor;
 
+    private Constants constants = GWT.create(Constants.class);
+    
     public CustomFormsEditorPanel(final WorkingSetEditor workingSetEditor) {
 
         this.workingSetEditor = workingSetEditor;
@@ -57,9 +60,11 @@ public class CustomFormsEditorPanel extends Composite {
         factsCombo.setVisibleItemCount(1);
         fieldsCombo.setVisibleItemCount(1);
         customFormURL.setWidth("400px");
-        customFormURL.setTitle("Leave it blank if you want to remove the Custom Form URL"); //TODO: I18N
+        customFormURL.setTitle(constants.LeaveItBlankIfYouWantToRemoveTheCustomFormURL());
         customFormHeight.setWidth("50px");
         customFormWidth.setWidth("50px");
+        
+        customFormUseFormIdForRule.setTitle(constants.UseFormIdForRuleCreationHelp());
 
         factsCombo.addChangeHandler(new ChangeHandler() {
             public void onChange(ChangeEvent event) {
@@ -90,7 +95,7 @@ public class CustomFormsEditorPanel extends Composite {
                 vp);
 
         vp = new VerticalPanel();
-        vp.add(new SmallLabel("Custom Form URL:")); //TODO i18n
+        vp.add(new SmallLabel(constants.CustomFormURL()));
 
         Button btnUpdateURL = new Button(Constants.INSTANCE.OK(),
                 new ClickHandler() {
@@ -103,7 +108,7 @@ public class CustomFormsEditorPanel extends Composite {
                             w = Integer.parseInt(customFormWidth.getText());
                             h = Integer.parseInt(customFormHeight.getText());
                         } catch (NumberFormatException ex) {
-                            Window.alert("Width and Height must be integer values!"); //TODO: I18N
+                            Window.alert(constants.WidthAndHeightMustBeIntegerValues());
                             return;
                         }
 
@@ -120,17 +125,20 @@ public class CustomFormsEditorPanel extends Composite {
                         newCustomFormConfiguration.setCustomFormURL(customFormURL.getText());
                         newCustomFormConfiguration.setCustomFormWidth(w);
                         newCustomFormConfiguration.setCustomFormHeight(h);
-
+                        newCustomFormConfiguration.setUseFormIdForRule(customFormUseFormIdForRule.getValue());
+                        
                         workingSetEditor.getCustomFormsContainer().putCustomForm(newCustomFormConfiguration);
                         ((WorkingSetConfigData) workingSet.getContent()).customForms = workingSetEditor.getCustomFormsContainer().getCustomForms();
                     }
                 });
 
         vp.add(customFormURL);
-        vp.add(new SmallLabel("Width:"));
+        vp.add(new SmallLabel(constants.WidthColon()));
         vp.add(customFormWidth);
-        vp.add(new SmallLabel("Height:"));
+        vp.add(new SmallLabel(constants.HeightColon()));
         vp.add(customFormHeight);
+        vp.add(new SmallLabel(constants.UseFormIdForRuleCreation()));
+        vp.add(customFormUseFormIdForRule);
         table.setWidget(2,
                 0,
                 vp);
@@ -192,10 +200,12 @@ public class CustomFormsEditorPanel extends Composite {
                 this.customFormURL.setText(customForm.getCustomFormURL());
                 this.customFormWidth.setText(String.valueOf(customForm.getCustomFormWidth()));
                 this.customFormHeight.setText(String.valueOf(customForm.getCustomFormHeight()));
+                this.customFormUseFormIdForRule.setValue(customForm.isUseFormIdForRule());
             } else {
                 this.customFormURL.setText("");
                 this.customFormWidth.setText("");
                 this.customFormHeight.setText("");
+                this.customFormUseFormIdForRule.setValue(false);
             }
         }
     }

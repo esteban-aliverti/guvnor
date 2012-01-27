@@ -2856,4 +2856,19 @@ public interface Constants
     String WarningWorkingSet0DoesNotExistInTheRepositoryAnymore(String workingSet);
     
     String RemoveThisWorkingSetFromTheDefaultWorkingSetsList();
+
+    String UseFormIdForRuleCreation();
+    
+    String UseFormIdForRuleCreationHelp();
+    
+    String LeaveItBlankIfYouWantToRemoveTheCustomFormURL();
+    
+    String CustomFormURL();
+    
+    String WidthAndHeightMustBeIntegerValues();
+    
+    String WidthColon();
+    
+    String HeightColon();
+    
 }
