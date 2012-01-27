@@ -240,7 +240,12 @@ public class ConstraintValueEditor extends DirtyableComposite {
                                                                                                                           pattern.getFactType(),
                                                                                                                           fieldName );
             if ( customFormConfiguration != null ) {
-                Button btnCustom = new Button( con.getValue(),
+                String buttonLabel = con.getValue();
+                if (customFormConfiguration.isUseFormIdForRule()){
+                    buttonLabel = con.getId();
+                }
+                
+                Button btnCustom = new Button( buttonLabel,
                                                new ClickHandler() {
 
                                                    public void onClick(ClickEvent event) {
@@ -406,7 +411,7 @@ public class ConstraintValueEditor extends DirtyableComposite {
     private void showTypeChoice(Widget w,
                                 final BaseSingleFieldConstraint con) {
 
-        CustomFormConfiguration customFormConfiguration = WorkingSetManager.getInstance().getCustomFormConfiguration( modeller.getAsset().getMetaData().getModuleName(),
+        final CustomFormConfiguration customFormConfiguration = WorkingSetManager.getInstance().getCustomFormConfiguration( modeller.getAsset().getMetaData().getModuleName(),
                                                                                                                       pattern.getFactType(),
                                                                                                                       fieldName );
 
@@ -425,14 +430,25 @@ public class ConstraintValueEditor extends DirtyableComposite {
 
                 public void onClick(ClickEvent event) {
                     sfc.setConstraintValueType( SingleFieldConstraint.TYPE_LITERAL );
-                    sfc.setId( customFormPopUp.getFormId() );
-                    sfc.setValue( customFormPopUp.getFormValue() );
+                    if (customFormConfiguration.isUseFormIdForRule()){
+                        sfc.setId( customFormPopUp.getFormValue() );
+                        sfc.setValue( customFormPopUp.getFormId() );
+                    }else{
+                        sfc.setId( customFormPopUp.getFormId() );
+                        sfc.setValue( customFormPopUp.getFormValue() );
+                    }
                     doTypeChosen( customFormPopUp );
                 }
             } );
 
-            customFormPopUp.show( sfc.getId(),
+            if (customFormConfiguration.isUseFormIdForRule()){
+                customFormPopUp.show( sfc.getValue(),
+                                  sfc.getId() );
+            }else{
+                customFormPopUp.show( sfc.getId(),
                                   sfc.getValue() );
+            }
+            
             return;
         }
 

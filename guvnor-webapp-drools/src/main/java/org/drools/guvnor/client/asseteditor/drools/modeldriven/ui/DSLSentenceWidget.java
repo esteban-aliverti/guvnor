@@ -508,14 +508,18 @@ public class DSLSentenceWidget extends RuleModellerWidget {
 
         public DSLCustomFormButton(final String variableDef,
                            final DSLVariableValue value, 
-                           CustomFormConfiguration customFormConfiguration,
+                           final CustomFormConfiguration customFormConfiguration,
                            boolean readonly) {
 
             this.customFormConfiguration = customFormConfiguration;
             
             this.selectedValue = value;
             
-            this.btnCustomForm = new Button( selectedValue.getValue());
+            String buttonLabel = selectedValue.getValue();
+            if (customFormConfiguration.isUseFormIdForRule() && selectedValue instanceof DSLComplexVariableValue){
+                buttonLabel = ((DSLComplexVariableValue)selectedValue).getId();
+            }
+            this.btnCustomForm = new Button( buttonLabel);
 
             this.btnCustomForm.setEnabled(!readonly);
             
@@ -535,9 +539,13 @@ public class DSLSentenceWidget extends RuleModellerWidget {
                             public void onClick(ClickEvent event) {
                                 String id = customFormPopUp.getFormId();
                                 String value = customFormPopUp.getFormValue();
-                                btnCustomForm.setText(value);
                                 
-                                selectedValue = new DSLComplexVariableValue(id, value);
+                                btnCustomForm.setText(value);
+                                if (customFormConfiguration.isUseFormIdForRule()){
+                                    selectedValue = new DSLComplexVariableValue(value, id);
+                                }else{
+                                    selectedValue = new DSLComplexVariableValue(id, value);
+                                }
                                 
                                 updateSentence();
                                 makeDirty();
@@ -550,8 +558,14 @@ public class DSLSentenceWidget extends RuleModellerWidget {
                         //if not, only the value is passed and "" is passed as id
                         if (selectedValue instanceof DSLComplexVariableValue){
                             DSLComplexVariableValue complexSelectedValue = (DSLComplexVariableValue) selectedValue;
-                            customFormPopUp.show( complexSelectedValue.getId(),
+                            if (customFormConfiguration.isUseFormIdForRule()){
+                                customFormPopUp.show( complexSelectedValue.getValue(),
+                                  complexSelectedValue.getId());
+                            }else{
+                                customFormPopUp.show( complexSelectedValue.getId(),
                                   complexSelectedValue.getValue());
+                            }
+                            
                         }else{
                             customFormPopUp.show( "",
                                   selectedValue.getValue());
