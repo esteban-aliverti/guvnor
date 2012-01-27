@@ -528,6 +528,12 @@ public class DSLSentenceWidget extends RuleModellerWidget {
             this.customFormConfiguration = customFormConfiguration;
 
             this.selectedValue = value;
+            
+            String buttonLabel = selectedValue.getValue();
+            if (customFormConfiguration.isUseFormIdForRule() && selectedValue instanceof DSLComplexVariableValue){
+                buttonLabel = ((DSLComplexVariableValue)selectedValue).getId();
+            }
+            this.btnCustomForm = new Button( buttonLabel);
 
             this.btnCustomForm = new Button( selectedValue.getValue() );
 
