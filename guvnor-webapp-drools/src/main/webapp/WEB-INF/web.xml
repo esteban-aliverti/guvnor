@@ -17,6 +17,42 @@
   <!--<filter-name>Seam Filter</filter-name>-->
   <!--<url-pattern>/*</url-pattern>-->
   <!--</filter-mapping>-->
+    <filter>
+        <filter-name>SSOFilter</filter-name>
+        <filter-class>org.drools.guvnor.server.sso.SecurityFilter</filter-class>
+        <init-param>
+            <param-name>securityCallbackURL</param-name>
+            <param-value>/SecurityCallBackServlet</param-value>
+        </init-param>
+        <!-- Identity Provider URL -->
+        <init-param>
+            <param-name>identityProviderURL</param-name>
+            <param-value>https://localhost:9443/samlsso</param-value>
+        </init-param>
+        <init-param>
+            <param-name>serviceProviderId</param-name>
+            <param-value>Guvnor</param-value>
+        </init-param>
+        <!-- Key Store Name-->
+        <init-param>
+            <param-name>keyStoreName</param-name>
+            <param-value>/home/esteban/programs/wso2is-3.2.2/repository/resources/security/wso2carbon.jks</param-value>
+        </init-param>
+        <!-- Key Store password -->
+        <init-param>
+            <param-name>keyStorePassword</param-name>
+            <param-value>wso2carbon</param-value>
+        </init-param>
+        <!-- Alias of the public key of the identity provider -->
+        <init-param>
+            <param-name>identityAlias</param-name>
+            <param-value>wso2carbon</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>SSOFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
   <listener>
     <listener-class>org.drools.guvnor.server.repository.SafeWeldListener</listener-class>
   </listener>

@@ -385,6 +385,18 @@
       <groupId>org.drools</groupId>
       <artifactId>guvnor-webapp-core</artifactId>
     </dependency>
+    
+    <dependency>
+        <groupId>org.opensaml</groupId>
+        <artifactId>opensaml</artifactId>
+        <version>2.5.1-1</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-api</artifactId>
+        <version>2.5.2</version>
+    </dependency>
+    
     <dependency>
       <groupId>org.drools</groupId>
       <artifactId>drools-scorecards</artifactId>
@@ -471,6 +483,13 @@
       <scope>provided</scope>
       <!-- HACK to remove it from the runtime classpath -->
     </dependency>
+    <dependency>
+      <groupId>org.apache.cxf</groupId>
+      <artifactId>cxf-testutils</artifactId>
+      <version>2.5.2</version>
+      <scope>test</scope>
+    </dependency>
+
     <!-- gwt-dev is EVIL: it shades classes. It should be dead last on the classpath to cause the least havoc -->
     <dependency><!-- Not needed at runtime, only at compile time, should be a dependency on gwt-maven-plugin -->
       <groupId>com.google.gwt</groupId>
