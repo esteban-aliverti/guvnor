@@ -7,6 +7,7 @@ import java.io.StringWriter;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import javax.inject.Inject;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,10 +26,11 @@ public class SecurityFilter implements Filter {
     
     private String securityCallbackURL = null;
     
+    @Inject
     private InternalAuthenticator internalAuthenticator;
     
     private HttpAuthenticationProvider authenticationProvider;
-
+    
     public SecurityFilter() {
     }
 
@@ -36,6 +38,11 @@ public class SecurityFilter implements Filter {
             throws IOException, ServletException {
         if (debug) {
             log("SecurityFilter:DoBeforeProcessing");
+        }
+        
+        //skip this for webdav
+        if (request.getServletPath().equals("/org.drools.guvnor.GuvnorDrools/webdav") || request.getServletPath().equals("/org.drools.guvnor.Guvnor/webdav")){
+            return true;
         }
         
         //is security callback -> process it
@@ -172,9 +179,6 @@ public class SecurityFilter implements Filter {
             throw new IllegalStateException("securityCallbackURL was not specified!");
         }
 
-        internalAuthenticator = new InternalAuthenticator();
-        
-        //authenticationProvider = new OpenSSOAuthenticationProvider();
         authenticationProvider = new WSO2AuthenticationProvider();
         
         authenticationProvider.configure(this.securityCallbackURL, this.getConfigurationParameters(filterConfig));

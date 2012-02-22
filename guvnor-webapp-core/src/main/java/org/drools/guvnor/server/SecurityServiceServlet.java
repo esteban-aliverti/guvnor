@@ -82,4 +82,11 @@ public class SecurityServiceServlet extends RemoteServiceServlet implements Secu
         securityService.logout();
     }
 
+    @Override
+    public String getSecurityToken() {
+        return securityService.getSecurityToken();
+    }
+    
+    
+
 }

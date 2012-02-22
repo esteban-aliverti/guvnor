@@ -50,14 +50,16 @@ public class OryxEditorServlet extends HttpServlet {
         } */
 
         // log in
-        credentials.setUsername(usr);
-        credentials.setCredential(new org.picketlink.idm.impl.api.PasswordCredential(pwd));
-
-        identity.login();
         if ( !identity.isLoggedIn() ) {
-            throw new ServletException(new IllegalArgumentException("Unable to authenticate user."));
+            credentials.setUsername(usr);
+            credentials.setCredential(new org.picketlink.idm.impl.api.PasswordCredential(pwd));
+
+            identity.login();
+            if ( !identity.isLoggedIn() ) {
+                throw new ServletException(new IllegalArgumentException("Unable to authenticate user."));
+            }
+            log.debug("Successful login");
         }
-        log.debug("Successful login");
 
         try {
             Asset asset = repositoryAssetService.loadRuleAsset(uuid);
