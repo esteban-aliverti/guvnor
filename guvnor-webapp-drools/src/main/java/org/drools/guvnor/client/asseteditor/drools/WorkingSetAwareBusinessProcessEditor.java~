@@ -16,14 +16,12 @@
 package org.drools.guvnor.client.asseteditor.drools;
 
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.http.client.URL;
 import java.util.Set;
 import org.drools.guvnor.client.asseteditor.BusinessProcessEditor;
 import org.drools.guvnor.client.asseteditor.RuleViewer;
-import org.drools.guvnor.client.configurations.SecurityPreferences;
 import org.drools.guvnor.client.explorer.ClientFactory;
 import org.drools.guvnor.client.moduleeditor.drools.WorkingSetManager;
-import org.drools.guvnor.client.rpc.Asset;
+import org.drools.guvnor.client.rpc.RuleAsset;
 
 /**
  * An extension of org.drools.guvnor.client.asseteditor.BusinessProcessEditor
@@ -31,7 +29,7 @@ import org.drools.guvnor.client.rpc.Asset;
  */
 public class WorkingSetAwareBusinessProcessEditor extends BusinessProcessEditor {
 
-    public WorkingSetAwareBusinessProcessEditor(Asset asset, RuleViewer viewer, ClientFactory clientFactory, EventBus eventBus) {
+    public WorkingSetAwareBusinessProcessEditor(RuleAsset asset, RuleViewer viewer, ClientFactory clientFactory, EventBus eventBus) {
         super(asset, viewer, clientFactory, eventBus);
     }
 
@@ -41,20 +39,14 @@ public class WorkingSetAwareBusinessProcessEditor extends BusinessProcessEditor 
     @Override
     protected String preprocessURL(String url) {
         //Send workingset information
-        Set<String> activeWorkingSetsUUIDs = WorkingSetManager.getInstance().getActiveAssetUUIDs(getAsset().metaData.moduleName);
+        Set<String> activeWorkingSetsUUIDs = WorkingSetManager.getInstance().getActiveAssetUUIDs(asset.metaData.packageName);
         
         if (activeWorkingSetsUUIDs != null){
             for (String workingSetUUID : activeWorkingSetsUUIDs) {
                 url += "&wsUuid="+workingSetUUID;
             }
         }
-        url += "&securityToken="+encodeURIComponent(SecurityPreferences.getInstance().getSecurityToken());
-
         return url;
     }
-    
-    public static String encodeURIComponent(String s) {
-        return URL.encodeQueryString(s);
-    } 
     
 }

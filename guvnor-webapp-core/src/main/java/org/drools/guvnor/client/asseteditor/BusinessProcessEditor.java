@@ -28,6 +28,7 @@ import com.google.gwt.dom.client.IFrameElement;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Frame;
+import org.drools.guvnor.client.configurations.SecurityPreferences;
 
 /**
  * The Business Process Editor, wrapping the Process Editor
