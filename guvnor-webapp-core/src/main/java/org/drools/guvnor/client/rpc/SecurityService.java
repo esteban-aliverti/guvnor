@@ -54,5 +54,7 @@ public interface SecurityService
      * Based on the users roles and permissions.
      */
     public List<Capability> getUserCapabilities();
+    
+    public String getSecurityToken();
 
 }

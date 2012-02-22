@@ -122,6 +122,14 @@ public class GuvnorDroolsEntryPoint
     private void loadUserCapabilities(final String userName) {
         ConfigurationsLoader.loadUserCapabilities(new Command() {
             public void execute() {
+                loadSecurityPreferences(userName);
+            }
+        });
+    }
+    
+    private void loadSecurityPreferences(final String userName) {
+        ConfigurationsLoader.loadSecurityPreferences(new Command() {
+            public void execute() {
                 setUpMain(userName);
             }
         });

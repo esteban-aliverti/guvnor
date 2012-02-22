@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.drools.guvnor.server.sso.AuthenticationFailedException;
 import org.drools.guvnor.server.sso.HttpAuthenticationProvider;
 import org.drools.guvnor.server.sso.InternalAuthenticator;
+import org.drools.util.codec.Base64;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.LogoutResponse;
@@ -78,13 +79,10 @@ public class WSO2AuthenticationProvider implements HttpAuthenticationProvider {
                 respEncoded = request.getHeader("SAMLResponseEncoded");
             }
             
-            if (respEncoded != null && respEncoded.equalsIgnoreCase("true")){
+            if ("true".equals(respEncoded)){
                 resp = Saml2Util.decode(resp);
             }
             
-            System.out.println("\n\n");
-            System.out.println(resp);
-            System.out.println("\n\n");
             
             XMLObject samlObject = Saml2Util.unmarshall(resp);
             
@@ -114,7 +112,6 @@ public class WSO2AuthenticationProvider implements HttpAuthenticationProvider {
             if(!Saml2Util.validateSignature(samlResponse)){
                 throw new AuthenticationFailedException("Invalid username/password!");
             }
-            
             
             internalAuthenticator.authenticate(username, Saml2Util.encode(resp), request, response);
             

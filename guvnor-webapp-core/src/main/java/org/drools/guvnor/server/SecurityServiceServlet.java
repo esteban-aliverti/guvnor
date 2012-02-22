@@ -86,4 +86,11 @@ public class SecurityServiceServlet
         securityService.logout();
     }
 
+    @Override
+    public String getSecurityToken() {
+        return securityService.getSecurityToken();
+    }
+    
+    
+
 }
