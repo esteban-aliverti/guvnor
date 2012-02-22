@@ -51,5 +51,7 @@ public interface SecurityService extends RemoteService {
      * Based on the users roles and permissions.
      */
     public List<Capability> getUserCapabilities();
+    
+    public String getSecurityToken();
 
 }

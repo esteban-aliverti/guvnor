@@ -46,6 +46,15 @@ public class ConfigurationsLoader {
             }
         });
     }
+    
+    public static void loadSecurityPreferences(final Command command) {
+        RepositoryServiceFactory.getSecurityService().getSecurityToken(new GenericCallback<String>() {
+            public void onSuccess(String securityToken) {
+                SecurityPreferences.getInstance().setSecurityToken(securityToken);
+                executeCommand(command);
+            }
+        });
+    }
 
     private static void executeCommand(Command command) {
         if (command != null) {

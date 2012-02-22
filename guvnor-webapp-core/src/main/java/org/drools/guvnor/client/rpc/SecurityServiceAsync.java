@@ -37,4 +37,6 @@ public interface SecurityServiceAsync {
     public void getCurrentUser(AsyncCallback<UserSecurityContext> cb);
 
     public void getUserCapabilities(AsyncCallback<List<Capability>> capabilities);
+    
+    public void getSecurityToken(AsyncCallback<String> securityToken);
 }

@@ -59,6 +59,9 @@ public class SecurityServiceImpl implements SecurityService {
 
     @Inject
     private Credentials credentials;
+    
+    @Inject
+    private SSOSecurityStore sSOSecurityStore;
 
     public boolean login(String userName,
                          String password) {
@@ -139,6 +142,11 @@ public class SecurityServiceImpl implements SecurityService {
             }
         }
         return false;
+    }
+
+    @Override
+    public String getSecurityToken() {
+        return sSOSecurityStore.getSecurityToken();
     }
 
 }
