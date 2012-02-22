@@ -63,7 +63,7 @@ public class BusinessProcessEditor extends DirtyableComposite
          } **/
 
         name = "/"+ApplicationPreferences.getDesignerContext()+"/editor/?uuid=" + modelUUID + "&profile="+ApplicationPreferences.getDesignerProfile();
-        name += "&securityToken="+SecurityPreferences.getInstance().getSecurityToken();
+        name = this.preprocessURL(name);
         frame = new Frame( name );
         frame.getElement().setAttribute( "domain",
                                          Document.get().getDomain() );
@@ -74,6 +74,16 @@ public class BusinessProcessEditor extends DirtyableComposite
         setHeight( "100%" );
     }
 
+    /**
+     * Hook point for subclasses to preprocess the URL created by this component
+     * This implementation does nothing.
+     * @param url
+     * @return 
+     */
+    protected String preprocessURL(String url){
+        return url;
+    }
+    
     private final native String callSave(Document frameDoc) /*-{
                                                             return frameDoc.defaultView.ORYX.EDITOR.getSerializedJSON();
                                                             }-*/;
