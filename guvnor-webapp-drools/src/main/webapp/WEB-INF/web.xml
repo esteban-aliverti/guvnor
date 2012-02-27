@@ -322,7 +322,7 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>OWLFileServlet</servlet-name>
-    <url-pattern>/org.drools.guvnor.GuvnorDrools/owl</url-pattern>
+    <url-pattern>/org.drools.guvnor.Guvnor/owl</url-pattern>
   </servlet-mapping>
   <session-config>
     <session-timeout>180</session-timeout>
