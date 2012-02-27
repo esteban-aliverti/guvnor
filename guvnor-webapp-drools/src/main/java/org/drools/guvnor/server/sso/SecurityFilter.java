@@ -40,10 +40,17 @@ public class SecurityFilter implements Filter {
             log("SecurityFilter:DoBeforeProcessing");
         }
         
-        //skip this for webdav
-        if (request.getServletPath().equals("/org.drools.guvnor.GuvnorDrools/webdav") || request.getServletPath().equals("/org.drools.guvnor.Guvnor/webdav")){
-            return true;
-        }
+//        //skip this for webdav
+//        if (request.getServletPath().equals("/org.drools.guvnor.GuvnorDrools/webdav") || request.getServletPath().equals("/org.drools.guvnor.Guvnor/webdav")){
+//            return true;
+//        }
+//        
+//        //skip this for feed
+//        if (request.getServletPath().equals("/org.drools.guvnor.GuvnorDrools/feed") || request.getServletPath().equals("/org.drools.guvnor.Guvnor/feed")){
+//            return true;
+//        }
+        
+        
         
         //is security callback -> process it
         if (request.getServletPath().equals(this.securityCallbackURL)){
@@ -72,6 +79,11 @@ public class SecurityFilter implements Filter {
                     //do nothing. The user will be redirected to login page.
                 }
             }
+            //is Authentication header attribute present? The concrete authenticator will handle this later.
+            if (request.getHeader("Authorization") != null){
+                return true;
+            }
+            
             //invalid? -> do login please
             authenticationProvider.doLoginRedirect(request, response);
             return false;
