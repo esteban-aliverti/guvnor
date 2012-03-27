@@ -72,7 +72,7 @@
     <module>guvnor-webapp-drools</module>
     <!--module>guvnor-webapp-soa</module-->
     <module>guvnor-bulk-importer</module>
-    <module>guvnor-examples</module>
+    <!--module>guvnor-examples</module-->
   </modules>
 
   <profiles>
