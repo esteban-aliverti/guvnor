@@ -28,6 +28,7 @@ import org.drools.repository.RulesRepository;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.drools.guvnor.server.RepositoryCategoryService;
+import org.drools.guvnor.server.files.FileManagerService;
 import org.drools.guvnor.server.util.drools.OWLImporter;
 import org.jboss.seam.security.annotations.LoggedIn;
 import org.jboss.seam.security.Identity;
@@ -47,6 +48,9 @@ public class OWLFileManagerService {
     
     @Inject
     protected RepositoryCategoryService repositoryCategoryService;
+    
+    @Inject
+    protected FileManagerService fileManagerService;
 
     
     @LoggedIn
@@ -54,7 +58,7 @@ public class OWLFileManagerService {
                                                       DroolsParserException, 
                                                       SerializationException {
         
-        OWLImporter importer = new OWLImporter(repository, repositoryCategoryService, owlStream);
+        OWLImporter importer = new OWLImporter(repository, repositoryCategoryService, fileManagerService, owlStream);
         
         String packageName = importer.getPackageName();
         

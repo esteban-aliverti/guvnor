@@ -136,6 +136,9 @@ public class AssetFormats {
 
     public static final String PMML_DEFINITION = "pmml";
     
+    public static final String ATTACHED_DRL = "drl.attached";
+    public static final String ATTACHED_MODEL_DESCRIPTOR = "modelDescriptor.attached";
+    
     /**
      * The following group the assets together for lists, helpers etc...
      */
