@@ -35,6 +35,7 @@ import javax.ws.rs.core.UriInfo;
 import javax.xml.namespace.QName;
 import java.net.URI;
 import java.util.*;
+import org.apache.abdera.model.AtomDate;
 
 
 public class Translator {
@@ -46,6 +47,8 @@ public class Translator {
     public static final QName STATE = new QName(NS, "state");
     public static final QName FORMAT = new QName(NS, "format");
     public static final QName CATEGORIES = new QName(NS, "categories");
+    public static final QName VERSION = new QName(NS, "version");
+    public static final QName CREATED = new QName(NS, "created");
 
     public static Category toCategory(CategoryItem categoryItem, UriInfo uriInfo) {
         Category category = new Category();
@@ -69,6 +72,7 @@ public class Translator {
         metadata.setCreatedBy(a.getCreator());
         metadata.setDisabled(a.getDisabled());
         metadata.setFormat(a.getFormat());
+        metadata.setState(a.getState() == null ? "" : a.getState().getName());
         metadata.setNote("<![CDATA[ " + a.getCheckinComment() + " ]]>");
         List<CategoryItem> categories = a.getCategories();
         //TODO: Is this a bug since cat's are never assigned to metadata after this?
@@ -272,6 +276,12 @@ while (i.hasNext()) {
         childExtension = extension.addExtension(FORMAT);
         childExtension.addSimpleExtension(VALUE, a.getFormat());
 
+        childExtension = extension.addExtension(CREATED);
+        childExtension.addSimpleExtension(VALUE, AtomDate.format(a.getCreatedDate().getTime()));
+        
+        childExtension = extension.addExtension(VERSION);
+        childExtension.addSimpleExtension(VALUE, String.valueOf(a.getVersionNumber()));
+        
         List<CategoryItem> categories = a.getCategories();
         childExtension = extension.addExtension(CATEGORIES);
         for (CategoryItem c : categories) {

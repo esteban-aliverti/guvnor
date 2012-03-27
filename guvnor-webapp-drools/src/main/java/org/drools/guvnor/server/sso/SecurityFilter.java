@@ -40,10 +40,10 @@ public class SecurityFilter implements Filter {
             log("SecurityFilter:DoBeforeProcessing");
         }
         
-//        //skip this for webdav
-//        if (request.getServletPath().equals("/org.drools.guvnor.GuvnorDrools/webdav") || request.getServletPath().equals("/org.drools.guvnor.Guvnor/webdav")){
-//            return true;
-//        }
+        //skip this for webdav
+        if (request.getServletPath().equals("/org.drools.guvnor.GuvnorDrools/webdav") || request.getServletPath().equals("/org.drools.guvnor.Guvnor/webdav")){
+            return true;
+        }
 //        
 //        //skip this for feed
 //        if (request.getServletPath().equals("/org.drools.guvnor.GuvnorDrools/feed") || request.getServletPath().equals("/org.drools.guvnor.Guvnor/feed")){

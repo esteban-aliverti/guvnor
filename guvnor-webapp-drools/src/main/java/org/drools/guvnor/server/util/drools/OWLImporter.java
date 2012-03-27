@@ -20,7 +20,12 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import org.antlr.stringtemplate.StringTemplate;
+import org.apache.commons.io.IOUtils;
 import org.drools.guvnor.client.common.AssetFormats;
 import org.drools.guvnor.client.rpc.Asset;
 import org.drools.guvnor.client.rpc.WorkingSetConfigData;
@@ -29,6 +34,7 @@ import org.drools.guvnor.server.contenthandler.ContentHandler;
 import org.drools.guvnor.server.contenthandler.ContentManager;
 import org.drools.guvnor.server.contenthandler.ICanHasAttachment;
 import org.drools.guvnor.server.contenthandler.drools.WorkingSetHandler;
+import org.drools.guvnor.server.files.FileManagerService;
 import org.drools.io.ResourceFactory;
 import org.drools.repository.AssetItem;
 import org.drools.repository.ModuleItem;
@@ -36,10 +42,14 @@ import org.drools.repository.RulesRepository;
 import org.drools.repository.RulesRepositoryException;
 import org.drools.semantics.builder.DLFactory;
 import org.drools.semantics.builder.DLFactoryBuilder;
+import org.drools.semantics.builder.model.Concept;
+import org.drools.semantics.builder.model.DRLModel;
 import org.drools.semantics.builder.model.JarModel;
 import org.drools.semantics.builder.model.ModelFactory;
 import org.drools.semantics.builder.model.OntoModel;
+import org.drools.semantics.builder.model.PropertyRelation;
 import org.drools.semantics.builder.model.WorkingSetModel;
+import org.drools.semantics.builder.model.XSDModel;
 import org.drools.semantics.builder.model.compilers.ModelCompiler;
 import org.drools.semantics.builder.model.compilers.ModelCompilerFactory;
 import org.drools.semantics.util.SemanticWorkingSetConfigData;
@@ -56,10 +66,13 @@ public class OWLImporter {
     private final RepositoryCategoryService categoryService;
     private final OntoModel ontoModel;
     private final RulesRepository repositoryService;
+    
+    private final FileManagerService fileManagerService;
 
-    public OWLImporter(RulesRepository repository, RepositoryCategoryService categoryService, InputStream owlDefinitionStream) {
+    public OWLImporter(RulesRepository repository, RepositoryCategoryService categoryService, FileManagerService fileManagerService, InputStream owlDefinitionStream) {
         this.categoryService = categoryService;
         this.repositoryService = repository;
+        this.fileManagerService = fileManagerService;
         
         DLFactory dLFactory = DLFactoryBuilder.newDLFactoryInstance();
         ontoModel = dLFactory.buildModel("ontomodel", ResourceFactory.newInputStreamResource(owlDefinitionStream));
@@ -81,9 +94,19 @@ public class OWLImporter {
         WorkingSetModel compiledWSModel = (WorkingSetModel) wsCompiler.compile(ontoModel);
         SemanticWorkingSetConfigData semanticWorkingSet = compiledWSModel.getWorkingSet();
         
+        //Get the Fact Types DRL from onto-model
+        ModelCompiler drlCompiler = ModelCompilerFactory.newModelCompiler(ModelFactory.CompileTarget.DRL);
+        DRLModel drlModel = (DRLModel)drlCompiler.compile(ontoModel);
+        
+        //Get the Fact Types XSD from onto-model
+        ModelCompiler xsdCompiler = ModelCompilerFactory.newModelCompiler(ModelFactory.CompileTarget.XSD);
+        XSDModel xsdModel = (XSDModel)xsdCompiler.compile(ontoModel);
+        
         //convert from semantic to guvnor model
         WorkingSetConfigData workingSetConfigData = this.convertSemanticWorkingSetConfigData(semanticWorkingSet);
         
+        //create a second Working-Set for the Configuration (Cohort) Facts
+        WorkingSetConfigData cohortWorkingSetConfigData = this.convertSemanticWorkingSetConfigData("Configuration Facts", semanticWorkingSet);
         
         //create categories from working-set data
         this.createCategoryTreeFromWorkingSet(workingSetConfigData);
@@ -91,8 +114,15 @@ public class OWLImporter {
         //create the Jar Model
         this.createJarModelAsset(pkg, jarBytes);
         
-        //create the working-set asset
+        //create the working-set assets
         this.createWSAsset(pkg, workingSetConfigData);
+        this.createWSAsset(pkg, cohortWorkingSetConfigData);
+        
+        //store the fact type drl as a generic resource
+        this.storeFactTypeDRL(pkg, drlModel);
+        
+        //create and store the Fact Type Descriptor
+        this.createFactTypeDescriptor(pkg, xsdModel);
     }
     
     private void createJarModelAsset(ModuleItem pkg, byte[] jarBytes) throws IOException{
@@ -129,8 +159,12 @@ public class OWLImporter {
     }
     
     private WorkingSetConfigData convertSemanticWorkingSetConfigData(SemanticWorkingSetConfigData semanticWSData){
+        return this.convertSemanticWorkingSetConfigData(semanticWSData.getName(), semanticWSData);
+    }
+    
+    private WorkingSetConfigData convertSemanticWorkingSetConfigData(String name, SemanticWorkingSetConfigData semanticWSData){
         WorkingSetConfigData root = new WorkingSetConfigData();
-        root.setName(semanticWSData.getName());
+        root.setName(name);
         root.setDescription(semanticWSData.getDescription());
         root.setValidFacts(semanticWSData.getValidFacts());
         
@@ -177,6 +211,87 @@ public class OWLImporter {
             }
         }
         
+    }
+
+    private void storeFactTypeDRL(ModuleItem pkg, DRLModel drlModel) throws IOException {
+        AssetItem asset = pkg.addAsset( "Fact Model",
+                                                "<imported from OWL>" );
+        asset.updateFormat( AssetFormats.ATTACHED_DRL );
+        asset.updateBinaryContentAttachment(new ByteArrayInputStream(drlModel.getDRL().getBytes()));
+        asset.updateExternalSource( "Imported from external OWL" );
+        asset.getModule().updateBinaryUpToDate( false );
+        
+        asset.checkin( "Imported from external OWL" );
+        
+        // Special treatment for model and ruleflow attachments.
+        ContentHandler handler = ContentManager.getHandler( asset.getFormat() );
+        if ( handler != null && handler instanceof ICanHasAttachment ) {
+            ((ICanHasAttachment) handler).onAttachmentAdded( asset );
+        }
+        
+    }
+    
+    private void createFactTypeDescriptor(ModuleItem pkg, XSDModel xsdModel) throws IOException {
+        //get the concepts from the sxdModel
+        Map<String, Map<String, String>> concepts = this.getConcepts(xsdModel.getConcepts());
+        
+        //create the Descriptor file using a template
+        StringTemplate template = new StringTemplate(IOUtils.toString(this.getClass().getResourceAsStream("/template/factTypesDescriptor.tpl")));
+        
+        template.setAttribute("concepts", concepts);
+        
+        AssetItem asset = pkg.addAsset( "Fact Types Descriptor",
+                                                "<imported from OWL>" );
+        asset.updateFormat( AssetFormats.ATTACHED_MODEL_DESCRIPTOR );
+        asset.updateBinaryContentAttachment(new ByteArrayInputStream(template.toString().getBytes()));
+        asset.updateExternalSource( "Imported from external OWL" );
+        asset.getModule().updateBinaryUpToDate( false );
+        
+        asset.checkin( "Imported from external OWL" );
+        
+        // Special treatment for model and ruleflow attachments.
+        ContentHandler handler = ContentManager.getHandler( asset.getFormat() );
+        if ( handler != null && handler instanceof ICanHasAttachment ) {
+            ((ICanHasAttachment) handler).onAttachmentAdded( asset );
+        }
+        
+    }
+    
+    /**
+     * Returns a Map where the key is the Concept name and the value is 
+     * another Map of  "property name" -> "property type"
+     * @return 
+     */
+    private Map<String,Map<String, String>> getConcepts(List<Concept> concepts){
+        Map<String,Map<String, String>> result = new HashMap<String, Map<String, String>>();
+        
+        for (Concept concept : concepts) {
+            Map<String, String> conceptProperties = this.getConceptProperties(concept);
+            result.put(concept.getName(), conceptProperties);
+        }
+        
+        return result;
+    }
+    
+    private Map<String, String> getConceptProperties(Concept concept){
+        Map<String, String> properties = new HashMap<String, String>();
+        
+        //super-concepts properties first
+        Set<Concept> superConcepts = concept.getSuperConcepts();
+        if (superConcepts != null){
+            for (Concept superConcept : superConcepts) {
+                properties.putAll(this.getConceptProperties(superConcept));
+            }
+        }
+        
+        //concept properties
+        for (Map.Entry<String, PropertyRelation> entry : concept.getProperties().entrySet()) {
+           String propertyName = entry.getKey();
+           propertyName = propertyName.substring(propertyName.lastIndexOf("#")+1, propertyName.lastIndexOf(">"));
+           properties.put(propertyName, entry.getValue().getTypeName());
+        }
+        
+        return properties;
     }
     
 }
