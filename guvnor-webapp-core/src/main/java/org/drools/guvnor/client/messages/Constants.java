@@ -2630,5 +2630,11 @@ public interface Constants
     String RemoveActionValueDefinition();
 
     String RemoveActionValueDefinitionQuestion();
+    
+    String Runtime();
+    
+    String Agents();
+    
+    String AgentsManager();
 
 }

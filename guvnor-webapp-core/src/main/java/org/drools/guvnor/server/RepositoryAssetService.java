@@ -375,6 +375,7 @@ public class RepositoryAssetService
     @WebRemote
     @LoggedIn
     public PageResponse<AssetPageRow> findAssetPage(AssetPageRequest request) throws SerializationException {
+        System.out.println("ASDASDASD "+request.getPageSize());
         if (request == null) {
             throw new IllegalArgumentException("request cannot be null");
         }

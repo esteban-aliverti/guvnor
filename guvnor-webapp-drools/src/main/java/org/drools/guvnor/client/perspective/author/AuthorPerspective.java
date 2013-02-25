@@ -27,6 +27,7 @@ import org.drools.guvnor.client.explorer.navigation.browse.BrowseTreeBuilder;
 import org.drools.guvnor.client.explorer.navigation.deployment.DeploymentTreeBuilder;
 import org.drools.guvnor.client.explorer.navigation.modules.ModulesTreeBuilder;
 import org.drools.guvnor.client.explorer.navigation.qa.QATreeBuilder;
+import org.drools.guvnor.client.explorer.navigation.runtime.RuntimeTreeBuilder;
 import org.drools.guvnor.client.perspective.Perspective;
 
 public class AuthorPerspective extends Perspective {
@@ -40,6 +41,8 @@ public class AuthorPerspective extends Perspective {
 
         navigationItemBuilders.add(new ModulesTreeBuilder(clientFactory, eventBus, AUTHOR_PERSPECTIVE));
 
+        navigationItemBuilders.add(new RuntimeTreeBuilder(clientFactory));
+        
         navigationItemBuilders.add(new QATreeBuilder(clientFactory));
 
         navigationItemBuilders.add(new DeploymentTreeBuilder(clientFactory));

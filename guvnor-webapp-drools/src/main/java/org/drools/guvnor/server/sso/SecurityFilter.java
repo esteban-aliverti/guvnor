@@ -26,6 +26,8 @@ public class SecurityFilter implements Filter {
     
     private String securityCallbackURL = null;
     
+    private boolean enabled = true;
+    
     @Inject
     private InternalAuthenticator internalAuthenticator;
     
@@ -38,6 +40,10 @@ public class SecurityFilter implements Filter {
             throws IOException, ServletException {
         if (debug) {
             log("SecurityFilter:DoBeforeProcessing");
+        }
+        
+        if (!enabled){
+            return true;
         }
         
         //skip this for webdav
@@ -53,7 +59,7 @@ public class SecurityFilter implements Filter {
         
         
         //is security callback -> process it
-        if (request.getServletPath().equals(this.securityCallbackURL)){
+        if (request.getServletPath().endsWith(this.securityCallbackURL)){
             try {
                 authenticationProvider.processSecurityCallback(request, response, internalAuthenticator);
                 response.sendRedirect(request.getContextPath());
@@ -185,6 +191,8 @@ public class SecurityFilter implements Filter {
             }
 
             this.securityCallbackURL = filterConfig.getInitParameter("securityCallbackURL");
+            
+            this.enabled = filterConfig.getInitParameter("enabled")==null?true:Boolean.getBoolean(filterConfig.getInitParameter("enabled"));
         }
 
         if (this.securityCallbackURL == null) {

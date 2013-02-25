@@ -22,6 +22,7 @@
     <!--&lt;!&ndash; Keep in sync with /guvnor-webapp-drools/src/test/resources/arquillian.xml &ndash;&gt;-->
     <!--<appserver.tomcat6.version>6.0.33</appserver.tomcat6.version>-->
     <!--<appserver.tomcat6.home>${project.build.directory}/apache-tomcat-${appserver.tomcat6.version}</appserver.tomcat6.home>-->
+    <netbeans.hint.deploy.server>Tomcat</netbeans.hint.deploy.server>
   </properties>
 
   <build>
@@ -354,6 +355,16 @@
     <dependency>
       <groupId>org.drools</groupId>
       <artifactId>guvnor-webapp-core</artifactId>
+      <exclusions>
+        <exclusion>
+          <artifactId>servlet-api</artifactId>
+          <groupId>javax.servlet</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>jboss-servlet-api_3.0_spec</artifactId>
+          <groupId>org.jboss.spec.javax.servlet</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     
     <dependency>
@@ -439,7 +450,7 @@
     <dependency>
         <groupId>org.drools</groupId>
         <artifactId>drools-shapes-reasoner-generator</artifactId>
-        <version>5.4.0-SNAPSHOT</version>
+        <version>5.5.0-SNAPSHOT</version>
     </dependency>
 
   </dependencies>

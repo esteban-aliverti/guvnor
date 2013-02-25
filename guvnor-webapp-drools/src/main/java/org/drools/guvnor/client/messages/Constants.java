@@ -2660,5 +2660,10 @@ public interface Constants
     String WidthColon();
     
     String HeightColon();
+
+    String Runtime();
     
+    String Agents();
+
+    String AgentsManager();
 }

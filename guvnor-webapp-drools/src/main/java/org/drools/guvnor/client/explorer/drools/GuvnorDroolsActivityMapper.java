@@ -59,6 +59,8 @@ import org.drools.guvnor.client.widgets.wizards.WizardActivity;
 import org.drools.guvnor.client.widgets.wizards.WizardPlace;
 
 import com.google.gwt.place.shared.Place;
+import org.drools.guvnor.client.explorer.navigation.runtime.RuntimeActivity;
+import org.drools.guvnor.client.explorer.navigation.runtime.RuntimePlace;
 
 public class GuvnorDroolsActivityMapper extends GuvnorActivityMapper {
 
@@ -84,6 +86,10 @@ public class GuvnorDroolsActivityMapper extends GuvnorActivityMapper {
         } else if ( place instanceof ManagerPlace ) {
             return new ManagerActivity(
                     ((ManagerPlace) place).getId(),
+                    clientFactory );
+        } else if ( place instanceof RuntimePlace ) {
+            return new RuntimeActivity(
+                    ((RuntimePlace) place).getId(),
                     clientFactory );
         } else if ( place instanceof TestScenarioListPlace ) {
             return new TestScenarioListActivity(

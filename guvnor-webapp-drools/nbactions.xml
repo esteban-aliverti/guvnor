@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-Hosted Mode</actionName>
+            <displayName>Hosted Mode</displayName>
+            <goals>
+                <goal>gwt:debug</goal>
+            </goals>
+            <properties>
+                <gwt.module>org.drools.guvnor.FastCompiledGuvnor</gwt.module>
+                <runTarget>org.drools.guvnor.FastCompiledGuvnor/Guvnor</runTarget>
+                <Env.MAVEN_OPTS>-Xss1024m -Xmx2048m -XX:MaxPermSize=2048m</Env.MAVEN_OPTS>
+            </properties>
+        </action>
+        <action>
+            <actionName>run</actionName>
+            <preAction>build-with-dependencies</preAction>
+            <goals>
+                <goal>package</goal>
+            </goals>
+            <properties>
+                <netbeans.deploy>true</netbeans.deploy>
+                <skipTests>true</skipTests>
+            </properties>
+        </action>
+        <action>
+            <actionName>debug</actionName>
+            <preAction>build-with-dependencies</preAction>
+            <goals>
+                <goal>package</goal>
+            </goals>
+            <properties>
+                <netbeans.deploy.debugmode>true</netbeans.deploy.debugmode>
+                <netbeans.deploy>true</netbeans.deploy>
+                <skipTests>true</skipTests>
+            </properties>
+        </action>
+    </actions>

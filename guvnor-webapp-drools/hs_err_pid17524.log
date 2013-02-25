@@ -1,0 +1,1096 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00007f44910a169f, pid=17524, tid=139932136290048
+#
+# JRE version: 6.0_24-b07
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (19.1-b02 mixed mode linux-amd64 compressed oops)
+# Problematic frame:
+# V  [libjvm.so+0x6ad69f]
+#
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007f43fc002800):  JavaThread "btpool0-6" [_thread_in_vm, id=17759, stack(0x00007f447d36b000,0x00007f447d46c000)]
+
+siginfo:si_signo=SIGSEGV: si_errno=0, si_code=2 (SEGV_ACCERR), si_addr=0x00007f43fc042eac
+
+Registers:
+RAX=0x000000000000ffff, RBX=0x00000000000000b7, RCX=0x00007f43fc002eb0, RDX=0x000000000000ff00
+RSP=0x00007f447d469130, RBP=0x00007f447d469130, RSI=0x00000000db16b4c6, RDI=0x00007f447d469240
+R8 =0x000000000000ffff, R9 =0x0000000000000001, R10=0x000000000000000c, R11=0x00000000db16b380
+R12=0x00000000db16b4c5, R13=0x0000000000000003, R14=0x0000000000000005, R15=0x0000000000000000
+RIP=0x00007f44910a169f, EFL=0x0000000000010206, CSGSFS=0x0000000000000033, ERR=0x0000000000000004
+  TRAPNO=0x000000000000000e
+
+Register to memory mapping:
+
+RAX=0x000000000000ffff
+0x000000000000ffff is pointing to unknown location
+
+RBX=0x00000000000000b7
+0x00000000000000b7 is pointing to unknown location
+
+RCX=0x00007f43fc002eb0
+0x00007f43fc002eb0 is pointing to unknown location
+
+RDX=0x000000000000ff00
+0x000000000000ff00 is pointing to unknown location
+
+RSP=0x00007f447d469130
+0x00007f447d469130 is pointing into the stack for thread: 0x00007f43fc002800
+"btpool0-6" prio=10 tid=0x00007f43fc002800 nid=0x455f runnable [0x00007f447d469000]
+   java.lang.Thread.State: RUNNABLE
+
+RBP=0x00007f447d469130
+0x00007f447d469130 is pointing into the stack for thread: 0x00007f43fc002800
+"btpool0-6" prio=10 tid=0x00007f43fc002800 nid=0x455f runnable [0x00007f447d469000]
+   java.lang.Thread.State: RUNNABLE
+
+RSI=0x00000000db16b4c6
+{constMethod} 
+ - klass: {other class}
+ - method:       0x00000000db16b4d8 {method} '<init>' '(Ljava/lang/Throwable;)V' in 'java/lang/reflect/InvocationTargetException'
+ - exceptions:   0x00000000dae01e98
+bci_from(0xdb16b4c6) = 6; print_codes():
+
+RDI=0x00007f447d469240
+0x00007f447d469240 is pointing into the stack for thread: 0x00007f43fc002800
+"btpool0-6" prio=10 tid=0x00007f43fc002800 nid=0x455f runnable [0x00007f447d469000]
+   java.lang.Thread.State: RUNNABLE
+
+R8 =0x000000000000ffff
+0x000000000000ffff is pointing to unknown location
+
+R9 =0x0000000000000001
+0x0000000000000001 is pointing to unknown location
+
+R10=0x000000000000000c
+0x000000000000000c is pointing to unknown location
+
+R11=0x00000000db16b380
+[[I 
+ - klass: 'java/lang/Object'[]
+ - length: 5
+
+R12=0x00000000db16b4c5
+{constMethod} 
+ - klass: {other class}
+ - method:       0x00000000db16b4d8 {method} '<init>' '(Ljava/lang/Throwable;)V' in 'java/lang/reflect/InvocationTargetException'
+ - exceptions:   0x00000000dae01e98
+bci_from(0xdb16b4c5) = 5; print_codes():
+
+R13=0x0000000000000003
+0x0000000000000003 is pointing to unknown location
+
+R14=0x0000000000000005
+0x0000000000000005 is pointing to unknown location
+
+R15=0x0000000000000000
+0x0000000000000000 is pointing to unknown location
+
+
+Top of Stack: (sp=0x00007f447d469130)
+0x00007f447d469130:   00007f447d4691c0 00007f44910a1a37
+0x00007f447d469140:   00007f447d4691a0 0000000e910a0c8a
+0x00007f447d469150:   00000000db16b4c0 0000000000000020
+0x00007f447d469160:   00000000db16b4d8 00007f447d469240
+0x00007f447d469170:   00007f447d469197 00000000fc002ea0
+0x00007f447d469180:   00007f447d469268 00007f447d469258
+0x00007f447d469190:   01007f43fc003378 0000000000000005
+0x00007f447d4691a0:   0000000000000001 0000000000000000
+0x00007f447d4691b0:   00007f447d469240 00000000db16b390
+0x00007f447d4691c0:   00007f447d469220 00007f44910a22d3
+0x00007f447d4691d0:   0000000000000000 00007f447d469240
+0x00007f447d4691e0:   00007f43fc002800 0000000000000000
+0x00007f447d4691f0:   00007f43fc003378 00000000db16b1b8
+0x00007f447d469200:   00007f43fc003390 00007f43fc002800
+0x00007f447d469210:   00007f447d469230 00007f447d469390
+0x00007f447d469220:   00007f447d4692d0 00007f44910a1c76
+0x00007f447d469230:   00007f43fc0033a0 00007f43fc003398
+0x00007f447d469240:   00007f43fc003390 00007f43fc0033a0
+0x00007f447d469250:   00007f43fc003398 00007fff00000020
+0x00007f447d469260:   00007f43fc002eb0 0000000000000003
+0x00007f447d469270:   00007f43fc002f30 00007f4400000010
+0x00007f447d469280:   0000000050165400 000000000000c50d
+0x00007f447d469290:   00007f43fc013330 00007f43fc002ea0
+0x00007f447d4692a0:   00007f43fc002eb0 00007f43fc003288
+0x00007f447d4692b0:   00007f447d469370 00007f43fc003378
+0x00007f447d4692c0:   00007f43fc002800 00007f447d469320
+0x00007f447d4692d0:   00007f447d469410 00007f4490de036b
+0x00007f447d4692e0:   0000000000000005 0000000000000020
+0x00007f447d4692f0:   00000000e3896170 0100000000000000
+0x00007f447d469300:   00007f43fc003390 00007f447d469308
+0x00007f447d469310:   00007f43fc003388 00007f43fc003380
+0x00007f447d469320:   0000000000000002 00000000042e8bf6 
+
+Instructions: (pc=0x00007f44910a169f)
+0x00007f44910a168f:   d0 0f b6 cc c1 e2 08 09 d1 4c 63 c1 48 8b 4f 20
+0x00007f44910a169f:   42 8b 04 81 66 89 06 c9 c3 66 66 66 90 66 66 66 
+
+Stack: [0x00007f447d36b000,0x00007f447d46c000],  sp=0x00007f447d469130,  free space=1016k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0x6ad69f]
+V  [libjvm.so+0x6ada37]
+V  [libjvm.so+0x6ae2d3]
+V  [libjvm.so+0x6adc76]
+V  [libjvm.so+0x3ec36b]
+V  [libjvm.so+0x3ebbfc]
+V  [libjvm.so+0x3ec4d0]
+V  [libjvm.so+0x3ebb5a]
+V  [libjvm.so+0x37603f]
+V  [libjvm.so+0x375d31]
+V  [libjvm.so+0x69e773]
+V  [libjvm.so+0x6a283f]
+V  [libjvm.so+0x4a9e2c]
+C  [libjava.so+0x19655]  Java_sun_reflect_NativeMethodAccessorImpl_invoke0+0x15
+j  sun.reflect.NativeMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+87
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+j  sun.reflect.NativeMethodAccessorImpl.invoke0(Ljava/lang/reflect/Method;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+0
+j  sun.reflect.NativeMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+87
+J  java.lang.reflect.Method.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
+j  com.google.gwt.user.server.rpc.RPC.invokeAndEncodeResponse(Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;Lcom/google/gwt/user/server/rpc/SerializationPolicy;I)Ljava/lang/String;+31
+j  com.google.gwt.user.server.rpc.RemoteServiceServlet.processCall(Ljava/lang/String;)Ljava/lang/String;+42
+j  com.google.gwt.user.server.rpc.RemoteServiceServlet.processPost(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V+13
+j  com.google.gwt.user.server.rpc.AbstractRemoteServiceServlet.doPost(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V+39
+j  javax.servlet.http.HttpServlet.service(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V+139
+j  javax.servlet.http.HttpServlet.service(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+30
+j  org.mortbay.jetty.servlet.ServletHolder.handle(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V+176
+j  org.mortbay.jetty.servlet.ServletHandler.handle(Ljava/lang/String;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;I)V+401
+j  org.mortbay.jetty.security.SecurityHandler.handle(Ljava/lang/String;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;I)V+299
+j  org.mortbay.jetty.servlet.SessionHandler.handle(Ljava/lang/String;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;I)V+225
+j  org.mortbay.jetty.handler.ContextHandler.handle(Ljava/lang/String;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;I)V+716
+j  org.mortbay.jetty.webapp.WebAppContext.handle(Ljava/lang/String;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;I)V+25
+j  org.mortbay.jetty.handler.HandlerWrapper.handle(Ljava/lang/String;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;I)V+23
+j  org.mortbay.jetty.handler.RequestLogHandler.handle(Ljava/lang/String;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;I)V+6
+j  org.mortbay.jetty.handler.HandlerWrapper.handle(Ljava/lang/String;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;I)V+23
+j  org.mortbay.jetty.Server.handle(Lorg/mortbay/jetty/HttpConnection;)V+110
+j  org.mortbay.jetty.HttpConnection.handleRequest()V+131
+j  org.mortbay.jetty.HttpConnection$RequestHandler.content(Lorg/mortbay/io/Buffer;)V+23
+j  org.mortbay.jetty.HttpParser.parseNext()J+2597
+j  org.mortbay.jetty.HttpParser.parseAvailable()J+44
+j  org.mortbay.jetty.HttpConnection.handle()V+122
+j  org.mortbay.io.nio.SelectChannelEndPoint.run()V+4
+j  org.mortbay.thread.QueuedThreadPool$PoolThread.run()V+26
+v  ~StubRoutines::call_stub
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x00007f43f83ac800 JavaThread "ObservationManager" daemon [_thread_blocked, id=17935, stack(0x00007f447ca5c000,0x00007f447cb5d000)]
+  0x00007f43f827b800 JavaThread "derby.rawStoreDaemon" daemon [_thread_blocked, id=17931, stack(0x00007f447cb5d000,0x00007f447cc5e000)]
+  0x00007f43f824f800 JavaThread "derby.rawStoreDaemon" daemon [_thread_blocked, id=17920, stack(0x00007f447cc5e000,0x00007f447cd5f000)]
+  0x00007f43f821d000 JavaThread "Timer-3" daemon [_thread_blocked, id=17919, stack(0x00007f447cd5f000,0x00007f447ce60000)]
+  0x00007f43f820e800 JavaThread "Timer-2" daemon [_thread_blocked, id=17918, stack(0x00007f447cf67000,0x00007f447d068000)]
+  0x00007f43f81be800 JavaThread "derby.antiGC" daemon [_thread_blocked, id=17917, stack(0x00007f447d068000,0x00007f447d169000)]
+  0x00007f4404006800 JavaThread "Code server for org.drools.guvnor.Guvnor from Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11 on http://127.0.0.1:8888/org.drools.guvnor.Guvnor/Guvnor.html?gwt.codesvr=127.0.0.1:9997 @ HtjAMCdk,P;eEK9n" daemon [_thread_blocked, id=17761, stack(0x00007f447d26a000,0x00007f447d36b000)]
+=>0x00007f43fc002800 JavaThread "btpool0-6" [_thread_in_vm, id=17759, stack(0x00007f447d36b000,0x00007f447d46c000)]
+  0x00007f43fc012000 JavaThread "btpool0-5" [_thread_blocked, id=17758, stack(0x00007f447d46c000,0x00007f447d56d000)]
+  0x00007f43fc010800 JavaThread "btpool0-4" [_thread_blocked, id=17757, stack(0x00007f447d56d000,0x00007f447d66e000)]
+  0x00007f43fc008800 JavaThread "btpool0-3" [_thread_blocked, id=17756, stack(0x00007f447ef38000,0x00007f447f039000)]
+  0x00007f43fc007000 JavaThread "btpool0-2" [_thread_blocked, id=17755, stack(0x00007f4485948000,0x00007f4485a49000)]
+  0x00007f441c403000 JavaThread "TimerQueue" daemon [_thread_blocked, id=17690, stack(0x00007f447d66e000,0x00007f447d76f000)]
+  0x00007f448d430800 JavaThread "Timer-1" daemon [_thread_blocked, id=17677, stack(0x00007f447d76f000,0x00007f447d870000)]
+  0x00007f448caca800 JavaThread "btpool0-1 - Acceptor0 SelectChannelConnector@127.0.0.1:8888" [_thread_blocked, id=17676, stack(0x00007f447df56000,0x00007f447e057000)]
+  0x00007f448cae5800 JavaThread "btpool0-0" [_thread_blocked, id=17675, stack(0x00007f447e9ec000,0x00007f447eaed000)]
+  0x00007f448c72f800 JavaThread "GC Daemon" daemon [_thread_blocked, id=17672, stack(0x00007f447e057000,0x00007f447e158000)]
+  0x00007f448c9fa000 JavaThread "Code server listener" daemon [_thread_in_native, id=17670, stack(0x00007f447e7ea000,0x00007f447e8eb000)]
+  0x00007f440c005000 JavaThread "Timer-0" daemon [_thread_blocked, id=17669, stack(0x00007f447e8eb000,0x00007f447e9ec000)]
+  0x00007f441c004000 JavaThread "org.netbeans.modules.debugger.jpda.visual AWT Access Loop" daemon [_thread_blocked, id=17654, stack(0x00007f447f039000,0x00007f447f13a000)]
+  0x00007f442c121800 JavaThread "com.google.gwt.thirdparty.guava.common.base.internal.Finalizer" daemon [_thread_blocked, id=17653, stack(0x00007f447f13a000,0x00007f447f23b000)]
+  0x00007f448c23f000 JavaThread "AWT-EventQueue-0" [_thread_blocked, id=17652, stack(0x00007f447f23b000,0x00007f447f33c000)]
+  0x00007f448c23e000 JavaThread "AWT-Shutdown" [_thread_blocked, id=17651, stack(0x00007f447f33c000,0x00007f447f43d000)]
+  0x00007f448c23d000 JavaThread "AWT-XAWT" daemon [_thread_blocked, id=17650, stack(0x00007f447f43d000,0x00007f447f53e000)]
+  0x00007f448c1e2000 JavaThread "Java2D Disposer" daemon [_thread_blocked, id=17649, stack(0x00007f4484238000,0x00007f4484339000)]
+  0x00007f448c0b7000 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=17646, stack(0x00007f4485f00000,0x00007f4486001000)]
+  0x00007f448c0b4800 JavaThread "CompilerThread1" daemon [_thread_blocked, id=17645, stack(0x00007f4486001000,0x00007f4486102000)]
+  0x00007f448c0b2000 JavaThread "CompilerThread0" daemon [_thread_blocked, id=17644, stack(0x00007f4486102000,0x00007f4486203000)]
+  0x00007f4450001000 JavaThread "JDWP Command Reader" daemon [_thread_in_native, id=17641, stack(0x00007f4486203000,0x00007f4486304000)]
+  0x00007f448c0af800 JavaThread "JDWP Event Helper Thread" daemon [_thread_blocked, id=17541, stack(0x00007f4486304000,0x00007f4486405000)]
+  0x00007f448c0ac000 JavaThread "JDWP Transport Listener: dt_socket" daemon [_thread_blocked, id=17540, stack(0x00007f4486405000,0x00007f4486506000)]
+  0x00007f448c09c000 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=17539, stack(0x00007f448660a000,0x00007f448670b000)]
+  0x00007f448c080800 JavaThread "Finalizer" daemon [_thread_blocked, id=17538, stack(0x00007f448670b000,0x00007f448680c000)]
+  0x00007f448c07e800 JavaThread "Reference Handler" daemon [_thread_blocked, id=17537, stack(0x00007f448680c000,0x00007f448690d000)]
+  0x00007f448c013000 JavaThread "main" [_thread_blocked, id=17527, stack(0x00007f44905f9000,0x00007f44906fa000)]
+
+Other Threads:
+  0x00007f448c078000 VMThread [stack: 0x00007f448690d000,0x00007f4486a0e000] [id=17536]
+  0x00007f448c0c2000 WatcherThread [stack: 0x00007f4485dff000,0x00007f4485f00000] [id=17647]
+
+VM state:synchronizing (normal execution)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x00007f448c00fa10] Threads_lock - owner thread: 0x00007f448c078000
+
+Heap
+ PSYoungGen      total 66304K, used 1503K [0x00000000f5560000, 0x00000000f9910000, 0x0000000100000000)
+  eden space 63808K, 2% used [0x00000000f5560000,0x00000000f56d7f00,0x00000000f93b0000)
+  from space 2496K, 0% used [0x00000000f96a0000,0x00000000f96a0000,0x00000000f9910000)
+  to   space 2752K, 0% used [0x00000000f93b0000,0x00000000f93b0000,0x00000000f9660000)
+ PSOldGen        total 349568K, used 128246K [0x00000000e0000000, 0x00000000f5560000, 0x00000000f5560000)
+  object space 349568K, 36% used [0x00000000e0000000,0x00000000e7d3d860,0x00000000f5560000)
+ PSPermGen       total 83968K, used 83967K [0x00000000dae00000, 0x00000000e0000000, 0x00000000e0000000)
+  object space 83968K, 99% used [0x00000000dae00000,0x00000000dffffff8,0x00000000e0000000)
+
+Dynamic libraries:
+40000000-40009000 r-xp 00000000 08:01 3411036                            /home/esteban/programs/jdk1.6.0_24/jre/bin/java
+40108000-4010a000 rwxp 00008000 08:01 3411036                            /home/esteban/programs/jdk1.6.0_24/jre/bin/java
+405cb000-405ec000 rwxp 00000000 00:00 0                                  [heap]
+dae00000-e0000000 rwxp 00000000 00:00 0 
+e0000000-f5560000 rwxp 00000000 00:00 0 
+f5560000-f9910000 rwxp 00000000 00:00 0 
+f9910000-100000000 ---p 00000000 00:00 0 
+7f43c4000000-7f43c4021000 rwxp 00000000 00:00 0 
+7f43c4021000-7f43c8000000 ---p 00000000 00:00 0 
+7f43cc000000-7f43cc021000 rwxp 00000000 00:00 0 
+7f43cc021000-7f43d0000000 ---p 00000000 00:00 0 
+7f43d0000000-7f43d0021000 rwxp 00000000 00:00 0 
+7f43d0021000-7f43d4000000 ---p 00000000 00:00 0 
+7f43d4000000-7f43d4021000 rwxp 00000000 00:00 0 
+7f43d4021000-7f43d8000000 ---p 00000000 00:00 0 
+7f43d8000000-7f43d8021000 rwxp 00000000 00:00 0 
+7f43d8021000-7f43dc000000 ---p 00000000 00:00 0 
+7f43dc000000-7f43dc052000 rwxp 00000000 00:00 0 
+7f43dc052000-7f43e0000000 ---p 00000000 00:00 0 
+7f43e0000000-7f43e0021000 rwxp 00000000 00:00 0 
+7f43e0021000-7f43e4000000 ---p 00000000 00:00 0 
+7f43e4000000-7f43e44f9000 rwxp 00000000 00:00 0 
+7f43e44f9000-7f43e8000000 ---p 00000000 00:00 0 
+7f43e8000000-7f43e97cf000 rwxp 00000000 00:00 0 
+7f43e97cf000-7f43ec000000 ---p 00000000 00:00 0 
+7f43ec000000-7f43ec021000 rwxp 00000000 00:00 0 
+7f43ec021000-7f43f0000000 ---p 00000000 00:00 0 
+7f43f0000000-7f43f0025000 rwxp 00000000 00:00 0 
+7f43f0025000-7f43f4000000 ---p 00000000 00:00 0 
+7f43f4000000-7f43f4021000 rwxp 00000000 00:00 0 
+7f43f4021000-7f43f8000000 ---p 00000000 00:00 0 
+7f43f8000000-7f43f8741000 rwxp 00000000 00:00 0 
+7f43f8741000-7f43fc000000 ---p 00000000 00:00 0 
+7f43fc000000-7f43fc037000 rwxp 00000000 00:00 0 
+7f43fc037000-7f4400000000 ---p 00000000 00:00 0 
+7f4400000000-7f4400021000 rwxp 00000000 00:00 0 
+7f4400021000-7f4404000000 ---p 00000000 00:00 0 
+7f4404000000-7f4404052000 rwxp 00000000 00:00 0 
+7f4404052000-7f4408000000 ---p 00000000 00:00 0 
+7f4408000000-7f4408021000 rwxp 00000000 00:00 0 
+7f4408021000-7f440c000000 ---p 00000000 00:00 0 
+7f440c000000-7f440c09c000 rwxp 00000000 00:00 0 
+7f440c09c000-7f4410000000 ---p 00000000 00:00 0 
+7f4410000000-7f4410080000 rwxp 00000000 00:00 0 
+7f4410080000-7f4414000000 ---p 00000000 00:00 0 
+7f4414000000-7f4414021000 rwxp 00000000 00:00 0 
+7f4414021000-7f4418000000 ---p 00000000 00:00 0 
+7f4418000000-7f4418073000 rwxp 00000000 00:00 0 
+7f4418073000-7f441c000000 ---p 00000000 00:00 0 
+7f441c000000-7f441c46b000 rwxp 00000000 00:00 0 
+7f441c46b000-7f4420000000 ---p 00000000 00:00 0 
+7f4420000000-7f4420037000 rwxp 00000000 00:00 0 
+7f4420037000-7f4424000000 ---p 00000000 00:00 0 
+7f4424000000-7f4424021000 rwxp 00000000 00:00 0 
+7f4424021000-7f4428000000 ---p 00000000 00:00 0 
+7f4428000000-7f4428021000 rwxp 00000000 00:00 0 
+7f4428021000-7f442c000000 ---p 00000000 00:00 0 
+7f442c000000-7f442c136000 rwxp 00000000 00:00 0 
+7f442c136000-7f4430000000 ---p 00000000 00:00 0 
+7f4430000000-7f4430021000 rwxp 00000000 00:00 0 
+7f4430021000-7f4434000000 ---p 00000000 00:00 0 
+7f4434000000-7f4434021000 rwxp 00000000 00:00 0 
+7f4434021000-7f4438000000 ---p 00000000 00:00 0 
+7f4438000000-7f4438021000 rwxp 00000000 00:00 0 
+7f4438021000-7f443c000000 ---p 00000000 00:00 0 
+7f443c000000-7f443f903000 rwxp 00000000 00:00 0 
+7f443f903000-7f4440000000 ---p 00000000 00:00 0 
+7f4440000000-7f4443ffa000 rwxp 00000000 00:00 0 
+7f4443ffa000-7f4444000000 ---p 00000000 00:00 0 
+7f4444000000-7f44440fb000 rwxp 00000000 00:00 0 
+7f44440fb000-7f4448000000 ---p 00000000 00:00 0 
+7f4448000000-7f4448021000 rwxp 00000000 00:00 0 
+7f4448021000-7f444c000000 ---p 00000000 00:00 0 
+7f444c000000-7f444c021000 rwxp 00000000 00:00 0 
+7f444c021000-7f4450000000 ---p 00000000 00:00 0 
+7f4450000000-7f4450037000 rwxp 00000000 00:00 0 
+7f4450037000-7f4454000000 ---p 00000000 00:00 0 
+7f4454000000-7f4454021000 rwxp 00000000 00:00 0 
+7f4454021000-7f4458000000 ---p 00000000 00:00 0 
+7f4458000000-7f4458021000 rwxp 00000000 00:00 0 
+7f4458021000-7f445c000000 ---p 00000000 00:00 0 
+7f445c000000-7f445c035000 rwxp 00000000 00:00 0 
+7f445c035000-7f4460000000 ---p 00000000 00:00 0 
+7f4460000000-7f4460f00000 rwxp 00000000 00:00 0 
+7f4460f00000-7f4464000000 ---p 00000000 00:00 0 
+7f4464000000-7f4464021000 rwxp 00000000 00:00 0 
+7f4464021000-7f4468000000 ---p 00000000 00:00 0 
+7f4468000000-7f4468021000 rwxp 00000000 00:00 0 
+7f4468021000-7f446c000000 ---p 00000000 00:00 0 
+7f446c000000-7f446c026000 rwxp 00000000 00:00 0 
+7f446c026000-7f4470000000 ---p 00000000 00:00 0 
+7f4470000000-7f447003b000 rwxp 00000000 00:00 0 
+7f447003b000-7f4474000000 ---p 00000000 00:00 0 
+7f4474000000-7f4474026000 rwxp 00000000 00:00 0 
+7f4474026000-7f4478000000 ---p 00000000 00:00 0 
+7f4478000000-7f4478024000 rwxp 00000000 00:00 0 
+7f4478024000-7f447c000000 ---p 00000000 00:00 0 
+7f447ca5c000-7f447ca5f000 ---p 00000000 00:00 0 
+7f447ca5f000-7f447cb5d000 rwxp 00000000 00:00 0 
+7f447cb5d000-7f447cb60000 ---p 00000000 00:00 0 
+7f447cb60000-7f447cc5e000 rwxp 00000000 00:00 0 
+7f447cc5e000-7f447cc61000 ---p 00000000 00:00 0 
+7f447cc61000-7f447cd5f000 rwxp 00000000 00:00 0 
+7f447cd5f000-7f447cd62000 ---p 00000000 00:00 0 
+7f447cd62000-7f447ce60000 rwxp 00000000 00:00 0 
+7f447ce60000-7f447ce66000 r-xp 00000000 08:01 3411679                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libmanagement.so
+7f447ce66000-7f447cf65000 ---p 00006000 08:01 3411679                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libmanagement.so
+7f447cf65000-7f447cf67000 rwxp 00005000 08:01 3411679                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libmanagement.so
+7f447cf67000-7f447cf6a000 ---p 00000000 00:00 0 
+7f447cf6a000-7f447d068000 rwxp 00000000 00:00 0 
+7f447d068000-7f447d06b000 ---p 00000000 00:00 0 
+7f447d06b000-7f447d169000 rwxp 00000000 00:00 0 
+7f447d169000-7f447d16c000 ---p 00000000 00:00 0 
+7f447d16c000-7f447d26a000 rwxp 00000000 00:00 0 
+7f447d26a000-7f447d26d000 ---p 00000000 00:00 0 
+7f447d26d000-7f447d36b000 rwxp 00000000 00:00 0 
+7f447d36b000-7f447d36e000 ---p 00000000 00:00 0 
+7f447d36e000-7f447d46c000 rwxp 00000000 00:00 0 
+7f447d46c000-7f447d46f000 ---p 00000000 00:00 0 
+7f447d46f000-7f447d56d000 rwxp 00000000 00:00 0 
+7f447d56d000-7f447d570000 ---p 00000000 00:00 0 
+7f447d570000-7f447d66e000 rwxp 00000000 00:00 0 
+7f447d66e000-7f447d671000 ---p 00000000 00:00 0 
+7f447d671000-7f447d76f000 rwxp 00000000 00:00 0 
+7f447d76f000-7f447d772000 ---p 00000000 00:00 0 
+7f447d772000-7f447d870000 rwxp 00000000 00:00 0 
+7f447d870000-7f447d872000 r-xs 00010000 08:01 4723772                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/commons-codec-1.5.jar
+7f447d872000-7f447d87a000 r-xs 00087000 08:01 4723739                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/cxf-rt-frontend-jaxrs-2.4.4.jar
+7f447d87a000-7f447d87c000 r-xs 0000e000 08:01 4723767                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/jung-graph-impl-2.0.1.jar
+7f447d87c000-7f447d87d000 r-xs 00002000 08:01 4723655                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/slf4j-log4j12-1.6.4.jar
+7f447d87d000-7f447d87e000 r-xs 00002000 08:01 4723663                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/seam-conversation-spi-3.0.0.Final.jar
+7f447d87e000-7f447d880000 r-xs 00001000 08:01 4723774                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/seam-transaction-api-3.1.0.Final.jar
+7f447d880000-7f447d8a6000 r-xs 00240000 08:01 4723671                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/derby-10.5.3.0_1.jar
+7f447d8a6000-7f447d8ac000 r-xs 00059000 08:01 4723644                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/mail-1.4.jar
+7f447d8ac000-7f447d8b2000 r-xs 0002e000 08:01 4723755                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/drools-verifier-5.4.0-SNAPSHOT.jar
+7f447d8b2000-7f447d8b4000 r-xs 00001000 08:01 4723780                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/guvnor-repository-connector-jcr-5.4.0-SNAPSHOT.jar
+7f447d8b4000-7f447d8b9000 r-xs 00070000 08:01 4723717                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/woodstox-core-asl-4.1.1.jar
+7f447d8b9000-7f447d8be000 r-xs 00048000 08:01 4723714                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/dom4j-1.6.1.jar
+7f447d8be000-7f447d8c0000 r-xs 00006000 08:01 4723645                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/seam-security-api-3.1.0.Final.jar
+7f447d8c0000-7f447d8c3000 r-xs 0001b000 08:01 4723759                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/axiom-impl-1.2.10.jar
+7f447d8c3000-7f447d8d2000 r-xs 00074000 08:01 4723736                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/joda-time-1.6.jar
+7f447d8d2000-7f447d8d4000 r-xs 00005000 08:01 4723742                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/picketlink-idm-api-1.5.0.Alpha02.jar
+7f447d8d4000-7f447d8d9000 r-xs 0002a000 08:01 4723785                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/drools-shapes-reasoner-generator-5.5.0-SNAPSHOT.jar
+7f447d8d9000-7f447d8dc000 r-xs 0000f000 08:01 4723651                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/neethi-3.0.1.jar
+7f447d8dc000-7f447d8e7000 r-xs 000f9000 08:01 4723683                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/itext-2.1.2.jar
+7f447d8e7000-7f447d8eb000 r-xs 00029000 08:01 4723770                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/jbpm-bpmn2-5.3.0-SNAPSHOT.jar
+7f447d8eb000-7f447d8f0000 r-xs 00032000 08:01 4723731                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/geronimo-javamail_1.4_spec-1.7.1.jar
+7f447d8f0000-7f447d8f3000 r-xs 00014000 08:01 4723799                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/boilerpipe-1.1.0.jar
+7f447d8f3000-7f447d924000 r-xs 003f0000 08:01 4723664                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/netcdf-4.2-min.jar
+7f447d924000-7f447d92a000 r-xs 00032000 08:01 4723658                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/jaxen-1.1.1.jar
+7f447d92a000-7f447d92b000 r-xs 00003000 08:01 4723768                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/jta-1.1.jar
+7f447d92b000-7f447d92f000 r-xs 00026000 08:01 4723795                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/automaton-1.11-2.jar
+7f447d92f000-7f447d933000 r-xs 0002f000 08:01 4723762                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/rome-0.9.jar
+7f447d933000-7f447d935000 r-xs 00003000 08:01 4723653                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/seam-international-api-3.1.0.Final.jar
+7f447d935000-7f447d937000 r-xs 00010000 08:01 4723665                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/jettison-1.2.jar
+7f447d937000-7f447d944000 r-xs 0006d000 08:01 4723735                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/xstream-1.4.1.jar
+7f447d944000-7f447d945000 r-xs 00000000 08:01 4723719                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/guvnor-repository-connector-jackrabbit-5.4.0-SNAPSHOT.jar
+7f447d945000-7f447d947000 r-xs 00008000 08:01 4723680                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/cxf-rt-bindings-xml-2.4.4.jar
+7f447d947000-7f447d949000 r-xs 0001c000 08:01 4723793                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/commons-dbcp-1.2.2.jar
+7f447d949000-7f447d958000 r-xs 000c8000 08:01 4723757                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/freemarker-2.3.15.jar
+7f447d958000-7f447d961000 r-xs 000d3000 08:01 4723710                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/antlr-3.3.jar
+7f447d961000-7f447d967000 r-xs 00040000 08:01 4723752                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/jackrabbit-jcr-commons-2.2.8.jar
+7f447d967000-7f447d969000 r-xs 00004000 08:01 4723775                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/jackrabbit-api-2.2.8.jar
+7f447d969000-7f447d974000 r-xs 00080000 08:01 4723894                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/jbpm-flow-5.3.0-20120730.044853-652.jar
+7f447d974000-7f447d97c000 r-xs 00025000 08:01 4723792                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/knowledge-api-5.4.0-SNAPSHOT.jar
+7f447d97c000-7f447d97f000 r-xs 00014000 08:01 4723816                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/metadata-extractor-2.4.0-beta-1.jar
+7f447d97f000-7f447d980000 r-xs 00001000 08:01 4723642                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/seam-persistence-api-3.1.0.Final.jar
+7f447d980000-7f447d98a000 r-xs 00095000 08:01 4723720                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/javassist-3.14.0-GA.jar
+7f447d98a000-7f447d9e8000 r-xs 00468000 08:01 4723711                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/gwt-servlet-2.3.0.jar
+7f447d9e8000-7f447da26000 r-xs 002f8000 08:01 4723704                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/choco-solver-2.1.3.jar
+7f447da26000-7f447da34000 r-xs 0018b000 08:01 4723803                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/ecj-3.5.1.jar
+7f447da34000-7f447da35000 r-xs 00001000 08:01 4723689                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/jsr250-api-1.0.jar
+7f447da35000-7f447da56000 r-xs 0015a000 08:01 4723782                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/bcprov-jdk14-138.jar
+7f447da56000-7f447da5a000 r-xs 0001e000 08:01 4723893                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/jbpm-flow-builder-5.3.0-20120730.045150-642.jar
+7f447da5a000-7f447da5d000 r-xs 0000a000 08:01 4723794                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/cdi-api-1.0-SP4.jar
+7f447da5d000-7f447da61000 r-xs 00020000 08:01 4723716                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/seam-security-3.1.0.Final.jar
+7f447da61000-7f447da65000 r-xs 0001e000 08:01 4723693                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/gwt-dnd-3.1.2.jar
+7f447da65000-7f447da69000 r-xs 00016000 08:01 4723810                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/jautomata-core-2.0-alpha-1.jar
+7f447da69000-7f447da6c000 r-xs 0000e000 08:01 4723707                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/hibernate-commons-annotations-3.1.0.GA.jar
+7f447da6c000-7f447da6e000 r-xs 0000d000 08:01 4723895                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/drools-decisiontables-5.4.0-20120730.043056-727.jar
+7f447da6e000-7f447da72000 r-xs 0003c000 08:01 4723703                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/commons-lang-2.4.jar
+7f447da72000-7f447da77000 r-xs 00046000 08:01 4723763                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/jsf-api-1.2.jar
+7f447da77000-7f447da7e000 r-xs 00073000 08:01 4723697                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/poi-ooxml-3.7.jar
+7f447da7e000-7f447da80000 r-xs 00009000 08:01 4723788                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/slf4j-ext-1.6.4.jar
+7f447da80000-7f447da83000 r-xs 0000c000 08:01 4723748                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/commons-fileupload-1.2.1.jar
+7f447da83000-7f447da90000 r-xs 000c1000 08:01 4723657                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/poi-scratchpad-3.7.jar
+7f447da90000-7f447da9e000 r-xs 0009d000 08:01 4723806                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/HermiT-1.3.5.jar
+7f447da9e000-7f447daa9000 r-xs 00080000 08:01 4723637                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/jbpm-flow-5.3.0-SNAPSHOT.jar
+7f447daa9000-7f447daab000 r-xs 00009000 08:01 4723797                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/seam-transaction-3.1.0.Final.jar
+7f447daab000-7f447daad000 r-xs 0000f000 08:01 4723708                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/solder-logging-3.1.1.Final.jar
+7f447daad000-7f447daaf000 r-xs 00013000 08:01 4723776                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/xml-resolver-1.2.jar
+7f447daaf000-7f447dab1000 r-xs 00004000 08:01 4723673                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/picketlink-idm-spi-1.5.0.Alpha02.jar
+7f447dab1000-7f447dad4000 r-xs 001e8000 08:01 4723654                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/jackrabbit-core-2.2.8.jar
+7f447dad4000-7f447dad5000 r-xs 0000a000 08:01 4723724                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/asm-3.1.jar
+7f447dad5000-7f447dada000 r-xs 00044000 08:01 4723726                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/tika-core-0.8.jar
+7f447dada000-7f447dae5000 r-xs 00062000 08:01 4723722                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/solder-impl-3.1.1.Final.jar
+7f447dae5000-7f447db13000 r-xs 0028a000 08:01 4723899                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/drools-core-5.4.0-20120730.041530-735.jar
+7f447db13000-7f447db19000 r-xs 00054000 08:01 4723743                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/esapi-2.0GA.jar
+7f447db19000-7f447db1b000 r-xs 00007000 08:01 4723727                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/seam-international-3.1.0.Final.jar
+7f447db1b000-7f447db1f000 r-xs 00020000 08:01 4723805                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/commons-compress-1.0.jar
+7f447db1f000-7f447db20000 r-xs 00001000 08:01 4723728                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/xmlpull-1.1.3.1.jar
+7f447db20000-7f447db28000 r-xs 00025000 08:01 4723898                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/knowledge-api-5.4.0-20120730.040501-453.jar
+7f447db28000-7f447db2a000 r-xs 00003000 08:01 4723636                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/cxf-rt-transports-common-2.4.4.jar
+7f447db2a000-7f447db34000 r-xs 0005d000 08:01 4723638                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/axiom-api-1.2.9.jar
+7f447db34000-7f447db3b000 r-xs 00051000 08:01 4723647                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/log4j-1.2.12.jar
+7f447db3b000-7f447db3d000 r-xs 00005000 08:01 4723783                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/slf4j-api-1.6.4.jar
+7f447db3d000-7f447db3f000 r-xs 00005000 08:01 4723729                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/xpp3_min-1.1.4c.jar
+7f447db3f000-7f447db43000 r-xs 0001e000 08:01 4723778                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/jbpm-flow-builder-5.3.0-SNAPSHOT.jar
+7f447db43000-7f447db52000 r-xs 000a7000 08:01 4723771                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/jackrabbit-spi-commons-2.2.8.jar
+7f447db52000-7f447db53000 r-xs 00000000 08:01 4723641                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/jcip-annotations-1.0.jar
+7f447db53000-7f447db81000 r-xs 0028a000 08:01 4723746                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/drools-core-5.4.0-SNAPSHOT.jar
+7f447db81000-7f447db88000 r-xs 00028000 08:01 4723648                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/concurrent-1.3.4.jar
+7f447db88000-7f447db8d000 r-xs 00034000 08:01 4723674                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/jung-algorithms-2.0.1.jar
+7f447db8d000-7f447db95000 r-xs 00048000 08:01 4723769                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/jung-visualization-2.0.1.jar
+7f447db95000-7f447db97000 r-xs 00007000 08:01 4723721                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/geronimo-activation_1.1_spec-1.0.2.jar
+7f447db97000-7f447db9a000 r-xs 00025000 08:01 4723753                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/antlr-runtime-3.3.jar
+7f447db9a000-7f447db9c000 r-xs 00001000 08:01 4723811                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/knowledge-internal-api-5.4.0-SNAPSHOT.jar
+7f447db9c000-7f447dba3000 r-xs 0004f000 08:01 4723796                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/cxf-common-utilities-2.5.2.jar
+7f447dba3000-7f447dbcb000 r-xs 00123000 08:01 4723696                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/opensaml-2.5.1-1.jar
+7f447dbcb000-7f447dbce000 r-xs 00023000 08:01 4723692                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/jdom-1.1.jar
+7f447dbce000-7f447dbdc000 r-xs 000bb000 08:01 4723679                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/lucene-core-2.4.1.jar
+7f447dbdc000-7f447dbe5000 r-xs 00075000 08:01 4723666                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/cxf-rt-core-2.4.4.jar
+7f447dbe5000-7f447dbfd000 r-xs 00147000 08:01 4723639                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/choco-cp-2.1.3.jar
+7f447dbfd000-7f447dc28000 r-xs 001db000 08:01 4723737                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/owlapi-3.2.4.jar
+7f447dc28000-7f447dc2a000 r-xs 0000e000 08:01 4723686                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/commons-pool-1.3.jar
+7f447dc2a000-7f447dc4f000 r-xs 00172000 08:01 4723789                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/bcprov-jdk15-1.45.jar
+7f447dc4f000-7f447dc51000 r-xs 00000000 08:01 4723672                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/jul-to-slf4j-1.6.1.jar
+7f447dc51000-7f447dc53000 r-xs 0000c000 08:01 4723749                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/drools-templates-5.4.0-SNAPSHOT.jar
+7f447dc53000-7f447dc63000 r-xs 0009c000 08:01 4723668                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/choco-kernel-2.1.3.jar
+7f447dc63000-7f447dc66000 r-xs 0000e000 08:01 4723740                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/seam-persistence-3.1.0.Final.jar
+7f447dc66000-7f447dc79000 r-xs 000d2000 08:01 4723773                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/guava-r06.jar
+7f447dc79000-7f447dcf8000 r-xs 0034a000 08:01 4723798                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/poi-ooxml-schemas-3.7.jar
+7f447dcf8000-7f447dcfc000 r-xs 0002b000 08:01 4723661                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/bcmail-jdk14-138.jar
+7f447dcfc000-7f447dcfd000 r-xs 00015000 08:01 4723747                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/tagsoup-1.2.jar
+7f447dcfd000-7f447dd37000 r-xs 00246000 08:01 4723691                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/guvnor-webapp-core-5.4.0-SNAPSHOT.jar
+7f447dd37000-7f447dd4c000 r-xs 00146000 08:01 4723756                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/choco-cp-2.1.3-sources.jar
+7f447dd4c000-7f447dd4d000 r-xs 00000000 08:01 4723800                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/javax.inject-1.jar
+7f447dd4d000-7f447dd52000 r-xs 0001a000 08:01 4723688                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/solder-api-3.1.1.Final.jar
+7f447dd52000-7f447dd58000 r-xs 0002e000 08:01 4723897                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/drools-verifier-5.4.0-20120730.043531-727.jar
+7f447dd58000-7f447dd61000 r-xs 0004c000 08:01 4723745                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/droolsjbpm-ide-common-5.4.0-SNAPSHOT.jar
+7f447dd61000-7f447dd64000 r-xs 0000e000 08:01 4723715                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/jcr-2.0.jar
+7f447dd64000-7f447dd69000 r-xs 00020000 08:01 4723812                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/wsdl4j-1.6.2.jar
+7f447dd69000-7f447dd6d000 r-xs 0002e000 08:01 4723675                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/seam-remoting-3.1.0.Final.jar
+7f447dd6d000-7f447dd75000 r-xs 00032000 08:01 4723650                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/jgrapht-0.8.1.jar
+7f447dd75000-7f447dd78000 r-xs 00023000 08:01 4723808                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/jdom-1.0.jar
+7f447dd78000-7f447dd7e000 r-xs 00068000 08:01 4723681                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/protobuf-java-2.4.1.jar
+7f447dd7e000-7f447dd8c000 r-xs 0007f000 08:01 4723790                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/commons-collections-3.2.1.jar
+7f447dd8c000-7f447dd9e000 r-xs 00102000 08:01 4723687                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/drools-compiler-5.4.0-SNAPSHOT.jar
+7f447dd9e000-7f447ddb6000 r-xs 00115000 08:01 4723791                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/xercesImpl-2.9.1.jar
+7f447ddb6000-7f447ddc6000 r-xs 00086000 08:01 4723699                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/xmltooling-1.3.2-1.jar
+7f447ddc6000-7f447ddce000 r-xs 00058000 08:01 4723777                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/velocity-1.5.jar
+7f447ddce000-7f447ddd2000 r-xs 00017000 08:01 4723744                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/cobogw-1.0.jar
+7f447ddd2000-7f447ddd5000 r-xs 0000e000 08:01 4723667                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/gwt-diagrams-0.2-RC00.jar
+7f447ddd5000-7f447ddda000 r-xs 0002d000 08:01 4723761                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/picketlink-idm-core-1.5.0.Alpha02.jar
+7f447ddda000-7f447ddef000 r-xs 000f9000 08:01 4723809                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/jaxb-impl-2.2.5.jar
+7f447ddef000-7f447ddf1000 r-xs 0000d000 08:01 4723733                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/drools-decisiontables-5.4.0-SNAPSHOT.jar
+7f447ddf1000-7f447ddf5000 r-xs 0002f000 08:01 4723732                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/cxf-rt-transports-http-2.4.4.jar
+7f447ddf5000-7f447ddf8000 r-xs 00041000 08:01 4723781                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/serializer-2.7.1.jar
+7f447ddf8000-7f447ddfb000 r-xs 00019000 08:01 4723802                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/guvnor-repository-5.4.0-SNAPSHOT.jar
+7f447ddfb000-7f447de07000 r-xs 00078000 08:01 4723662                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/prefuse-beta-20060220.jar
+7f447de07000-7f447de0d000 r-xs 00042000 08:01 4723730                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/tika-parsers-0.8.jar
+7f447de0d000-7f447de12000 r-xs 00068000 08:01 4723760                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/antlr-2.7.7.jar
+7f447de12000-7f447de1e000 r-xs 000a9000 08:01 4723702                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/mvel2-2.1.0.drools16.jar
+7f447de1e000-7f447de21000 r-xs 00006000 08:01 4723694                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/ejb-api-3.0.jar
+7f447de21000-7f447de26000 r-xs 0003b000 08:01 4723815                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/not-yet-commons-ssl-0.3.9.jar
+7f447de26000-7f447de28000 r-xs 00006000 08:01 4723807                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/geronimo-stax-api_1.0_spec-1.0.1.jar
+7f447de28000-7f447de45000 r-xs 0017c000 08:01 4723705                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/poi-3.7.jar
+7f447de45000-7f447de4a000 r-xs 00023000 08:01 4723676                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/abdera-core-1.1.1.jar
+7f447de4a000-7f447de4d000 r-xs 00018000 08:01 4723685                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/commons-io-1.4.jar
+7f447de4d000-7f447de52000 r-xs 00092000 08:01 4723734                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/abdera-i18n-1.1.1.jar
+7f447de52000-7f447de77000 r-xs 002e3000 08:01 4723754                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/xalan-2.7.1.jar
+7f447de77000-7f447de86000 r-xs 000c6000 08:01 4723784                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/choco-kernel-2.1.3-sources.jar
+7f447de86000-7f447df56000 r-xs 00a99000 08:01 4723786                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/gwt-user-2.3.0.jar
+7f447df56000-7f447df59000 ---p 00000000 00:00 0 
+7f447df59000-7f447e057000 rwxp 00000000 00:00 0 
+7f447e057000-7f447e05a000 ---p 00000000 00:00 0 
+7f447e05a000-7f447e158000 rwxp 00000000 00:00 0 
+7f447e158000-7f447e170000 r-xp 00000000 08:01 6295120                    /lib/x86_64-linux-gnu/libresolv-2.15.so
+7f447e170000-7f447e370000 ---p 00018000 08:01 6295120                    /lib/x86_64-linux-gnu/libresolv-2.15.so
+7f447e370000-7f447e371000 r-xp 00018000 08:01 6295120                    /lib/x86_64-linux-gnu/libresolv-2.15.so
+7f447e371000-7f447e372000 rwxp 00019000 08:01 6295120                    /lib/x86_64-linux-gnu/libresolv-2.15.so
+7f447e372000-7f447e374000 rwxp 00000000 00:00 0 
+7f447e374000-7f447e37b000 r-xp 00000000 08:01 6295085                    /lib/x86_64-linux-gnu/libnss_dns-2.15.so
+7f447e37b000-7f447e57a000 ---p 00007000 08:01 6295085                    /lib/x86_64-linux-gnu/libnss_dns-2.15.so
+7f447e57a000-7f447e57b000 r-xp 00006000 08:01 6295085                    /lib/x86_64-linux-gnu/libnss_dns-2.15.so
+7f447e57b000-7f447e57c000 rwxp 00007000 08:01 6295085                    /lib/x86_64-linux-gnu/libnss_dns-2.15.so
+7f447e57c000-7f447e7ea000 rwxs 00000000 00:04 724631599                  /SYSV00000000 (deleted)
+7f447e7ea000-7f447e7ed000 ---p 00000000 00:00 0 
+7f447e7ed000-7f447e8eb000 rwxp 00000000 00:00 0 
+7f447e8eb000-7f447e8ee000 ---p 00000000 00:00 0 
+7f447e8ee000-7f447e9ec000 rwxp 00000000 00:00 0 
+7f447e9ec000-7f447e9ef000 ---p 00000000 00:00 0 
+7f447e9ef000-7f447eaed000 rwxp 00000000 00:00 0 
+7f447eaee000-7f447eaf1000 r-xs 0000d000 08:01 4723640                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/hibernate-validator-3.1.0.GA.jar
+7f447eaf1000-7f447eaf5000 r-xs 0000a000 08:01 4723660                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/weld-spi-1.1.Final.jar
+7f447eaf5000-7f447eaf7000 r-xs 00007000 08:01 4723649                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/geronimo-activation_1.0.2_spec-1.1.jar
+7f447eaf7000-7f447eafb000 r-xs 00024000 08:01 4723787                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/axiom-dom-1.2.9.jar
+7f447eafb000-7f447eb03000 r-xs 00028000 08:01 4723656                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/xml-apis-1.3.04.jar
+7f447eb03000-7f447eb15000 r-xs 00102000 08:01 4723891                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/drools-compiler-5.4.0-20120730.042651-727.jar
+7f447eb15000-7f447eb52000 r-xs 0024f000 08:01 4723741                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/xmlbeans-2.3.0.jar
+7f447eb52000-7f447eb54000 r-xp 00000000 08:01 6291510                    /lib/libnss_mdns4_minimal.so.2
+7f447eb54000-7f447ed53000 ---p 00002000 08:01 6291510                    /lib/libnss_mdns4_minimal.so.2
+7f447ed53000-7f447ed54000 r-xp 00001000 08:01 6291510                    /lib/libnss_mdns4_minimal.so.2
+7f447ed54000-7f447ed55000 rwxp 00002000 08:01 6291510                    /lib/libnss_mdns4_minimal.so.2
+7f447ed55000-7f447ed5c000 r-xp 00000000 08:01 3411633                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libnio.so
+7f447ed5c000-7f447ee5b000 ---p 00007000 08:01 3411633                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libnio.so
+7f447ee5b000-7f447ee5d000 rwxp 00006000 08:01 3411633                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libnio.so
+7f447ee5d000-7f447ee67000 r-xs 0004f000 08:01 4723690                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/cxf-api-2.5.2.jar
+7f447ee67000-7f447ee6e000 r-xs 00079000 08:01 4723701                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/wstx-asl-3.2.6.jar
+7f447ee6e000-7f447ee71000 r-xs 00022000 08:01 4723682                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/stringtemplate-3.2.1.jar
+7f447ee71000-7f447ee74000 r-xs 0000c000 08:01 4723779                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/axiom-c14n-1.2.9.jar
+7f447ee74000-7f447ee76000 r-xs 00005000 08:01 4723646                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/jackrabbit-spi-2.2.8.jar
+7f447ee76000-7f447ee77000 r-xs 00001000 08:01 4723659                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/jboss-interceptors-api_1.1_spec-1.0.0.Beta1.jar
+7f447ee77000-7f447ee79000 r-xs 00005000 08:01 4723758                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/picketlink-idm-common-1.5.0.Alpha02.jar
+7f447ee79000-7f447ee7b000 r-xs 00013000 08:01 4723813                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/webdav-servlet-2.0.1.jar
+7f447ee7b000-7f447ee7d000 r-xs 00002000 08:01 4723706                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/log4j-over-slf4j-1.6.1.jar
+7f447ee7d000-7f447ee81000 r-xs 00024000 08:01 4723670                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/xmlschema-core-2.0.1.jar
+7f447ee81000-7f447ee8d000 r-xs 000aa000 08:01 4723709                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/jxl-2.6.10.jar
+7f447ee8d000-7f447ee8f000 r-xs 00006000 08:01 4723643                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/cal10n-api-0.7.2.jar
+7f447ee8f000-7f447eeb2000 r-xs 00211000 08:01 4723718                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/hibernate-core-3.3.2.GA.jar
+7f447eeb2000-7f447eeb6000 r-xs 00029000 08:01 4723698                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/stax2-api-3.1.1.jar
+7f447eeb6000-7f447eeba000 r-xs 00029000 08:01 4723766                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/automaton-1.11-7.jar
+7f447eeba000-7f447eebd000 r-xs 00010000 08:01 4723804                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/weld-servlet-core-1.1.6.Final.jar
+7f447eebd000-7f447eebf000 r-xs 0000a000 08:01 4723677                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/jsr311-api-1.1.1.jar
+7f447eebf000-7f447eece000 r-xs 000ba000 08:01 4723764                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/trove-2.1.0.jar
+7f447eece000-7f447eed2000 r-xs 00029000 08:01 4723892                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/jbpm-bpmn2-5.3.0-20120730.045731-634.jar
+7f447eed2000-7f447eee6000 r-xs 00077000 08:01 4723801                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/openws-1.4.2-1.jar
+7f447eee6000-7f447eef1000 r-xs 00063000 08:01 4723723                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/xmlsec-1.4.4.jar
+7f447eef1000-7f447ef03000 r-xs 000c1000 08:01 4723725                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/weld-core-1.1.6.Final.jar
+7f447ef03000-7f447ef0f000 r-xs 00076000 08:01 4723751                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/collections-generic-4.01.jar
+7f447ef0f000-7f447ef13000 r-xs 00024000 08:01 4723712                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/abdera-server-1.1.1.jar
+7f447ef13000-7f447ef17000 r-xs 00015000 08:01 4723684                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/jaxb-api-2.2.5.jar
+7f447ef17000-7f447ef19000 r-xs 00001000 08:01 4723900                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/knowledge-internal-api-5.4.0-20120730.040544-341.jar
+7f447ef19000-7f447ef1b000 r-xs 00002000 08:01 4723700                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/geronimo-annotation_1.0_spec-1.1.1.jar
+7f447ef1b000-7f447ef1d000 r-xs 0000e000 08:01 4723750                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/activation-1.1.jar
+7f447ef1d000-7f447ef2b000 r-xs 00081000 08:01 4723678                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/colt-1.2.0.jar
+7f447ef2b000-7f447ef2e000 r-xs 0000a000 08:01 4723652                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/persistence-api-1.0.jar
+7f447ef2e000-7f447ef30000 r-xs 0000c000 08:01 4723896                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/drools-templates-5.4.0-20120730.042929-727.jar
+7f447ef30000-7f447ef32000 r-xs 00008000 08:01 4723669                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/commons-logging-1.0.4.jar
+7f447ef32000-7f447ef35000 r-xs 000eb000 08:01 4723695                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/abdera-parser-1.1.1.jar
+7f447ef35000-7f447ef38000 r-xs 00008000 08:01 4723765                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/jung-api-2.0.1.jar
+7f447ef38000-7f447ef3b000 ---p 00000000 00:00 0 
+7f447ef3b000-7f447f039000 rwxp 00000000 00:00 0 
+7f447f039000-7f447f03c000 ---p 00000000 00:00 0 
+7f447f03c000-7f447f13a000 rwxp 00000000 00:00 0 
+7f447f13a000-7f447f13d000 ---p 00000000 00:00 0 
+7f447f13d000-7f447f23b000 rwxp 00000000 00:00 0 
+7f447f23b000-7f447f23e000 ---p 00000000 00:00 0 
+7f447f23e000-7f447f33c000 rwxp 00000000 00:00 0 
+7f447f33c000-7f447f33f000 ---p 00000000 00:00 0 
+7f447f33f000-7f447f43d000 rwxp 00000000 00:00 0 
+7f447f43d000-7f447f440000 ---p 00000000 00:00 0 
+7f447f440000-7f447f53e000 rwxp 00000000 00:00 0 
+7f447f53e000-7f447f543000 r-xp 00000000 08:01 9182073                    /usr/lib/x86_64-linux-gnu/libXfixes.so.3.1.0
+7f447f543000-7f447f742000 ---p 00005000 08:01 9182073                    /usr/lib/x86_64-linux-gnu/libXfixes.so.3.1.0
+7f447f742000-7f447f743000 r-xp 00004000 08:01 9182073                    /usr/lib/x86_64-linux-gnu/libXfixes.so.3.1.0
+7f447f743000-7f447f744000 rwxp 00005000 08:01 9182073                    /usr/lib/x86_64-linux-gnu/libXfixes.so.3.1.0
+7f447f744000-7f447f74d000 r-xp 00000000 08:01 9182091                    /usr/lib/x86_64-linux-gnu/libXrender.so.1.3.0
+7f447f74d000-7f447f94c000 ---p 00009000 08:01 9182091                    /usr/lib/x86_64-linux-gnu/libXrender.so.1.3.0
+7f447f94c000-7f447f94d000 r-xp 00008000 08:01 9182091                    /usr/lib/x86_64-linux-gnu/libXrender.so.1.3.0
+7f447f94d000-7f447f94e000 rwxp 00009000 08:01 9182091                    /usr/lib/x86_64-linux-gnu/libXrender.so.1.3.0
+7f447f94e000-7f447f957000 r-xp 00000000 08:01 9182065                    /usr/lib/x86_64-linux-gnu/libXcursor.so.1.0.2
+7f447f957000-7f447fb56000 ---p 00009000 08:01 9182065                    /usr/lib/x86_64-linux-gnu/libXcursor.so.1.0.2
+7f447fb56000-7f447fb57000 r-xp 00008000 08:01 9182065                    /usr/lib/x86_64-linux-gnu/libXcursor.so.1.0.2
+7f447fb57000-7f447fb58000 rwxp 00009000 08:01 9182065                    /usr/lib/x86_64-linux-gnu/libXcursor.so.1.0.2
+7f447fb58000-7f447fb5f000 r-xs 00094000 08:01 3411700                    /home/esteban/programs/jdk1.6.0_24/jre/lib/jsse.jar
+7f447fb5f000-7f447fb62000 r-xs 00013000 08:01 3411815                    /home/esteban/programs/jdk1.6.0_24/jre/lib/jce.jar
+7f447fb62000-7f447fb66000 rwxs 00000000 00:04 724729902                  /SYSV00000000 (deleted)
+7f447fb66000-7f447fb6e000 r-xs 00115000 08:01 3411747                    /home/esteban/programs/jdk1.6.0_24/jre/lib/resources.jar
+7f447fb6e000-7f447fb71000 r-xs 00027000 08:01 3411529                    /home/esteban/programs/jdk1.6.0_24/jre/lib/ext/sunjce_provider.jar
+7f447fb71000-7f447fb73000 r-xs 00001000 08:01 3411525                    /home/esteban/programs/jdk1.6.0_24/jre/lib/ext/dnsns.jar
+7f447fb73000-7f447fb76000 r-xs 000cb000 08:01 3412310                    /home/esteban/programs/jdk1.6.0_24/jre/lib/ext/localedata.jar
+7f447fb76000-7f447fb7a000 r-xs 00035000 08:01 3411528                    /home/esteban/programs/jdk1.6.0_24/jre/lib/ext/sunpkcs11.jar
+7f447fb7a000-7f447fb96000 r-xs 00121000 08:01 3936690                    /home/esteban/.m2/repository/org/drools/guvnor-webapp-core/5.4.0-SNAPSHOT/guvnor-webapp-core-5.4.0-SNAPSHOT-sources.jar
+7f447fb96000-7f447fb9e000 r-xs 0003c000 08:01 3936681                    /home/esteban/.m2/repository/org/drools/droolsjbpm-ide-common/5.4.0-SNAPSHOT/droolsjbpm-ide-common-5.4.0-SNAPSHOT-sources.jar
+7f447fb9e000-7f447fb9f000 r-xs 00000000 08:01 4459173                    /home/esteban/.m2/repository/javax/inject/javax.inject/1/javax.inject-1.jar
+7f447fb9f000-7f447fbfe000 r-xs 00baa000 08:01 3411731                    /home/esteban/programs/jdk1.6.0_24/lib/tools.jar
+7f447fbfe000-7f447fc13000 r-xs 00146000 08:01 7734468                    /home/esteban/.m2/repository/choco/choco-cp/2.1.3/choco-cp-2.1.3-sources.jar
+7f447fc13000-7f447fc22000 r-xs 000c6000 08:01 7734466                    /home/esteban/.m2/repository/choco/choco-kernel/2.1.3/choco-kernel-2.1.3-sources.jar
+7f447fc22000-7f447fc60000 r-xs 002f8000 08:01 7734464                    /home/esteban/.m2/repository/choco/choco-solver/2.1.3/choco-solver-2.1.3.jar
+7f447fc60000-7f447fc78000 r-xs 00147000 08:01 7734460                    /home/esteban/.m2/repository/choco/choco-cp/2.1.3/choco-cp-2.1.3.jar
+7f447fc78000-7f447fc80000 r-xs 00032000 08:01 7734461                    /home/esteban/.m2/repository/jgrapht/jgrapht/0.8.1/jgrapht-0.8.1.jar
+7f447fc80000-7f447fc84000 r-xs 00026000 08:01 7734459                    /home/esteban/.m2/repository/dk/brics/automaton/1.11-2/automaton-1.11-2.jar
+7f447fc84000-7f447fc94000 r-xs 0009c000 08:01 7734458                    /home/esteban/.m2/repository/choco/choco-kernel/2.1.3/choco-kernel-2.1.3.jar
+7f447fc94000-7f447fca3000 r-xs 000ba000 08:01 7734462                    /home/esteban/.m2/repository/gnu/trove/2.1.0/trove-2.1.0.jar
+7f447fca3000-7f447fca6000 r-xs 00023000 08:01 4588823                    /home/esteban/.m2/repository/org/jdom/jdom/1.1/jdom-1.1.jar
+7f447fca6000-7f447fcae000 r-xs 00048000 08:01 4721120                    /home/esteban/.m2/repository/net/sf/jung/jung-visualization/2.0.1/jung-visualization-2.0.1.jar
+7f447fcae000-7f447fcb5000 r-xs 00028000 08:01 3544519                    /home/esteban/.m2/repository/concurrent/concurrent/1.3.4/concurrent-1.3.4.jar
+7f447fcb5000-7f447fcc3000 r-xs 00081000 08:01 6822466                    /home/esteban/.m2/repository/colt/colt/1.2.0/colt-1.2.0.jar
+7f447fcc3000-7f447fcc8000 r-xs 00034000 08:01 4721119                    /home/esteban/.m2/repository/net/sf/jung/jung-algorithms/2.0.1/jung-algorithms-2.0.1.jar
+7f447fcc8000-7f447fcd4000 r-xs 00076000 08:01 7734480                    /home/esteban/.m2/repository/net/sourceforge/collections/collections-generic/4.01/collections-generic-4.01.jar
+7f447fcd4000-7f447fcd7000 r-xs 00008000 08:01 4592629                    /home/esteban/.m2/repository/net/sf/jung/jung-api/2.0.1/jung-api-2.0.1.jar
+7f447fcd7000-7f447fcd9000 r-xs 0000e000 08:01 4460366                    /home/esteban/.m2/repository/net/sf/jung/jung-graph-impl/2.0.1/jung-graph-impl-2.0.1.jar
+7f447fcd9000-7f447fcdd000 r-xs 00016000 08:01 6822464                    /home/esteban/.m2/repository/oqube/jautomata-core/2.0-alpha-1/jautomata-core-2.0-alpha-1.jar
+7f447fcdd000-7f447fce1000 r-xs 00029000 08:01 6686557                    /home/esteban/.m2/repository/dk/brics/automaton/automaton/1.11-7/automaton-1.11-7.jar
+7f447fce1000-7f447fce5000 r-xs 00024000 08:01 5901720                    /home/esteban/.m2/repository/org/apache/ws/commons/axiom/axiom-dom/1.2.9/axiom-dom-1.2.9.jar
+7f447fce5000-7f447fce8000 r-xs 0000c000 08:01 5771952                    /home/esteban/.m2/repository/org/apache/ws/commons/axiom/axiom-c14n/1.2.9/axiom-c14n-1.2.9.jar
+7f447fce8000-7f447fcf2000 r-xs 0005d000 08:01 5771951                    /home/esteban/.m2/repository/org/apache/ws/commons/axiom/axiom-api/1.2.9/axiom-api-1.2.9.jar
+7f447fcf2000-7f447fd00000 r-xs 0009d000 08:01 7734477                    /home/esteban/.m2/repository/org/semanticweb/HermiT/1.3.5/HermiT-1.3.5.jar
+7f447fd00000-7f447fd2b000 r-xs 001db000 08:01 6558362                    /home/esteban/.m2/repository/owlapi/owlapi/3.2.4/owlapi-3.2.4.jar
+7f447fd2b000-7f447fd37000 r-xs 00078000 08:01 7734479                    /home/esteban/.m2/repository/org/prefuse/prefuse/beta-20060220/prefuse-beta-20060220.jar
+7f447fd37000-7f447fd39000 r-xs 00001000 08:01 6429594                    /home/esteban/.m2/repository/org/drools/knowledge-internal-api/5.4.0-SNAPSHOT/knowledge-internal-api-5.4.0-SNAPSHOT.jar
+7f447fd39000-7f447fd67000 r-xs 0028a000 08:01 6165501                    /home/esteban/.m2/repository/org/drools/drools-core/5.4.0-SNAPSHOT/drools-core-5.4.0-SNAPSHOT.jar
+7f447fd67000-7f447fd6f000 r-xs 00025000 08:01 6298572                    /home/esteban/.m2/repository/org/drools/knowledge-api/5.4.0-SNAPSHOT/knowledge-api-5.4.0-SNAPSHOT.jar
+7f447fd6f000-7f447fd74000 r-xs 0002a000 08:01 4721124                    /home/esteban/.m2/repository/org/drools/drools-shapes-reasoner-generator/5.5.0-SNAPSHOT/drools-shapes-reasoner-generator-5.5.0-SNAPSHOT.jar
+7f447fd74000-7f447fd7a000 r-xs 00032000 08:01 4588824                    /home/esteban/.m2/repository/jaxen/jaxen/1.1.1/jaxen-1.1.1.jar
+7f447fd7a000-7f447fd81000 r-xs 00079000 08:01 5639980                    /home/esteban/.m2/repository/org/codehaus/woodstox/wstx-asl/3.2.6/wstx-asl-3.2.6.jar
+7f447fd81000-7f447fd83000 r-xs 00007000 08:01 5768448                    /home/esteban/.m2/repository/org/apache/geronimo/specs/geronimo-activation_1.1_spec/1.0.2/geronimo-activation_1.1_spec-1.0.2.jar
+7f447fd83000-7f447fd86000 r-xs 0001b000 08:01 5768445                    /home/esteban/.m2/repository/org/apache/ws/commons/axiom/axiom-impl/1.2.10/axiom-impl-1.2.10.jar
+7f447fd86000-7f447fd89000 r-xs 000eb000 08:01 5768444                    /home/esteban/.m2/repository/org/apache/abdera/abdera-parser/1.1.1/abdera-parser-1.1.1.jar
+7f447fd89000-7f447fd8b000 r-xs 00006000 08:01 5768442                    /home/esteban/.m2/repository/org/apache/geronimo/specs/geronimo-stax-api_1.0_spec/1.0.1/geronimo-stax-api_1.0_spec-1.0.1.jar
+7f447fd8b000-7f447fd8d000 r-xs 00007000 08:01 5507397                    /home/esteban/.m2/repository/org/apache/geronimo/specs/geronimo-activation_1.0.2_spec/1.1/geronimo-activation_1.0.2_spec-1.1.jar
+7f447fd8d000-7f447fd92000 r-xs 00092000 08:01 5117906                    /home/esteban/.m2/repository/org/apache/abdera/abdera-i18n/1.1.1/abdera-i18n-1.1.1.jar
+7f447fd92000-7f447fd97000 r-xs 00023000 08:01 4983827                    /home/esteban/.m2/repository/org/apache/abdera/abdera-core/1.1.1/abdera-core-1.1.1.jar
+7f447fd97000-7f447fd99000 r-xs 00010000 08:01 4588134                    /home/esteban/.m2/repository/commons-codec/commons-codec/1.5/commons-codec-1.5.jar
+7f447fd99000-7f447fd9b000 r-xs 00008000 08:01 4456809                    /home/esteban/.m2/repository/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar
+7f447fd9b000-7f447fd9d000 r-xs 00005000 08:01 4591160                    /home/esteban/.m2/repository/org/slf4j/slf4j-api/1.6.4/slf4j-api-1.6.4.jar
+7f447fd9d000-7f447fd9e000 r-xs 00005000 08:01 4588126                    /home/esteban/.m2/repository/javax/el/el-api/1.2/el-api-1.2.jar
+7f447fd9e000-7f447fda1000 r-xs 0000f000 08:01 5246488                    /home/esteban/.m2/repository/org/apache/neethi/neethi/3.0.1/neethi-3.0.1.jar
+7f447fda1000-7f447fda5000 r-xs 00024000 08:01 5246483                    /home/esteban/.m2/repository/org/apache/ws/xmlschema/xmlschema-core/2.0.1/xmlschema-core-2.0.1.jar
+7f447fda5000-7f447fda9000 r-xs 00029000 08:01 5246486                    /home/esteban/.m2/repository/org/codehaus/woodstox/stax2-api/3.1.1/stax2-api-3.1.1.jar
+7f447fda9000-7f447fdae000 r-xs 00070000 08:01 5246485                    /home/esteban/.m2/repository/org/codehaus/woodstox/woodstox-core-asl/4.1.1/woodstox-core-asl-4.1.1.jar
+7f447fdae000-7f447fdb5000 r-xs 0004f000 08:01 5773090                    /home/esteban/.m2/repository/org/apache/cxf/cxf-common-utilities/2.5.2/cxf-common-utilities-2.5.2.jar
+7f447fdb5000-7f447fdbf000 r-xs 0004f000 08:01 5641145                    /home/esteban/.m2/repository/org/apache/cxf/cxf-api/2.5.2/cxf-api-2.5.2.jar
+7f447fdbf000-7f447fdc2000 r-xs 00041000 08:01 5245697                    /home/esteban/.m2/repository/xalan/serializer/2.7.1/serializer-2.7.1.jar
+7f447fdc2000-7f447fde7000 r-xs 002e3000 08:01 5245695                    /home/esteban/.m2/repository/xalan/xalan/2.7.1/xalan-2.7.1.jar
+7f447fde7000-7f447fde9000 r-xs 00013000 08:01 5245573                    /home/esteban/.m2/repository/xml-resolver/xml-resolver/1.2/xml-resolver-1.2.jar
+7f447fde9000-7f447fe01000 r-xs 00115000 08:01 4588724                    /home/esteban/.m2/repository/xerces/xercesImpl/2.9.1/xercesImpl-2.9.1.jar
+7f447fe01000-7f447fe09000 r-xs 00028000 08:01 4459178                    /home/esteban/.m2/repository/xml-apis/xml-apis/1.3.04/xml-apis-1.3.04.jar
+7f447fe09000-7f447fe0f000 r-xs 00054000 08:01 8522470                    /home/esteban/.m2/repository/org/owasp/esapi/esapi/2.0GA/esapi-2.0GA.jar
+7f447fe0f000-7f447fe17000 r-xs 00058000 08:01 3936638                    /home/esteban/.m2/repository/velocity/velocity/1.5/velocity-1.5.jar
+7f447fe17000-7f447fe25000 r-xs 0007f000 08:01 4591169                    /home/esteban/.m2/repository/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar
+7f447fe25000-7f447fe26000 r-xs 00000000 08:01 4588124                    /home/esteban/.m2/repository/net/jcip/jcip-annotations/1.0/jcip-annotations-1.0.jar
+7f447fe26000-7f447fe2b000 r-xs 0003b000 08:01 6951401                    /home/esteban/.m2/repository/ca/juliusdavies/not-yet-commons-ssl/0.3.9/not-yet-commons-ssl-0.3.9.jar
+7f447fe2b000-7f447fe36000 r-xs 00063000 08:01 4332414                    /home/esteban/.m2/repository/org/apache/santuario/xmlsec/1.4.4/xmlsec-1.4.4.jar
+7f447fe36000-7f447fe5b000 r-xs 00172000 08:01 7477202                    /home/esteban/.m2/repository/org/bouncycastle/bcprov-jdk15/1.45/bcprov-jdk15-1.45.jar
+7f447fe5b000-7f447fe5d000 r-xs 00000000 08:01 4593265                    /home/esteban/.m2/repository/org/slf4j/jul-to-slf4j/1.6.1/jul-to-slf4j-1.6.1.jar
+7f447fe5d000-7f447fe5f000 r-xs 00002000 08:01 5247301                    /home/esteban/.m2/repository/org/slf4j/log4j-over-slf4j/1.6.1/log4j-over-slf4j-1.6.1.jar
+7f447fe5f000-7f447fe6f000 r-xs 00086000 08:01 7471331                    /home/esteban/.m2/repository/org/opensaml/xmltooling/1.3.2-1/xmltooling-1.3.2-1.jar
+7f447fe6f000-7f447fe83000 r-xs 00077000 08:01 7471330                    /home/esteban/.m2/repository/org/opensaml/openws/1.4.2-1/openws-1.4.2-1.jar
+7f447fe83000-7f447feab000 r-xs 00123000 08:01 7471329                    /home/esteban/.m2/repository/org/opensaml/opensaml/2.5.1-1/opensaml-2.5.1-1.jar
+7f447feab000-7f447feae000 r-xs 0000e000 08:01 5115794                    /home/esteban/.m2/repository/org/hibernate/hibernate-commons-annotations/3.1.0.GA/hibernate-commons-annotations-3.1.0.GA.jar
+7f447feae000-7f447feb3000 r-xs 00048000 08:01 4588128                    /home/esteban/.m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar
+7f447feb3000-7f447fed6000 r-xs 00211000 08:01 5115800                    /home/esteban/.m2/repository/org/hibernate/hibernate-core/3.3.2.GA/hibernate-core-3.3.2.GA.jar
+7f447fed6000-7f447fed9000 r-xs 0000d000 08:01 5246466                    /home/esteban/.m2/repository/org/hibernate/hibernate-validator/3.1.0.GA/hibernate-validator-3.1.0.GA.jar
+7f447fed9000-7f447fede000 r-xs 00046000 08:01 6032389                    /home/esteban/.m2/repository/javax/faces/jsf-api/1.2/jsf-api-1.2.jar
+7f447fede000-7f447fee1000 r-xs 0000a000 08:01 6032380                    /home/esteban/.m2/repository/javax/persistence/persistence-api/1.0/persistence-api-1.0.jar
+7f447fee1000-7f447fee2000 r-xs 00003000 08:01 5115805                    /home/esteban/.m2/repository/javax/transaction/jta/1.1/jta-1.1.jar
+7f447fee2000-7f447fee4000 r-xs 0000e000 08:01 4588133                    /home/esteban/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar
+7f447fee4000-7f447feea000 r-xs 00059000 08:01 4588149                    /home/esteban/.m2/repository/javax/mail/mail/1.4/mail-1.4.jar
+7f447feea000-7f447feff000 r-xs 000f9000 08:01 5112130                    /home/esteban/.m2/repository/com/sun/xml/bind/jaxb-impl/2.2.5/jaxb-impl-2.2.5.jar
+7f447feff000-7f447ff00000 ---p 00000000 00:00 0 
+7f447ff00000-7f4480000000 rwxp 00000000 00:00 0 
+7f4480000000-7f448003a000 rwxp 00000000 00:00 0 
+7f448003a000-7f4484000000 ---p 00000000 00:00 0 
+7f4484000000-7f4484002000 r-xs 00004000 08:01 4723814                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/weld-api-1.1.Final.jar
+7f4484002000-7f4484006000 r-xs 00024000 08:01 4331214                    /home/esteban/.m2/repository/org/apache/abdera/abdera-server/1.1.1/abdera-server-1.1.1.jar
+7f4484006000-7f4484008000 r-xs 00002000 08:01 6032387                    /home/esteban/.m2/repository/org/apache/geronimo/specs/geronimo-annotation_1.0_spec/1.1.1/geronimo-annotation_1.0_spec-1.1.1.jar
+7f4484008000-7f448400a000 r-xs 00010000 08:01 6032386                    /home/esteban/.m2/repository/org/codehaus/jettison/jettison/1.2/jettison-1.2.jar
+7f448400a000-7f448400e000 r-xs 0002f000 08:01 5245606                    /home/esteban/.m2/repository/org/apache/cxf/cxf-rt-transports-http/2.4.4/cxf-rt-transports-http-2.4.4.jar
+7f448400e000-7f4484012000 r-xs 00015000 08:01 5112132                    /home/esteban/.m2/repository/javax/xml/bind/jaxb-api/2.2.5/jaxb-api-2.2.5.jar
+7f4484012000-7f4484013000 r-xs 00001000 08:01 4723738                    /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT/WEB-INF/lib/guvnor-repository-connector-modeshape-5.4.0-SNAPSHOT.jar
+7f4484013000-7f4484015000 r-xs 00003000 08:01 5245598                    /home/esteban/.m2/repository/org/apache/cxf/cxf-rt-transports-common/2.4.4/cxf-rt-transports-common-2.4.4.jar
+7f4484015000-7f4484017000 r-xs 00008000 08:01 5245593                    /home/esteban/.m2/repository/org/apache/cxf/cxf-rt-bindings-xml/2.4.4/cxf-rt-bindings-xml-2.4.4.jar
+7f4484017000-7f4484020000 r-xs 00075000 08:01 5245581                    /home/esteban/.m2/repository/org/apache/cxf/cxf-rt-core/2.4.4/cxf-rt-core-2.4.4.jar
+7f4484020000-7f4484028000 r-xs 00087000 08:01 6032384                    /home/esteban/.m2/repository/org/apache/cxf/cxf-rt-frontend-jaxrs/2.4.4/cxf-rt-frontend-jaxrs-2.4.4.jar
+7f4484028000-7f448402a000 r-xs 0000a000 08:01 6032382                    /home/esteban/.m2/repository/javax/ws/rs/jsr311-api/1.1.1/jsr311-api-1.1.1.jar
+7f448402a000-7f4484034000 r-xs 00095000 08:01 4459157                    /home/esteban/.m2/repository/org/javassist/javassist/3.14.0-GA/javassist-3.14.0-GA.jar
+7f4484034000-7f4484037000 r-xs 00006000 08:01 6032301                    /home/esteban/.m2/repository/javax/ejb/ejb-api/3.0/ejb-api-3.0.jar
+7f4484037000-7f4484038000 r-xs 00002000 08:01 6032300                    /home/esteban/.m2/repository/org/jboss/seam/conversation/seam-conversation-spi/3.0.0.Final/seam-conversation-spi-3.0.0.Final.jar
+7f4484038000-7f448403c000 r-xs 0002e000 08:01 6032299                    /home/esteban/.m2/repository/org/jboss/seam/remoting/seam-remoting/3.1.0.Final/seam-remoting-3.1.0.Final.jar
+7f448403c000-7f448404b000 r-xs 00074000 08:01 4201710                    /home/esteban/.m2/repository/joda-time/joda-time/1.6/joda-time-1.6.jar
+7f448404b000-7f448404d000 r-xs 00005000 08:01 4067420                    /home/esteban/.m2/repository/org/picketlink/idm/picketlink-idm-common/1.5.0.Alpha02/picketlink-idm-common-1.5.0.Alpha02.jar
+7f448404d000-7f4484052000 r-xs 0002d000 08:01 4201705                    /home/esteban/.m2/repository/org/picketlink/idm/picketlink-idm-core/1.5.0.Alpha02/picketlink-idm-core-1.5.0.Alpha02.jar
+7f4484052000-7f4484054000 r-xs 00003000 08:01 6032297                    /home/esteban/.m2/repository/org/jboss/seam/international/seam-international-api/3.1.0.Final/seam-international-api-3.1.0.Final.jar
+7f4484054000-7f4484056000 r-xs 00007000 08:01 6032294                    /home/esteban/.m2/repository/org/jboss/seam/international/seam-international/3.1.0.Final/seam-international-3.1.0.Final.jar
+7f4484056000-7f4484058000 r-xs 00009000 08:01 6032292                    /home/esteban/.m2/repository/org/jboss/seam/transaction/seam-transaction/3.1.0.Final/seam-transaction-3.1.0.Final.jar
+7f4484058000-7f448405a000 r-xs 00001000 08:01 6032290                    /home/esteban/.m2/repository/org/jboss/seam/transaction/seam-transaction-api/3.1.0.Final/seam-transaction-api-3.1.0.Final.jar
+7f448405a000-7f448405b000 r-xs 00001000 08:01 6032289                    /home/esteban/.m2/repository/org/jboss/seam/persistence/seam-persistence-api/3.1.0.Final/seam-persistence-api-3.1.0.Final.jar
+7f448405b000-7f448405e000 r-xs 0000e000 08:01 5901203                    /home/esteban/.m2/repository/org/jboss/seam/persistence/seam-persistence/3.1.0.Final/seam-persistence-3.1.0.Final.jar
+7f448405e000-7f4484060000 r-xs 00004000 08:01 4201703                    /home/esteban/.m2/repository/org/picketlink/idm/picketlink-idm-spi/1.5.0.Alpha02/picketlink-idm-spi-1.5.0.Alpha02.jar
+7f4484060000-7f4484062000 r-xs 00005000 08:01 4067418                    /home/esteban/.m2/repository/org/picketlink/idm/picketlink-idm-api/1.5.0.Alpha02/picketlink-idm-api-1.5.0.Alpha02.jar
+7f4484062000-7f4484064000 r-xs 00006000 08:01 5770992                    /home/esteban/.m2/repository/org/jboss/seam/security/seam-security-api/3.1.0.Final/seam-security-api-3.1.0.Final.jar
+7f4484064000-7f4484068000 r-xs 00020000 08:01 5375790                    /home/esteban/.m2/repository/org/jboss/seam/security/seam-security/3.1.0.Final/seam-security-3.1.0.Final.jar
+7f4484068000-7f448406a000 r-xs 0000f000 08:01 5640198                    /home/esteban/.m2/repository/org/jboss/solder/solder-logging/3.1.1.Final/solder-logging-3.1.1.Final.jar
+7f448406a000-7f448406f000 r-xs 0001a000 08:01 5640196                    /home/esteban/.m2/repository/org/jboss/solder/solder-api/3.1.1.Final/solder-api-3.1.1.Final.jar
+7f448406f000-7f448407a000 r-xs 00062000 08:01 4984046                    /home/esteban/.m2/repository/org/jboss/solder/solder-impl/3.1.1.Final/solder-impl-3.1.1.Final.jar
+7f448407a000-7f448407d000 r-xs 00010000 08:01 4984883                    /home/esteban/.m2/repository/org/jboss/weld/servlet/weld-servlet-core/1.1.6.Final/weld-servlet-core-1.1.6.Final.jar
+7f448407d000-7f448407f000 r-xs 00006000 08:01 4588158                    /home/esteban/.m2/repository/ch/qos/cal10n/cal10n-api/0.7.2/cal10n-api-0.7.2.jar
+7f448407f000-7f4484081000 r-xs 00009000 08:01 4588161                    /home/esteban/.m2/repository/org/slf4j/slf4j-ext/1.6.4/slf4j-ext-1.6.4.jar
+7f4484081000-7f4484082000 r-xs 00001000 08:01 4459148                    /home/esteban/.m2/repository/org/jboss/spec/javax/interceptor/jboss-interceptors-api_1.1_spec/1.0.0.Beta1/jboss-interceptors-api_1.1_spec-1.0.0.Beta1.jar
+7f4484082000-7f4484083000 r-xs 00001000 08:01 4459172                    /home/esteban/.m2/repository/javax/annotation/jsr250-api/1.0/jsr250-api-1.0.jar
+7f4484083000-7f4484087000 r-xs 0000a000 08:01 4588080                    /home/esteban/.m2/repository/org/jboss/weld/weld-spi/1.1.Final/weld-spi-1.1.Final.jar
+7f4484087000-7f4484089000 r-xs 00004000 08:01 4588081                    /home/esteban/.m2/repository/org/jboss/weld/weld-api/1.1.Final/weld-api-1.1.Final.jar
+7f4484089000-7f448408c000 r-xs 0000a000 08:01 4459141                    /home/esteban/.m2/repository/javax/enterprise/cdi-api/1.0-SP4/cdi-api-1.0-SP4.jar
+7f448408c000-7f448409e000 r-xs 000c1000 08:01 4588084                    /home/esteban/.m2/repository/org/jboss/weld/weld-core/1.1.6.Final/weld-core-1.1.6.Final.jar
+7f448409e000-7f44840ad000 r-xs 000c8000 08:01 4068041                    /home/esteban/.m2/repository/org/freemarker/freemarker/2.3.15/freemarker-2.3.15.jar
+7f44840ad000-7f44840b0000 r-xs 00018000 08:01 5115007                    /home/esteban/.m2/repository/commons-io/commons-io/1.4/commons-io-1.4.jar
+7f44840b0000-7f44840b4000 r-xs 0003c000 08:01 4591963                    /home/esteban/.m2/repository/commons-lang/commons-lang/2.4/commons-lang-2.4.jar
+7f44840b4000-7f44840b5000 r-xs 00000000 08:01 655443                     /var/cache/fontconfig/c05880de57d1f5e948fdfacc138775d9-le64.cache-3
+7f44840b5000-7f44840be000 r-xs 00000000 08:01 655438                     /var/cache/fontconfig/945677eb7aeaf62f1d50efc3fb3ec7d8-le64.cache-3
+7f44840be000-7f44840c0000 r-xs 00000000 08:01 655439                     /var/cache/fontconfig/99e8ed0e538f840c565b6ed5dad60d56-le64.cache-3
+7f44840c0000-7f44840c4000 r-xs 00000000 08:01 655425                     /var/cache/fontconfig/2cd17615ca594fa2959ae173292e504c-le64.cache-3
+7f44840c4000-7f44840c5000 r-xs 00000000 08:01 655450                     /var/cache/fontconfig/e7071f4a29fa870f4323321c154eba04-le64.cache-3
+7f44840c5000-7f44840c6000 r-xs 00000000 08:01 655423                     /var/cache/fontconfig/0d8c3b2ac0904cb8a57a757ad11a4a08-le64.cache-3
+7f44840c6000-7f44840cc000 r-xs 00000000 08:01 655440                     /var/cache/fontconfig/a755afe4a08bf5b97852ceb7400b47bc-le64.cache-3
+7f44840cc000-7f44840d5000 r-xs 00000000 08:01 663426                     /var/cache/fontconfig/6d41288fd70b0be22e8c3a91e032eec0-le64.cache-3
+7f44840d5000-7f44840d8000 r-xs 0000c000 08:01 5245710                    /home/esteban/.m2/repository/commons-fileupload/commons-fileupload/1.2.1/commons-fileupload-1.2.1.jar
+7f44840d8000-7f44840e8000 r-xs 00000000 08:01 655422                     /var/cache/fontconfig/04aabc0a78ac019cf9454389977116d2-le64.cache-3
+7f44840e8000-7f44840eb000 r-xs 00000000 08:01 655428                     /var/cache/fontconfig/385c0604a188198f04d133e54aba7fe7-le64.cache-3
+7f44840eb000-7f44840ec000 r-xs 00000000 08:01 662033                     /var/cache/fontconfig/4794a0821666d79190d59a36cb4f44b5-le64.cache-3
+7f44840ec000-7f44840ef000 r-xs 00000000 08:01 655437                     /var/cache/fontconfig/8801497958630a81b71ace7c5f9b32a8-le64.cache-3
+7f44840ef000-7f44840f4000 r-xs 00000000 08:01 661977                     /var/cache/fontconfig/3047814df9a2f067bd2d96a2b9c36e5a-le64.cache-3
+7f44840f4000-7f44840f5000 r-xs 00000000 08:01 655431                     /var/cache/fontconfig/56cf4f4769d0f4abc89a4895d7bd3ae1-le64.cache-3
+7f44840f5000-7f44840f6000 r-xs 00000000 08:01 655442                     /var/cache/fontconfig/b9d506c9ac06c20b433354fa67a72993-le64.cache-3
+7f44840f6000-7f44840fb000 r-xs 00000000 08:01 655441                     /var/cache/fontconfig/b47c4e1ecd0709278f4910c18777a504-le64.cache-3
+7f44840fb000-7f448410b000 r-xs 00000000 08:01 655446                     /var/cache/fontconfig/d52a8644073d54c13679302ca1180695-le64.cache-3
+7f448410b000-7f448410e000 r-xs 00000000 08:01 656562                     /var/cache/fontconfig/e13b20fdb08344e0e664864cc2ede53d-le64.cache-3
+7f448410e000-7f4484112000 r-xs 00000000 08:01 656563                     /var/cache/fontconfig/7ef2298fde41cc6eeb7af42e48b7d293-le64.cache-3
+7f4484112000-7f4484116000 r-xs 0001e000 08:01 4588088                    /home/esteban/.m2/repository/com/allen-sauer/gwt/dnd/gwt-dnd/3.1.2/gwt-dnd-3.1.2.jar
+7f4484116000-7f4484174000 r-xs 00468000 08:01 4591965                    /home/esteban/.m2/repository/com/google/gwt/gwt-servlet/2.3.0/gwt-servlet-2.3.0.jar
+7f4484174000-7f4484178000 r-xs 00017000 08:01 3936070                    /home/esteban/.m2/repository/org/cobogw/gwt/cobogw/1.0/cobogw-1.0.jar
+7f4484178000-7f448417b000 r-xs 0000e000 08:01 3936068                    /home/esteban/.m2/repository/pl/balon/gwt/gwt-diagrams/0.2-RC00/gwt-diagrams-0.2-RC00.jar
+7f448417b000-7f4484182000 r-xs 00051000 08:01 4984886                    /home/esteban/.m2/repository/log4j/log4j/1.2.12/log4j-1.2.12.jar
+7f4484182000-7f44841a3000 r-xs 0015a000 08:01 5115396                    /home/esteban/.m2/repository/bouncycastle/bcprov-jdk14/138/bcprov-jdk14-138.jar
+7f44841a3000-7f44841a7000 r-xs 0002b000 08:01 5115397                    /home/esteban/.m2/repository/bouncycastle/bcmail-jdk14/138/bcmail-jdk14-138.jar
+7f44841a7000-7f44841ac000 r-xs 00032000 08:01 5245585                    /home/esteban/.m2/repository/org/apache/geronimo/specs/geronimo-javamail_1.4_spec/1.7.1/geronimo-javamail_1.4_spec-1.7.1.jar
+7f44841ac000-7f44841ad000 r-xs 00002000 08:01 4588131                    /home/esteban/.m2/repository/org/slf4j/slf4j-log4j12/1.6.4/slf4j-log4j12-1.6.4.jar
+7f44841ad000-7f44841af000 r-xs 00013000 08:01 4853739                    /home/esteban/.m2/repository/net/sf/webdav-servlet/webdav-servlet/2.0.1/webdav-servlet-2.0.1.jar
+7f44841af000-7f44841b4000 r-xs 00020000 08:01 5245615                    /home/esteban/.m2/repository/wsdl4j/wsdl4j/1.6.2/wsdl4j-1.6.2.jar
+7f44841b4000-7f44841bd000 r-xs 0004c000 08:01 3936676                    /home/esteban/.m2/repository/org/drools/droolsjbpm-ide-common/5.4.0-SNAPSHOT/droolsjbpm-ide-common-5.4.0-SNAPSHOT.jar
+7f44841bd000-7f44841c8000 r-xs 000f9000 08:01 5115398                    /home/esteban/.m2/repository/com/lowagie/itext/2.1.2/itext-2.1.2.jar
+7f44841c8000-7f44841db000 r-xs 000d2000 08:01 4459365                    /home/esteban/.m2/repository/com/google/guava/guava/r06/guava-r06.jar
+7f44841db000-7f44841e1000 r-xs 0002e000 08:01 6558651                    /home/esteban/.m2/repository/org/drools/drools-verifier/5.4.0-SNAPSHOT/drools-verifier-5.4.0-SNAPSHOT.jar
+7f44841e1000-7f44841e3000 r-xs 0000c000 08:01 5247298                    /home/esteban/.m2/repository/org/drools/drools-templates/5.4.0-SNAPSHOT/drools-templates-5.4.0-SNAPSHOT.jar
+7f44841e3000-7f44841ef000 r-xs 000aa000 08:01 5115010                    /home/esteban/.m2/repository/net/sourceforge/jexcelapi/jxl/2.6.10/jxl-2.6.10.jar
+7f44841ef000-7f44841f1000 r-xs 0000d000 08:01 5119738                    /home/esteban/.m2/repository/org/drools/drools-decisiontables/5.4.0-SNAPSHOT/drools-decisiontables-5.4.0-SNAPSHOT.jar
+7f44841f1000-7f44841f7000 r-xs 00068000 08:01 5112125                    /home/esteban/.m2/repository/com/google/protobuf/protobuf-java/2.4.1/protobuf-java-2.4.1.jar
+7f44841f7000-7f4484202000 r-xs 00080000 08:01 6298059                    /home/esteban/.m2/repository/org/jbpm/jbpm-flow/5.3.0-SNAPSHOT/jbpm-flow-5.3.0-SNAPSHOT.jar
+7f4484202000-7f4484206000 r-xs 0001e000 08:01 6165071                    /home/esteban/.m2/repository/org/jbpm/jbpm-flow-builder/5.3.0-SNAPSHOT/jbpm-flow-builder-5.3.0-SNAPSHOT.jar
+7f4484206000-7f448420a000 r-xs 00029000 08:01 4199009                    /home/esteban/.m2/repository/org/jbpm/jbpm-bpmn2/5.3.0-SNAPSHOT/jbpm-bpmn2-5.3.0-SNAPSHOT.jar
+7f448420a000-7f4484216000 r-xs 000a9000 08:01 4591139                    /home/esteban/.m2/repository/org/mvel/mvel2/2.1.0.drools16/mvel2-2.1.0.drools16.jar
+7f4484216000-7f4484224000 r-xs 0018b000 08:01 4589587                    /home/esteban/.m2/repository/org/eclipse/jdt/core/compiler/ecj/3.5.1/ecj-3.5.1.jar
+7f4484224000-7f4484229000 r-xs 00068000 08:01 4589586                    /home/esteban/.m2/repository/antlr/antlr/2.7.7/antlr-2.7.7.jar
+7f4484229000-7f448422c000 r-xs 00022000 08:01 4589576                    /home/esteban/.m2/repository/org/antlr/stringtemplate/3.2.1/stringtemplate-3.2.1.jar
+7f448422c000-7f4484235000 r-xs 000d3000 08:01 4589575                    /home/esteban/.m2/repository/org/antlr/antlr/3.3/antlr-3.3.jar
+7f4484235000-7f4484238000 r-xs 00025000 08:01 4589574                    /home/esteban/.m2/repository/org/antlr/antlr-runtime/3.3/antlr-runtime-3.3.jar
+7f4484238000-7f448423b000 ---p 00000000 00:00 0 
+7f448423b000-7f4484339000 rwxp 00000000 00:00 0 
+7f4484339000-7f448434b000 r-xs 00102000 08:01 6558650                    /home/esteban/.m2/repository/org/drools/drools-compiler/5.4.0-SNAPSHOT/drools-compiler-5.4.0-SNAPSHOT.jar
+7f448434b000-7f448434c000 r-xs 00001000 08:01 5773069                    /home/esteban/.m2/repository/org/drools/guvnor-repository-connector-modeshape/5.4.0-SNAPSHOT/guvnor-repository-connector-modeshape-5.4.0-SNAPSHOT.jar
+7f448434c000-7f4484372000 r-xs 00240000 08:01 3806226                    /home/esteban/.m2/repository/org/apache/derby/derby/10.5.3.0_1/derby-10.5.3.0_1.jar
+7f4484372000-7f4484380000 r-xs 000bb000 08:01 3806225                    /home/esteban/.m2/repository/org/apache/lucene/lucene-core/2.4.1/lucene-core-2.4.1.jar
+7f4484380000-7f44843b1000 r-xs 003f0000 08:01 3806218                    /home/esteban/.m2/repository/edu/ucar/netcdf/4.2-min/netcdf-4.2-min.jar
+7f44843b1000-7f44843b4000 r-xs 00023000 08:01 4457768                    /home/esteban/.m2/repository/jdom/jdom/1.0/jdom-1.0.jar
+7f44843b4000-7f44843b8000 r-xs 0002f000 08:01 5245566                    /home/esteban/.m2/repository/rome/rome/0.9/rome-0.9.jar
+7f44843b8000-7f44843bb000 r-xs 00014000 08:01 5246464                    /home/esteban/.m2/repository/de/l3s/boilerpipe/boilerpipe/1.1.0/boilerpipe-1.1.0.jar
+7f44843bb000-7f44843be000 r-xs 00014000 08:01 4851904                    /home/esteban/.m2/repository/com/drewnoakes/metadata-extractor/2.4.0-beta-1/metadata-extractor-2.4.0-beta-1.jar
+7f44843be000-7f44843bf000 r-xs 0000a000 08:01 4720462                    /home/esteban/.m2/repository/asm/asm/3.1/asm-3.1.jar
+7f44843bf000-7f44843fc000 r-xs 0024f000 08:01 3677748                    /home/esteban/.m2/repository/org/apache/xmlbeans/xmlbeans/2.3.0/xmlbeans-2.3.0.jar
+7f44843fc000-7f448447b000 r-xs 0034a000 08:01 3677746                    /home/esteban/.m2/repository/org/apache/poi/poi-ooxml-schemas/3.7/poi-ooxml-schemas-3.7.jar
+7f448447b000-7f4484482000 r-xs 00073000 08:01 3677745                    /home/esteban/.m2/repository/org/apache/poi/poi-ooxml/3.7/poi-ooxml-3.7.jar
+7f4484482000-7f448448f000 r-xs 000c1000 08:01 3544530                    /home/esteban/.m2/repository/org/apache/poi/poi-scratchpad/3.7/poi-scratchpad-3.7.jar
+7f448448f000-7f4484508000 r-xp 00000000 08:01 3411641                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libfontmanager.so
+7f4484508000-7f4484607000 ---p 00079000 08:01 3411641                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libfontmanager.so
+7f4484607000-7f448461c000 rwxp 00078000 08:01 3411641                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libfontmanager.so
+7f448461c000-7f448462d000 rwxp 00000000 00:00 0 
+7f448462d000-7f448464a000 r-xs 0017c000 08:01 3544528                    /home/esteban/.m2/repository/org/apache/poi/poi/3.7/poi-3.7.jar
+7f448464a000-7f448464e000 r-xs 00020000 08:01 5245568                    /home/esteban/.m2/repository/org/apache/commons/commons-compress/1.0/commons-compress-1.0.jar
+7f448464e000-7f4484653000 r-xs 00044000 08:01 3544526                    /home/esteban/.m2/repository/org/apache/tika/tika-core/0.8/tika-core-0.8.jar
+7f4484653000-7f4484659000 r-xs 00042000 08:01 3544525                    /home/esteban/.m2/repository/org/apache/tika/tika-parsers/0.8/tika-parsers-0.8.jar
+7f4484659000-7f448465b000 r-xs 00005000 08:01 4720459                    /home/esteban/.m2/repository/org/apache/jackrabbit/jackrabbit-spi/2.2.8/jackrabbit-spi-2.2.8.jar
+7f448465b000-7f448466a000 r-xs 000a7000 08:01 4720458                    /home/esteban/.m2/repository/org/apache/jackrabbit/jackrabbit-spi-commons/2.2.8/jackrabbit-spi-commons-2.2.8.jar
+7f448466a000-7f4484670000 r-xs 00040000 08:01 4720456                    /home/esteban/.m2/repository/org/apache/jackrabbit/jackrabbit-jcr-commons/2.2.8/jackrabbit-jcr-commons-2.2.8.jar
+7f4484670000-7f44846aa000 r-xs 00246000 08:01 3936685                    /home/esteban/.m2/repository/org/drools/guvnor-webapp-core/5.4.0-SNAPSHOT/guvnor-webapp-core-5.4.0-SNAPSHOT.jar
+7f44846aa000-7f44846af000 r-xp 00000000 08:01 9182069                    /usr/lib/x86_64-linux-gnu/libXdmcp.so.6.0.0
+7f44846af000-7f44848ae000 ---p 00005000 08:01 9182069                    /usr/lib/x86_64-linux-gnu/libXdmcp.so.6.0.0
+7f44848ae000-7f44848af000 r-xp 00004000 08:01 9182069                    /usr/lib/x86_64-linux-gnu/libXdmcp.so.6.0.0
+7f44848af000-7f44848b0000 rwxp 00005000 08:01 9182069                    /usr/lib/x86_64-linux-gnu/libXdmcp.so.6.0.0
+7f44848b0000-7f44848b2000 r-xp 00000000 08:01 9182058                    /usr/lib/x86_64-linux-gnu/libXau.so.6.0.0
+7f44848b2000-7f4484ab1000 ---p 00002000 08:01 9182058                    /usr/lib/x86_64-linux-gnu/libXau.so.6.0.0
+7f4484ab1000-7f4484ab2000 r-xp 00001000 08:01 9182058                    /usr/lib/x86_64-linux-gnu/libXau.so.6.0.0
+7f4484ab2000-7f4484ab3000 rwxp 00002000 08:01 9182058                    /usr/lib/x86_64-linux-gnu/libXau.so.6.0.0
+7f4484ab3000-7f4484ad0000 r-xp 00000000 08:01 9182657                    /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0
+7f4484ad0000-7f4484ccf000 ---p 0001d000 08:01 9182657                    /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0
+7f4484ccf000-7f4484cd0000 r-xp 0001c000 08:01 9182657                    /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0
+7f4484cd0000-7f4484cd1000 rwxp 0001d000 08:01 9182657                    /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0
+7f4484cd1000-7f4484cdf000 r-xp 00000000 08:01 9182077                    /usr/lib/x86_64-linux-gnu/libXi.so.6.1.0
+7f4484cdf000-7f4484ede000 ---p 0000e000 08:01 9182077                    /usr/lib/x86_64-linux-gnu/libXi.so.6.1.0
+7f4484ede000-7f4484edf000 r-xp 0000d000 08:01 9182077                    /usr/lib/x86_64-linux-gnu/libXi.so.6.1.0
+7f4484edf000-7f4484ee0000 rwxp 0000e000 08:01 9182077                    /usr/lib/x86_64-linux-gnu/libXi.so.6.1.0
+7f4484ee0000-7f4484ee5000 r-xp 00000000 08:01 9182095                    /usr/lib/x86_64-linux-gnu/libXtst.so.6.1.0
+7f4484ee5000-7f44850e4000 ---p 00005000 08:01 9182095                    /usr/lib/x86_64-linux-gnu/libXtst.so.6.1.0
+7f44850e4000-7f44850e5000 r-xp 00004000 08:01 9182095                    /usr/lib/x86_64-linux-gnu/libXtst.so.6.1.0
+7f44850e5000-7f44850e6000 rwxp 00005000 08:01 9182095                    /usr/lib/x86_64-linux-gnu/libXtst.so.6.1.0
+7f44850e6000-7f4485215000 r-xp 00000000 08:01 9182056                    /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0
+7f4485215000-7f4485415000 ---p 0012f000 08:01 9182056                    /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0
+7f4485415000-7f4485416000 r-xp 0012f000 08:01 9182056                    /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0
+7f4485416000-7f448541a000 rwxp 00130000 08:01 9182056                    /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0
+7f448541a000-7f448542a000 r-xp 00000000 08:01 9182071                    /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0
+7f448542a000-7f4485629000 ---p 00010000 08:01 9182071                    /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0
+7f4485629000-7f448562a000 r-xp 0000f000 08:01 9182071                    /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0
+7f448562a000-7f448562b000 rwxp 00010000 08:01 9182071                    /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0
+7f448562b000-7f448566d000 r-xp 00000000 08:01 3411630                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/xawt/libmawt.so
+7f448566d000-7f448576c000 ---p 00042000 08:01 3411630                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/xawt/libmawt.so
+7f448576c000-7f4485778000 rwxp 00041000 08:01 3411630                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/xawt/libmawt.so
+7f4485778000-7f4485779000 rwxp 00000000 00:00 0 
+7f4485779000-7f448580b000 r-xp 00000000 08:01 3411677                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libawt.so
+7f448580b000-7f448590a000 ---p 00092000 08:01 3411677                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libawt.so
+7f448590a000-7f4485923000 rwxp 00091000 08:01 3411677                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libawt.so
+7f4485923000-7f4485948000 rwxp 00000000 00:00 0 
+7f4485948000-7f448594b000 ---p 00000000 00:00 0 
+7f448594b000-7f4485a7a000 rwxp 00000000 00:00 0 
+7f4485a7a000-7f4485a8d000 r-xp 00000000 08:01 3411632                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libnet.so
+7f4485a8d000-7f4485b8e000 ---p 00013000 08:01 3411632                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libnet.so
+7f4485b8e000-7f4485b91000 rwxp 00014000 08:01 3411632                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libnet.so
+7f4485b91000-7f4485bbf000 rwxp 00000000 00:00 0 
+7f4485bbf000-7f4485d2f000 r-xs 01950000 08:01 6032412                    /home/esteban/.m2/repository/com/google/gwt/gwt-dev/2.3.0/gwt-dev-2.3.0.jar
+7f4485d2f000-7f4485dff000 r-xs 00a99000 08:01 4458393                    /home/esteban/.m2/repository/com/google/gwt/gwt-user/2.3.0/gwt-user-2.3.0.jar
+7f4485dff000-7f4485e00000 ---p 00000000 00:00 0 
+7f4485e00000-7f4485f00000 rwxp 00000000 00:00 0 
+7f4485f00000-7f4485f03000 ---p 00000000 00:00 0 
+7f4485f03000-7f4486001000 rwxp 00000000 00:00 0 
+7f4486001000-7f4486004000 ---p 00000000 00:00 0 
+7f4486004000-7f4486102000 rwxp 00000000 00:00 0 
+7f4486102000-7f4486105000 ---p 00000000 00:00 0 
+7f4486105000-7f4486203000 rwxp 00000000 00:00 0 
+7f4486203000-7f4486206000 ---p 00000000 00:00 0 
+7f4486206000-7f4486304000 rwxp 00000000 00:00 0 
+7f4486304000-7f4486307000 ---p 00000000 00:00 0 
+7f4486307000-7f4486405000 rwxp 00000000 00:00 0 
+7f4486405000-7f4486408000 ---p 00000000 00:00 0 
+7f4486408000-7f4486506000 rwxp 00000000 00:00 0 
+7f4486506000-7f4486509000 r-xp 00000000 08:01 3411668                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libdt_socket.so
+7f4486509000-7f4486608000 ---p 00003000 08:01 3411668                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libdt_socket.so
+7f4486608000-7f448660a000 rwxp 00002000 08:01 3411668                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libdt_socket.so
+7f448660a000-7f448660d000 ---p 00000000 00:00 0 
+7f448660d000-7f448670b000 rwxp 00000000 00:00 0 
+7f448670b000-7f448670e000 ---p 00000000 00:00 0 
+7f448670e000-7f448680c000 rwxp 00000000 00:00 0 
+7f448680c000-7f448680f000 ---p 00000000 00:00 0 
+7f448680f000-7f448690d000 rwxp 00000000 00:00 0 
+7f448690d000-7f448690e000 ---p 00000000 00:00 0 
+7f448690e000-7f4487317000 rwxp 00000000 00:00 0 
+7f4487317000-7f44874af000 r-xs 03027000 08:01 3409196                    /home/esteban/programs/jdk1.6.0_24/jre/lib/rt.jar
+7f44874af000-7f44874b0000 ---p 00000000 00:00 0 
+7f44874b0000-7f44875b0000 rwxp 00000000 00:00 0 
+7f44875b0000-7f44875b1000 ---p 00000000 00:00 0 
+7f44875b1000-7f44876b1000 rwxp 00000000 00:00 0 
+7f44876b1000-7f44876b2000 ---p 00000000 00:00 0 
+7f44876b2000-7f44877b2000 rwxp 00000000 00:00 0 
+7f44877b2000-7f44877b3000 ---p 00000000 00:00 0 
+7f44877b3000-7f44878b3000 rwxp 00000000 00:00 0 
+7f44878b3000-7f44878b4000 ---p 00000000 00:00 0 
+7f44878b4000-7f44879b4000 rwxp 00000000 00:00 0 
+7f44879b4000-7f44879b5000 ---p 00000000 00:00 0 
+7f44879b5000-7f4487ab5000 rwxp 00000000 00:00 0 
+7f4487ab5000-7f4487ab6000 ---p 00000000 00:00 0 
+7f4487ab6000-7f4487c61000 rwxp 00000000 00:00 0 
+7f4487c61000-7f4487c8a000 rwxp 00000000 00:00 0 
+7f4487c8a000-7f4487d34000 rwxp 00000000 00:00 0 
+7f4487d34000-7f4487d57000 rwxp 00000000 00:00 0 
+7f4487d57000-7f4487d8a000 ---p 00000000 00:00 0 
+7f4487d8a000-7f448890b000 rwxp 00000000 00:00 0 
+7f448890b000-7f448ad8b000 rwxp 00000000 00:00 0 
+7f448ad8b000-7f448ad99000 r-xp 00000000 08:01 3411643                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libzip.so
+7f448ad99000-7f448ae9b000 ---p 0000e000 08:01 3411643                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libzip.so
+7f448ae9b000-7f448ae9e000 rwxp 00010000 08:01 3411643                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libzip.so
+7f448ae9e000-7f448ae9f000 rwxp 00000000 00:00 0 
+7f448ae9f000-7f448aeab000 r-xp 00000000 08:01 6295087                    /lib/x86_64-linux-gnu/libnss_files-2.15.so
+7f448aeab000-7f448b0aa000 ---p 0000c000 08:01 6295087                    /lib/x86_64-linux-gnu/libnss_files-2.15.so
+7f448b0aa000-7f448b0ab000 r-xp 0000b000 08:01 6295087                    /lib/x86_64-linux-gnu/libnss_files-2.15.so
+7f448b0ab000-7f448b0ac000 rwxp 0000c000 08:01 6295087                    /lib/x86_64-linux-gnu/libnss_files-2.15.so
+7f448b0ac000-7f448b0b6000 r-xp 00000000 08:01 6295091                    /lib/x86_64-linux-gnu/libnss_nis-2.15.so
+7f448b0b6000-7f448b2b6000 ---p 0000a000 08:01 6295091                    /lib/x86_64-linux-gnu/libnss_nis-2.15.so
+7f448b2b6000-7f448b2b7000 r-xp 0000a000 08:01 6295091                    /lib/x86_64-linux-gnu/libnss_nis-2.15.so
+7f448b2b7000-7f448b2b8000 rwxp 0000b000 08:01 6295091                    /lib/x86_64-linux-gnu/libnss_nis-2.15.so
+7f448b2b8000-7f448b2c0000 r-xp 00000000 08:01 6295083                    /lib/x86_64-linux-gnu/libnss_compat-2.15.so
+7f448b2c0000-7f448b4bf000 ---p 00008000 08:01 6295083                    /lib/x86_64-linux-gnu/libnss_compat-2.15.so
+7f448b4bf000-7f448b4c0000 r-xp 00007000 08:01 6295083                    /lib/x86_64-linux-gnu/libnss_compat-2.15.so
+7f448b4c0000-7f448b4c1000 rwxp 00008000 08:01 6295083                    /lib/x86_64-linux-gnu/libnss_compat-2.15.so
+7f448b4c1000-7f448bba4000 r-xp 00000000 08:01 9181472                    /usr/lib/locale/locale-archive
+7f448bba4000-7f448bba7000 r-xp 00000000 08:01 3411634                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libnpt.so
+7f448bba7000-7f448bca6000 ---p 00003000 08:01 3411634                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libnpt.so
+7f448bca6000-7f448bca7000 rwxp 00002000 08:01 3411634                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libnpt.so
+7f448bca7000-7f448bcdd000 r-xp 00000000 08:01 3411660                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libjdwp.so
+7f448bcdd000-7f448bddc000 ---p 00036000 08:01 3411660                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libjdwp.so
+7f448bddc000-7f448bde6000 rwxp 00035000 08:01 3411660                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libjdwp.so
+7f448bde6000-7f448bdfd000 r-xp 00000000 08:01 6295081                    /lib/x86_64-linux-gnu/libnsl-2.15.so
+7f448bdfd000-7f448bffc000 ---p 00017000 08:01 6295081                    /lib/x86_64-linux-gnu/libnsl-2.15.so
+7f448bffc000-7f448bffd000 r-xp 00016000 08:01 6295081                    /lib/x86_64-linux-gnu/libnsl-2.15.so
+7f448bffd000-7f448bffe000 rwxp 00017000 08:01 6295081                    /lib/x86_64-linux-gnu/libnsl-2.15.so
+7f448bffe000-7f448c000000 rwxp 00000000 00:00 0 
+7f448c000000-7f448da9d000 rwxp 00000000 00:00 0 
+7f448da9d000-7f4490000000 ---p 00000000 00:00 0 
+7f4490000000-7f4490023000 r-xs 001e8000 08:01 4591959                    /home/esteban/.m2/repository/org/apache/jackrabbit/jackrabbit-core/2.2.8/jackrabbit-core-2.2.8.jar
+7f4490023000-7f44900a8000 rwxp 00000000 00:00 0 
+7f44900a8000-7f44900af000 r-xp 00000000 08:01 3411645                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/native_threads/libhpi.so
+7f44900af000-7f44901b0000 ---p 00007000 08:01 3411645                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/native_threads/libhpi.so
+7f44901b0000-7f44901b2000 rwxp 00008000 08:01 3411645                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/native_threads/libhpi.so
+7f44901b2000-7f44901b3000 rwxp 00000000 00:00 0 
+7f44901b3000-7f44901dc000 r-xp 00000000 08:01 3411656                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libjava.so
+7f44901dc000-7f44902db000 ---p 00029000 08:01 3411656                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libjava.so
+7f44902db000-7f44902e2000 rwxp 00028000 08:01 3411656                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libjava.so
+7f44902e2000-7f44902ef000 r-xp 00000000 08:01 3411638                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libverify.so
+7f44902ef000-7f44903ee000 ---p 0000d000 08:01 3411638                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libverify.so
+7f44903ee000-7f44903f1000 rwxp 0000c000 08:01 3411638                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/libverify.so
+7f44903f1000-7f44903f8000 r-xp 00000000 08:01 6295122                    /lib/x86_64-linux-gnu/librt-2.15.so
+7f44903f8000-7f44905f7000 ---p 00007000 08:01 6295122                    /lib/x86_64-linux-gnu/librt-2.15.so
+7f44905f7000-7f44905f8000 r-xp 00006000 08:01 6295122                    /lib/x86_64-linux-gnu/librt-2.15.so
+7f44905f8000-7f44905f9000 rwxp 00007000 08:01 6295122                    /lib/x86_64-linux-gnu/librt-2.15.so
+7f44905f9000-7f44905fc000 ---p 00000000 00:00 0 
+7f44905fc000-7f44906fa000 rwxp 00000000 00:00 0 
+7f44906fa000-7f44907f3000 r-xp 00000000 08:01 6295068                    /lib/x86_64-linux-gnu/libm-2.15.so
+7f44907f3000-7f44909f2000 ---p 000f9000 08:01 6295068                    /lib/x86_64-linux-gnu/libm-2.15.so
+7f44909f2000-7f44909f3000 r-xp 000f8000 08:01 6295068                    /lib/x86_64-linux-gnu/libm-2.15.so
+7f44909f3000-7f44909f4000 rwxp 000f9000 08:01 6295068                    /lib/x86_64-linux-gnu/libm-2.15.so
+7f44909f4000-7f4491232000 r-xp 00000000 08:01 3411663                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/server/libjvm.so
+7f4491232000-7f4491331000 ---p 0083e000 08:01 3411663                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/server/libjvm.so
+7f4491331000-7f44914c5000 rwxp 0083d000 08:01 3411663                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/server/libjvm.so
+7f44914c5000-7f44914fe000 rwxp 00000000 00:00 0 
+7f44914fe000-7f44916b1000 r-xp 00000000 08:01 6295036                    /lib/x86_64-linux-gnu/libc-2.15.so
+7f44916b1000-7f44918b0000 ---p 001b3000 08:01 6295036                    /lib/x86_64-linux-gnu/libc-2.15.so
+7f44918b0000-7f44918b4000 r-xp 001b2000 08:01 6295036                    /lib/x86_64-linux-gnu/libc-2.15.so
+7f44918b4000-7f44918b6000 rwxp 001b6000 08:01 6295036                    /lib/x86_64-linux-gnu/libc-2.15.so
+7f44918b6000-7f44918bb000 rwxp 00000000 00:00 0 
+7f44918bb000-7f44918bd000 r-xp 00000000 08:01 6295049                    /lib/x86_64-linux-gnu/libdl-2.15.so
+7f44918bd000-7f4491abd000 ---p 00002000 08:01 6295049                    /lib/x86_64-linux-gnu/libdl-2.15.so
+7f4491abd000-7f4491abe000 r-xp 00002000 08:01 6295049                    /lib/x86_64-linux-gnu/libdl-2.15.so
+7f4491abe000-7f4491abf000 rwxp 00003000 08:01 6295049                    /lib/x86_64-linux-gnu/libdl-2.15.so
+7f4491abf000-7f4491ad7000 r-xp 00000000 08:01 6295116                    /lib/x86_64-linux-gnu/libpthread-2.15.so
+7f4491ad7000-7f4491cd6000 ---p 00018000 08:01 6295116                    /lib/x86_64-linux-gnu/libpthread-2.15.so
+7f4491cd6000-7f4491cd7000 r-xp 00017000 08:01 6295116                    /lib/x86_64-linux-gnu/libpthread-2.15.so
+7f4491cd7000-7f4491cd8000 rwxp 00018000 08:01 6295116                    /lib/x86_64-linux-gnu/libpthread-2.15.so
+7f4491cd8000-7f4491cdc000 rwxp 00000000 00:00 0 
+7f4491cdc000-7f4491cfe000 r-xp 00000000 08:01 6295016                    /lib/x86_64-linux-gnu/ld-2.15.so
+7f4491cfe000-7f4491cff000 r-xs 00015000 08:01 3677740                    /home/esteban/.m2/repository/org/ccil/cowan/tagsoup/tagsoup/1.2/tagsoup-1.2.jar
+7f4491cff000-7f4491d01000 r-xs 00004000 08:01 4720455                    /home/esteban/.m2/repository/org/apache/jackrabbit/jackrabbit-api/2.2.8/jackrabbit-api-2.2.8.jar
+7f4491d01000-7f4491d03000 r-xs 0000e000 08:01 3544521                    /home/esteban/.m2/repository/commons-pool/commons-pool/1.3/commons-pool-1.3.jar
+7f4491d03000-7f4491d05000 r-xs 0001c000 08:01 3544520                    /home/esteban/.m2/repository/commons-dbcp/commons-dbcp/1.2.2/commons-dbcp-1.2.2.jar
+7f4491d05000-7f4491d06000 r-xs 00000000 08:01 8392778                    /home/esteban/.m2/repository/org/drools/guvnor-repository-connector-jackrabbit/5.4.0-SNAPSHOT/guvnor-repository-connector-jackrabbit-5.4.0-SNAPSHOT.jar
+7f4491d06000-7f4491d08000 r-xs 00005000 08:01 4590337                    /home/esteban/.m2/repository/xpp3/xpp3_min/1.1.4c/xpp3_min-1.1.4c.jar
+7f4491d08000-7f4491d15000 r-xs 0006d000 08:01 5112123                    /home/esteban/.m2/repository/com/thoughtworks/xstream/xstream/1.4.1/xstream-1.4.1.jar
+7f4491d15000-7f4491d18000 r-xs 0000e000 08:01 4591960                    /home/esteban/.m2/repository/javax/jcr/jcr/2.0/jcr-2.0.jar
+7f4491d18000-7f4491d46000 rwxp 00000000 00:00 0 
+7f4491d46000-7f4491dd8000 rwxp 00000000 00:00 0 
+7f4491dd8000-7f4491ddb000 rwxp 00000000 00:00 0 
+7f4491ddb000-7f4491de2000 r-xp 00000000 08:01 3411628                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/jli/libjli.so
+7f4491de2000-7f4491ee3000 ---p 00007000 08:01 3411628                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/jli/libjli.so
+7f4491ee3000-7f4491ee5000 rwxp 00008000 08:01 3411628                    /home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/jli/libjli.so
+7f4491ee5000-7f4491ee6000 rwxp 00000000 00:00 0 
+7f4491ee6000-7f4491ee7000 r-xs 00001000 08:01 4851583                    /home/esteban/.m2/repository/xmlpull/xmlpull/1.1.3.1/xmlpull-1.1.3.1.jar
+7f4491ee7000-7f4491ee9000 r-xs 00001000 08:01 8392757                    /home/esteban/.m2/repository/org/drools/guvnor-repository-connector-jcr/5.4.0-SNAPSHOT/guvnor-repository-connector-jcr-5.4.0-SNAPSHOT.jar
+7f4491ee9000-7f4491eec000 r-xs 00019000 08:01 5902094                    /home/esteban/.m2/repository/org/drools/guvnor-repository/5.4.0-SNAPSHOT/guvnor-repository-5.4.0-SNAPSHOT.jar
+7f4491eec000-7f4491eee000 r-xs 0000e000 08:01 4588039                    /home/esteban/.m2/repository/javax/validation/validation-api/1.0.0.GA/validation-api-1.0.0.GA-sources.jar
+7f4491eee000-7f4491ef1000 r-xs 00009000 08:01 4588038                    /home/esteban/.m2/repository/javax/validation/validation-api/1.0.0.GA/validation-api-1.0.0.GA.jar
+7f4491ef1000-7f4491ef2000 rwxp 00000000 00:00 0 
+7f4491ef2000-7f4491efa000 rwxs 00000000 08:01 7602483                    /tmp/hsperfdata_esteban/17524
+7f4491efa000-7f4491efb000 rwxp 00000000 00:00 0 
+7f4491efb000-7f4491efc000 ---p 00000000 00:00 0 
+7f4491efc000-7f4491efe000 rwxp 00000000 00:00 0 
+7f4491efe000-7f4491eff000 r-xp 00022000 08:01 6295016                    /lib/x86_64-linux-gnu/ld-2.15.so
+7f4491eff000-7f4491f01000 rwxp 00023000 08:01 6295016                    /lib/x86_64-linux-gnu/ld-2.15.so
+7fff4d430000-7fff4d455000 rwxp 00000000 00:00 0                          [stack]
+7fff4d562000-7fff4d563000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+
+VM Arguments:
+jvm_args: -Xmx512m -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,address=8000,suspend=y 
+java_command: com.google.gwt.dev.DevMode -deploy /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/gwt-symbols-deploy -war /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/guvnor-webapp-drools-5.4.0-SNAPSHOT -gen /home/esteban/dev/droolsjbpmFork/guvnor/guvnor-webapp-drools/target/.generated -logLevel INFO -port 8888 -startupUrl org.drools.guvnor.Guvnor/Guvnor.html org.drools.guvnor.FastCompiledGuvnorDrools
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=/home/esteban/programs/jdk
+PATH=/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+LD_LIBRARY_PATH=/home/esteban/programs/jdk1.6.0_24/jre/lib/amd64/server:/home/esteban/programs/jdk1.6.0_24/jre/lib/amd64:/home/esteban/programs/jdk1.6.0_24/jre/../lib/amd64
+SHELL=/bin/bash
+DISPLAY=:0
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0x791b30], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGBUS: [libjvm.so+0x791b30], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGFPE: [libjvm.so+0x640ba0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGPIPE: [libjvm.so+0x640ba0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGXFSZ: [libjvm.so+0x640ba0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGILL: [libjvm.so+0x640ba0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGUSR1: SIG_DFL, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGUSR2: [libjvm.so+0x643780], sa_mask[0]=0x00000004, sa_flags=0x10000004
+SIGHUP: [libjvm.so+0x643380], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGINT: SIG_IGN, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGTERM: [libjvm.so+0x643380], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGQUIT: [libjvm.so+0x643380], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+
+
+---------------  S Y S T E M  ---------------
+
+OS:wheezy/sid
+
+uname:Linux 3.2.0-27-generic #43-Ubuntu SMP Fri Jul 6 14:25:57 UTC 2012 x86_64
+libc:glibc 2.15 NPTL 2.15 
+rlimit: STACK 8192k, CORE 0k, NPROC 63064, NOFILE 4096, AS infinity
+load average:1.78 1.71 1.75
+
+/proc/meminfo:
+MemTotal:        8089880 kB
+MemFree:          817256 kB
+Buffers:          151548 kB
+Cached:          1534904 kB
+SwapCached:            0 kB
+Active:          5614356 kB
+Inactive:         930080 kB
+Active(anon):    4864244 kB
+Inactive(anon):    41320 kB
+Active(file):     750112 kB
+Inactive(file):   888760 kB
+Unevictable:          68 kB
+Mlocked:              68 kB
+SwapTotal:             0 kB
+SwapFree:              0 kB
+Dirty:              3496 kB
+Writeback:             0 kB
+AnonPages:       4857920 kB
+Mapped:           398348 kB
+Shmem:             47580 kB
+Slab:             208372 kB
+SReclaimable:     159492 kB
+SUnreclaim:        48880 kB
+KernelStack:        5864 kB
+PageTables:        60388 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:     4044940 kB
+Committed_AS:   13046216 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:      386924 kB
+VmallocChunk:   34359346096 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:         0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+DirectMap4k:      303104 kB
+DirectMap2M:     8001536 kB
+
+
+CPU:total 8 (4 cores per cpu, 2 threads per core) family 6 model 42 stepping 7, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, ht
+
+Memory: 4k page, physical 8089880k(817256k free), swap 0k(0k free)
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (19.1-b02) for linux-amd64 JRE (1.6.0_24-b07), built on Feb  2 2011 16:55:54 by "java_re" with gcc 3.2.2 (SuSE Linux)
+
+time: Mon Jul 30 11:33:02 2012
+elapsed time: 70 seconds
+
