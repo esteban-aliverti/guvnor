@@ -176,7 +176,7 @@ public class PackagesNewAssetMenuViewImpl implements PackagesNewAssetMenuView {
     }
     
     private void addNewPMMLMenuItem() {
-        createNewMenu.addItem( Util.getHeader( images.enumeration(), constants.UploadANewPMMLModel() ).asString(),
+        createNewMenu.addItem( Util.getHeader( DroolsGuvnorImageResources.INSTANCE.enumeration(), Constants.INSTANCE.UploadANewPMMLModel() ).asString(),
                 true,
                 new Command() {
                     public void execute() {

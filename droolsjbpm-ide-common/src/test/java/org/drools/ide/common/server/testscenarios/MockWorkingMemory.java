@@ -498,9 +498,4 @@ public class MockWorkingMemory implements InternalWorkingMemory {
 		
     }
 
-    @Override
-    public NodeMemories getNodeMemories() {
-        return null;
-    }
-
 }

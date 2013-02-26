@@ -21,7 +21,7 @@ import org.drools.guvnor.client.asseteditor.BusinessProcessEditor;
 import org.drools.guvnor.client.asseteditor.RuleViewer;
 import org.drools.guvnor.client.explorer.ClientFactory;
 import org.drools.guvnor.client.moduleeditor.drools.WorkingSetManager;
-import org.drools.guvnor.client.rpc.RuleAsset;
+import org.drools.guvnor.client.rpc.Asset;
 
 /**
  * An extension of org.drools.guvnor.client.asseteditor.BusinessProcessEditor
@@ -29,8 +29,11 @@ import org.drools.guvnor.client.rpc.RuleAsset;
  */
 public class WorkingSetAwareBusinessProcessEditor extends BusinessProcessEditor {
 
-    public WorkingSetAwareBusinessProcessEditor(RuleAsset asset, RuleViewer viewer, ClientFactory clientFactory, EventBus eventBus) {
+    private Asset asset;
+    
+    public WorkingSetAwareBusinessProcessEditor(Asset asset, RuleViewer viewer, ClientFactory clientFactory, EventBus eventBus) {
         super(asset, viewer, clientFactory, eventBus);
+        this.asset = asset;
     }
 
     /**
@@ -39,7 +42,7 @@ public class WorkingSetAwareBusinessProcessEditor extends BusinessProcessEditor 
     @Override
     protected String preprocessURL(String url) {
         //Send workingset information
-        Set<String> activeWorkingSetsUUIDs = WorkingSetManager.getInstance().getActiveAssetUUIDs(asset.metaData.packageName);
+        Set<String> activeWorkingSetsUUIDs = WorkingSetManager.getInstance().getActiveAssetUUIDs(asset.metaData.moduleName);
         
         if (activeWorkingSetsUUIDs != null){
             for (String workingSetUUID : activeWorkingSetsUUIDs) {

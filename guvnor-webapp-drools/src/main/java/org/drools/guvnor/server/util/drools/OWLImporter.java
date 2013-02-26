@@ -27,7 +27,7 @@ import java.util.Set;
 import org.antlr.stringtemplate.StringTemplate;
 import org.apache.commons.io.IOUtils;
 import org.drools.guvnor.client.common.AssetFormats;
-import org.drools.guvnor.client.rpc.RuleAsset;
+import org.drools.guvnor.client.rpc.Asset;
 import org.drools.guvnor.client.rpc.WorkingSetConfigData;
 import org.drools.guvnor.server.RepositoryCategoryService;
 import org.drools.guvnor.server.contenthandler.ContentHandler;
@@ -37,7 +37,7 @@ import org.drools.guvnor.server.contenthandler.drools.WorkingSetHandler;
 import org.drools.guvnor.server.files.FileManagerService;
 import org.drools.io.ResourceFactory;
 import org.drools.repository.AssetItem;
-import org.drools.repository.PackageItem;
+import org.drools.repository.ModuleItem;
 import org.drools.repository.RulesRepository;
 import org.drools.repository.RulesRepositoryException;
 import org.drools.semantics.builder.DLFactory;
@@ -75,14 +75,18 @@ public class OWLImporter {
         this.fileManagerService = fileManagerService;
         
         DLFactory dLFactory = DLFactoryBuilder.newDLFactoryInstance();
-        ontoModel = dLFactory.buildModel("ontomodel", ResourceFactory.newInputStreamResource(owlDefinitionStream));
+        ontoModel = dLFactory.buildModel("ontomodel", ResourceFactory.newInputStreamResource(owlDefinitionStream), OntoModel.Mode.OPTIMIZED);
     }
     
     public String getPackageName(){
-        return ontoModel.getPackage();
+        if (ontoModel.getAllPackageNames().isEmpty()){
+            return ontoModel.getDefaultPackage();
+        } else{
+            return ontoModel.getAllPackageNames().iterator().next();
+        }
     }
     
-    public void processOWLDefinition(PackageItem pkg) throws SerializationException, IOException{
+    public void processOWLDefinition(ModuleItem pkg) throws SerializationException, IOException{
         
         //Get the model JAR from onto-model
         ModelCompiler jarCompiler = ModelCompilerFactory.newModelCompiler(ModelFactory.CompileTarget.JAR);
@@ -125,13 +129,13 @@ public class OWLImporter {
         this.createFactTypeDescriptor(pkg, xsdModel);
     }
     
-    private void createJarModelAsset(PackageItem pkg, byte[] jarBytes) throws IOException{
+    private void createJarModelAsset(ModuleItem pkg, byte[] jarBytes) throws IOException{
         AssetItem asset = pkg.addAsset( "OWL Model",
                                                 "<imported from OWL>" );
         asset.updateFormat( AssetFormats.MODEL );
         asset.updateBinaryContentAttachment(new ByteArrayInputStream(jarBytes));
         asset.updateExternalSource( "Imported from external OWL" );
-        asset.getPackage().updateBinaryUpToDate( false );
+        asset.getModule().updateBinaryUpToDate( false );
         
         asset.checkin( "Imported from external OWL" );
         
@@ -143,13 +147,13 @@ public class OWLImporter {
         
     }
     
-    private void createWSAsset(PackageItem pkg, WorkingSetConfigData content) throws SerializationException{
+    private void createWSAsset(ModuleItem pkg, WorkingSetConfigData content) throws SerializationException{
         AssetItem asset = pkg.addAsset( content.getName(),
                                                 content.getDescription());
         asset.updateFormat( AssetFormats.WORKING_SET );
         asset.updateExternalSource( "Imported from external OWL" );
         
-        RuleAsset ruleAsset = new RuleAsset();
+        Asset ruleAsset = new Asset();
         ruleAsset.setName(content.getName());
         ruleAsset.setContent(content);
         

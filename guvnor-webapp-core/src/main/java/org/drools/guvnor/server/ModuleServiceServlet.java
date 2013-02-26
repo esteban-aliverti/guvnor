@@ -62,6 +62,11 @@ public class ModuleServiceServlet
     public org.drools.guvnor.client.rpc.Module loadModule(java.lang.String p0) {
         return moduleService.loadModule(p0);
     }
+    
+    @Override
+    public org.drools.guvnor.client.rpc.Module loadModuleByName(java.lang.String p0) {
+        return moduleService.loadModuleByName(p0);
+    }
 
     @Override
     public void saveModule(org.drools.guvnor.client.rpc.Module p0) throws com.google.gwt.user.client.rpc.SerializationException {

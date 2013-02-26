@@ -15,25 +15,21 @@
  */
 package org.drools.guvnor.client.asseteditor.drools.pmml;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Image;
 import org.drools.guvnor.client.asseteditor.AssetAttachmentFileWidget;
 import org.drools.guvnor.client.asseteditor.RuleViewer;
 import org.drools.guvnor.client.explorer.ClientFactory;
-import org.drools.guvnor.client.messages.Constants;
-import org.drools.guvnor.client.resources.Images;
-import org.drools.guvnor.client.rpc.RuleAsset;
+import org.drools.guvnor.client.messages.ConstantsCore;
+import org.drools.guvnor.client.rpc.Asset;
 
 /**
  * This widget deals with PMML files.
  */
 public class PMMLModelUploadWidget extends AssetAttachmentFileWidget {
 
-    private static Images images = (Images) GWT.create( Images.class );
-
-    public PMMLModelUploadWidget( RuleAsset asset,
+    public PMMLModelUploadWidget( Asset asset,
                                   RuleViewer viewer,
                                   ClientFactory clientFactory,
                                   EventBus eventBus) {
@@ -41,11 +37,13 @@ public class PMMLModelUploadWidget extends AssetAttachmentFileWidget {
                 viewer,
                 clientFactory,
                 eventBus );
-        super.addDescription( new HTML( ((Constants) GWT.create( Constants.class )).PMMLModelWidgetDescription() ) );
+        super.addSupplementaryWidget( new HTML( ConstantsCore.INSTANCE.PMMLModelWidgetDescription() ) );
     }
 
-    public ImageResource getIcon() {
-        return images.modelLarge();
+    public Image getIcon() {
+        Image image = new Image(images.modelLarge());
+        image.setAltText(ConstantsCore.INSTANCE.PMMLConfigurations());
+        return image;
     }
 
     public String getOverallStyleName() {

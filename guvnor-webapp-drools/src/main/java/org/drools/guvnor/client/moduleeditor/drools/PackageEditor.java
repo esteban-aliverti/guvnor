@@ -44,6 +44,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import org.drools.guvnor.client.resources.ImagesCore;
 
 /**
  * This is the module editor for Drools Package.
@@ -104,7 +105,7 @@ public class PackageEditor
                 getShowCatRules() );
 
         if ( !isHistoricalReadOnly ) {
-            addAttribute( constants.DefaultWorkingSets(),
+            addAttribute( Constants.INSTANCE.DefaultWorkingSets(),
                     getAddDefaultWorkingSets() );
         }
         addAttribute( "",
@@ -457,8 +458,8 @@ public class PackageEditor
     */
     
     private Widget getAddDefaultWorkingSets() {
-        Image add = new ImageButton( images.edit() );
-        add.setTitle( constants.AddDefaultWorkingSetToThePackage() );
+        ImageButton add = new ImageButton( new Image(ImagesCore.INSTANCE.edit()));
+        add.setTitle( Constants.INSTANCE.AddDefaultWorkingSetToThePackage() );
 
         add.addClickHandler( new ClickHandler() {
 
@@ -469,28 +470,28 @@ public class PackageEditor
 
         HorizontalPanel hp = new HorizontalPanel();
         hp.add( add );
-        hp.add( new InfoPopup( constants.DefaultWorkingSets(),
-                constants.DefaultWorkingSetsInfo() ) );
+        hp.add( new InfoPopup( Constants.INSTANCE.DefaultWorkingSets(),
+                Constants.INSTANCE.DefaultWorkingSetsInfo() ) );
         return hp;
     }
     
     protected void showDefaultWorkingSetSelector(Widget w) {
         //creates the popup
-        final FormStylePopup pop = new FormStylePopup( images.config(),
-                constants.AddDefaultWorkingSetsToThePackage() );
-        final Button addbutton = new Button( constants.OK() );
+        final FormStylePopup pop = new FormStylePopup( new Image(ImagesCore.INSTANCE.config()),
+                Constants.INSTANCE.AddDefaultWorkingSetsToThePackage() );
+        final Button addbutton = new Button( Constants.INSTANCE.OK() );
         
         
         //Get all the package's working-sets:
-        RepositoryServiceFactory.getAssetService().listAssets(this.packageConfigData.uuid,
+        clientFactory.getAssetService().listAssets(this.packageConfigData.getUuid(),
         new String[]{AssetFormats.WORKING_SET}, 0, -1, "workingsetList",
         new GenericCallback<TableDataResult>() {
 
             public void onSuccess(TableDataResult result) {
                 //no working-sets? 
                 if (result.data.length == 0){
-                    pop.addRow(new HTMLPanel(constants.NoWorkingSetDefinedInThePackage()));
-                    addbutton.setTitle( constants.Close() );
+                    pop.addRow(new HTMLPanel(Constants.INSTANCE.NoWorkingSetDefinedInThePackage()));
+                    addbutton.setTitle( Constants.INSTANCE.Close() );
                     addbutton.addClickHandler( new ClickHandler() {
 
                         public void onClick(ClickEvent event) {
@@ -550,7 +551,7 @@ public class PackageEditor
                     
                     workingSetsListBox.setWidth("100%");
                     
-                    pop.addRow(new SmallLabel(constants.AvailableWorkingSets()));
+                    pop.addRow(new SmallLabel(Constants.INSTANCE.AvailableWorkingSets()));
                     pop.addRow(workingSetsListBox );
                     pop.addRow(addbutton );
                     pop.show();
@@ -566,7 +567,7 @@ public class PackageEditor
             final VerticalPanel vp = new VerticalPanel();
             
             //Need to get WS from repository in order to show their names and not their UUIDs
-            RepositoryServiceFactory.getAssetService().listAssets(this.packageConfigData.uuid,
+            clientFactory.getAssetService().listAssets(this.packageConfigData.getUuid(),
                 new String[]{AssetFormats.WORKING_SET}, 0, -1, "workingsetList",
                 new GenericCallback<TableDataResult>() {
 
@@ -589,7 +590,7 @@ public class PackageEditor
                                 //was not updated! Even if this should never happen, It is 
                                 //better to show a warning instead of fail with an Exception.
                                 //This solution also gives the User a chance to correct this error
-                                hp.add(new SmallLabel(constants.WarningWorkingSet0DoesNotExistInTheRepositoryAnymore(defaultWorkingSet)));
+                                hp.add(new SmallLabel(Constants.INSTANCE.WarningWorkingSet0DoesNotExistInTheRepositoryAnymore(defaultWorkingSet)));
                             }
                             hp.add( getRemoveDefaultWorkingSetIcon(defaultWorkingSet));
                             vp.add( hp );
@@ -604,11 +605,11 @@ public class PackageEditor
     }
     
     protected Widget getRemoveDefaultWorkingSetIcon(final String defaultWorkingSetUUIDToRemove){
-        Image remove = new Image( images.deleteItemSmall() );
+        Image remove = DroolsGuvnorImages.INSTANCE.DeleteItemSmall();
         remove.addClickHandler( new ClickHandler() {
 
             public void onClick(ClickEvent event) {
-                if ( Window.confirm( constants.RemoveThisWorkingSetFromTheDefaultWorkingSetsList() ) ) {
+                if ( Window.confirm( Constants.INSTANCE.RemoveThisWorkingSetFromTheDefaultWorkingSetsList() ) ) {
                     List<String> defaultWorkingSets = new ArrayList<String>();
                     
                     for (int i = 0; i < packageConfigData.getDefaultWorkingSets().length; i++) {

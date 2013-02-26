@@ -49,8 +49,6 @@ public class CustomFormsEditorPanel extends Composite {
     private final Asset workingSet;
     private final WorkingSetEditor workingSetEditor;
 
-    private Constants constants = GWT.create(Constants.class);
-    
     public CustomFormsEditorPanel(final WorkingSetEditor workingSetEditor) {
 
         this.workingSetEditor = workingSetEditor;
@@ -60,11 +58,11 @@ public class CustomFormsEditorPanel extends Composite {
         factsCombo.setVisibleItemCount(1);
         fieldsCombo.setVisibleItemCount(1);
         customFormURL.setWidth("400px");
-        customFormURL.setTitle(constants.LeaveItBlankIfYouWantToRemoveTheCustomFormURL());
+        customFormURL.setTitle(Constants.INSTANCE.LeaveItBlankIfYouWantToRemoveTheCustomFormURL());
         customFormHeight.setWidth("50px");
         customFormWidth.setWidth("50px");
         
-        customFormUseFormIdForRule.setTitle(constants.UseFormIdForRuleCreationHelp());
+        customFormUseFormIdForRule.setTitle(Constants.INSTANCE.UseFormIdForRuleCreationHelp());
 
         factsCombo.addChangeHandler(new ChangeHandler() {
             public void onChange(ChangeEvent event) {
@@ -95,7 +93,7 @@ public class CustomFormsEditorPanel extends Composite {
                 vp);
 
         vp = new VerticalPanel();
-        vp.add(new SmallLabel(constants.CustomFormURL()));
+        vp.add(new SmallLabel(Constants.INSTANCE.CustomFormURL()));
 
         Button btnUpdateURL = new Button(Constants.INSTANCE.OK(),
                 new ClickHandler() {
@@ -108,7 +106,7 @@ public class CustomFormsEditorPanel extends Composite {
                             w = Integer.parseInt(customFormWidth.getText());
                             h = Integer.parseInt(customFormHeight.getText());
                         } catch (NumberFormatException ex) {
-                            Window.alert(constants.WidthAndHeightMustBeIntegerValues());
+                            Window.alert(Constants.INSTANCE.WidthAndHeightMustBeIntegerValues());
                             return;
                         }
 
@@ -133,11 +131,11 @@ public class CustomFormsEditorPanel extends Composite {
                 });
 
         vp.add(customFormURL);
-        vp.add(new SmallLabel(constants.WidthColon()));
+        vp.add(new SmallLabel(Constants.INSTANCE.WidthColon()));
         vp.add(customFormWidth);
-        vp.add(new SmallLabel(constants.HeightColon()));
+        vp.add(new SmallLabel(Constants.INSTANCE.HeightColon()));
         vp.add(customFormHeight);
-        vp.add(new SmallLabel(constants.UseFormIdForRuleCreation()));
+        vp.add(new SmallLabel(Constants.INSTANCE.UseFormIdForRuleCreation()));
         vp.add(customFormUseFormIdForRule);
         table.setWidget(2,
                 0,

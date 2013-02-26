@@ -36,6 +36,8 @@ import com.google.gwt.user.client.Command;
 import java.util.ArrayList;
 import org.drools.guvnor.client.asseteditor.drools.modeldriven.SetFactTypeFilter;
 import org.drools.guvnor.client.rpc.Module;
+import org.drools.guvnor.client.rpc.ModuleService;
+import org.drools.guvnor.client.rpc.ModuleServiceAsync;
 
 public class WorkingSetManager {
 
@@ -76,7 +78,8 @@ public class WorkingSetManager {
     }
 
     public void applyPackageDefaultWorkingSets(final String packageName, final Command done){
-        RepositoryServiceFactory.getPackageService().loadModuleByName(packageName, new GenericCallback<Module>() {
+        ModuleServiceAsync moduleService = GWT.create(ModuleService.class);
+        moduleService.loadModuleByName(packageName, new GenericCallback<Module>() {
 
             public void onSuccess(Module result) {
                 String[] defaultWorkingSets = result.defaultWorkingSets;

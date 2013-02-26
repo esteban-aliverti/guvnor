@@ -33,7 +33,6 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.WebServiceException;
 import java.net.URI;
 import java.util.*;
-import org.apache.abdera.model.AtomDate;
 
 
 public class Translator {

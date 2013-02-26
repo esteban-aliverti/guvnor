@@ -81,7 +81,7 @@ public interface ModuleService
      *         Really.
      */
     public Module loadModuleByName(String name);
-
+    
     /**
      * Saves the module in place (does not create a new version of
      * anything).

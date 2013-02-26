@@ -493,7 +493,7 @@ public class ConstraintValueEditor extends DirtyableComposite {
     private void showTypeChoice(Widget w,
                                 final BaseSingleFieldConstraint con) {
 
-        CustomFormConfiguration customFormConfiguration = WorkingSetManager.getInstance().getCustomFormConfiguration( modeller.getAsset().getMetaData().getModuleName(),
+        final CustomFormConfiguration customFormConfiguration = WorkingSetManager.getInstance().getCustomFormConfiguration( modeller.getAsset().getMetaData().getModuleName(),
                                                                                                                       factType,
                                                                                                                       fieldName );
 

@@ -206,14 +206,14 @@
     <asseteditor>
         <class>org.drools.guvnor.client.asseteditor.drools.workitem.WorkitemDefinitionEditor</class> 
         <format>wid</format>
-        <icon>images.enumeration()</icon>
+        <icon>GuvnorImages.INSTANCE.Enumeration()</icon>
         <title>constants.WorkItemDefinition()</title>    
     </asseteditor>         
     
     <asseteditor>
         <class>org.drools.guvnor.client.asseteditor.drools.pmml.PMMLModelUploadWidget</class> 
         <format>pmml</format>
-        <icon>images.enumeration()</icon>
+        <icon>GuvnorImages.INSTANCE.Enumeration()</icon>
         <title>constants.PMMLConfigurations()</title>    
     </asseteditor>
     

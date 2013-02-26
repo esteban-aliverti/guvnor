@@ -28,19 +28,19 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.drools.guvnor.client.common.AssetFormats;
-import org.drools.guvnor.client.rpc.RuleAsset;
+import org.drools.guvnor.client.rpc.Asset;
 import org.drools.guvnor.client.rpc.WorkingSetConfigData;
-import org.drools.guvnor.server.GuvnorTestBase;
 import org.drools.guvnor.server.contenthandler.ContentHandler;
 import org.drools.guvnor.server.contenthandler.ContentManager;
 import org.drools.guvnor.server.files.FileManagerService;
 import org.drools.guvnor.server.files.drools.OWLFileManagerService;
+import org.drools.guvnor.server.test.GuvnorIntegrationTest;
 import org.drools.guvnor.server.util.DroolsHeader;
 import org.drools.repository.AssetItem;
-import org.drools.repository.PackageItem;
+import org.drools.repository.ModuleItem;
 import org.junit.Test;
 
-public class OWLFileManagerServiceTest extends GuvnorTestBase {
+public class OWLFileManagerServiceTest extends GuvnorIntegrationTest {
 
     @Inject
     private FileManagerService fileManagerService;
@@ -58,7 +58,7 @@ public class OWLFileManagerServiceTest extends GuvnorTestBase {
         
         owlFileManagerService.importOWL(in);
 
-        PackageItem pkg = rulesRepository.loadPackage(packageName);
+        ModuleItem pkg = rulesRepository.loadModule(packageName);
         assertNotNull( pkg );
         
         //check some of the generated categories
@@ -120,7 +120,7 @@ public class OWLFileManagerServiceTest extends GuvnorTestBase {
         assertTrue( droolsHeader.indexOf( "import org.drools.guvnor.test.fact.SystemFact" ) > -1 );
         
         //assert working-set
-        RuleAsset workingSetRuleAsset = new RuleAsset();
+        Asset workingSetRuleAsset = new Asset();
         workingSetRuleAsset.setName(workingSetAsset.getName());
         ContentHandler handler = ContentManager.getHandler( workingSetAsset.getFormat() );
         handler.retrieveAssetContent(workingSetRuleAsset, workingSetAsset);

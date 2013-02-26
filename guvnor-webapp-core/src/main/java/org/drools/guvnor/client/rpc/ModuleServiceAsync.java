@@ -29,9 +29,8 @@ public interface ModuleServiceAsync {
     public void createSubModule(java.lang.String p0, java.lang.String p1, java.lang.String p2, AsyncCallback<java.lang.String> cb);
     public void loadModule(java.lang.String p0, AsyncCallback<org.drools.guvnor.client.rpc.Module> cb);
     public void loadModuleByName(java.lang.String p0, AsyncCallback<org.drools.guvnor.client.rpc.Module> cb);
-    public void validateModule(org.drools.guvnor.client.rpc.Module p0, AsyncCallback<org.drools.guvnor.client.rpc.ValidatedResponse> cb);
     public void saveModule(org.drools.guvnor.client.rpc.Module p0, AsyncCallback cb);
-    public void copyOrRemoveSnapshot(java.lang.String p0, java.lang.String p1, boolean p2, java.lang.String p3, AsyncCallback cb);
+     public void copyOrRemoveSnapshot(java.lang.String p0, java.lang.String p1, boolean p2, java.lang.String p3, AsyncCallback cb);
     public void buildPackage(java.lang.String p0, boolean p1, java.lang.String p2, java.lang.String p3, java.lang.String p4, boolean p5, java.lang.String p6, java.lang.String p7, boolean p8, java.lang.String p9, AsyncCallback<org.drools.guvnor.client.rpc.BuilderResult> cb);
     public void buildModuleSource(java.lang.String p0, AsyncCallback<java.lang.String> cb);
     public void copyModule(java.lang.String p0, java.lang.String p1, AsyncCallback<java.lang.String> cb);
